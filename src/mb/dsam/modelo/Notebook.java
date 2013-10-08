@@ -1,9 +1,11 @@
 package mb.dsam.modelo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Notebook implements Serializable{
@@ -16,6 +18,13 @@ public class Notebook implements Serializable{
 	private String memoria;
 	private String processador;
 	
+	@OneToMany(mappedBy="notebook")
+	private List<Emprestimo> emprestimos;
+	
+	
+	public List<Emprestimo> getEmprestimos() {
+		return emprestimos;
+	}
 	
 	public Integer getNumeroPatrimonial() {
 		return numeroPatrimonial;

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<h:outputStylesheet library="css" name="style.css" />
+	
+</h:head>
+
+<h:body>
+	
+	<h:form id="form1">
+			<h:messages styleClass="erros" />
+			
+			<fieldset>
+				<legend>Emprestimo de Notebook</legend>
+				<h2>
+					<h:outputText value="Novo Emprestimo"/>
+				</h2>
+				
+				<h:selectOneMenu value="#{emprestimoBean.notebookNumeroPatrimonial}">
+	        		<f:selectItem itemLabel="Escolha o Notebook" itemValue="" noSelectionOption="true"/>
+	        		<f:selectItems value="#{notebookBean.notebooks}" var="notebook" itemLabel="#{notebook.numeroPatrimonial}" itemValue="#{notebook.numeroPatrimonial}" />
+	        	</h:selectOneMenu>
+				
+				<h:outputLabel value="Nome do Usuario:" for="nome" />
+				<h:inputText id="nome" value="#{emprestimoBean.emprestimo.usuario}"/>
+				
+				
+				<h:outputLabel value="Data de Saida:" for="dataSaida" />
+				<p:calendar id="dataSaida"
+							value="#{emprestimoBean.emprestimo.dataSaida}" >
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:calendar>
+				
+				<h:commandButton value="Gravar" action="#{emprestimoBean.grava }" >
+					<f:ajax execute="@form" render="@form :form2:datatable" />
+				</h:commandButton>	
+							
+			</fieldset>
+			
+		</h:form>
+		<h2>Listagem de Equipamentos</h2>
+		<h:form id="form2">
+			<h:dataTable value="#{emprestimoBean.emprestimos}" var="emprestimo"
+				id="datatable" styleClass="dados" rowClasses="impar,par">
+				<h:column>
+					<f:facet name="header">NP</f:facet>
+			#{emprestimo.notebook.numeroPatrimonial}
+		</h:column>
+				<h:column>
+					<f:facet name="header">Usuário</f:facet>
+			#{emprestimo.usuario}
+		</h:column>
+				<h:column>
+					<f:facet name="header">Data de Saida</f:facet>
+			#{emprestimo.dataSaida}
+		</h:column>
+				<h:column>
+					<f:facet name="header">Data de Entrada</f:facet>
+			<h:outputText value="#{emprestimo.dataEntrada}" id="dataEntrada">  
+  				<f:convertDateTime locale="pt,BR" dateStyle="long" pattern="dd/MM/yyyy" />  
+			</h:outputText> 
+			
+		</h:column>
+				<h:column>
+					<f:facet name="header">Ações</f:facet>
+					<h:commandButton action="#{emprestimoBean.remove(emprestimo)}"
+						value="Remover" >
+						 <f:ajax render="@form" />
+					</h:commandButton>
+				</h:column>
+				<h:column>
+					<h:commandButton value="Alterar">
+						<f:setPropertyActionListener target="#{emprestimoBean.emprestimo}"
+							value="#{emprestimo}" />
+						<f:ajax render=":form1" />
+					</h:commandButton>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</h:body>
+</html>

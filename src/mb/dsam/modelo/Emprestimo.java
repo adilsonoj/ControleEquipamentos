@@ -6,7 +6,7 @@ import java.util.Calendar;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -14,32 +14,32 @@ import javax.persistence.TemporalType;
 public class Emprestimo implements Serializable{
 	
 	@Id @GeneratedValue
-	private Long id;
-	private Integer numeroPatrimonial;
+	private Integer id;
 	private String usuario;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Calendar dataSaida;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar dataEntrada;
+	@Temporal(TemporalType.DATE)
+	private Calendar dataEntrada = Calendar.getInstance();
 	
 	
-	@OneToOne
+	@ManyToOne
 	private Notebook notebook;
 	
-	public Long getId() {
+	public Notebook getNotebook() {
+		return notebook;
+	}
+	public void setNotebook(Notebook notebook) {
+		this.notebook = notebook;
+	}
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getNumeroPatrimonial() {
-		return numeroPatrimonial;
-	}
-	public void setNumeroPatrimonial(Integer numeroPatrimonial) {
-		this.numeroPatrimonial = numeroPatrimonial;
-	}
+	
 	public String getUsuario() {
 		return usuario;
 	}

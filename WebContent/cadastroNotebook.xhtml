@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<h:outputStylesheet library="css" name="style.css" />
+	
+</h:head>
+
+<h:body>
+	
+	<h:form id="form1">
+			<h:messages styleClass="erros" />
+			<fieldset>
+				<legend>Cadastro de Notebook</legend>
+				<h2>
+					<h:outputText value="Novo Equipamento"/>
+				</h2>
+				<h:outputLabel value="NP:" for="numeroPatrimonial" />
+				<h:inputText id="numeroPatrimonial" value="#{notebookBean.notebook.numeroPatrimonial}" required="true"/>
+				
+				<h:outputLabel value="Nome:" for="nome" />
+				<h:inputText id="nome" value="#{notebookBean.notebook.nome}"/>
+				
+				<h:outputLabel value="IP:" for="ip" />
+				<h:inputText id="ip" value="#{notebookBean.notebook.ip}"/>
+				
+				<h:outputLabel value="MAC:" for="macAdress" />
+				<h:inputText id="macAdress" value="#{notebookBean.notebook.macAdress}"/>
+				
+				<h:outputLabel value="Processador:" for="processador" />
+				<h:inputText id="processador" value="#{notebookBean.notebook.processador}"/>
+				
+				<h:outputLabel value="Memória:" for="memoria" />
+				<h:inputText id="memoria" value="#{notebookBean.notebook.memoria}"/>
+				
+				<h:commandButton value="Gravar" action="#{notebookBean.grava }" >
+					<f:ajax execute="@form" render="@form :form2:datatable" />
+				</h:commandButton>				
+			</fieldset>
+		</h:form>
+		<h2>Listagem de Equipamentos</h2>
+		<h:form id="form2">
+			<h:dataTable value="#{notebookBean.notebooks}" var="notebook"
+				id="datatable" styleClass="dados" rowClasses="impar,par">
+				<h:column>
+					<f:facet name="header">NP</f:facet>
+			#{notebook.numeroPatrimonial}
+		</h:column>
+				<h:column>
+					<f:facet name="header">Nome</f:facet>
+			#{notebook.nome}
+		</h:column>
+				<h:column>
+					<f:facet name="header">IP</f:facet>
+			#{notebook.ip}
+		</h:column>
+				<h:column>
+					<f:facet name="header">Ações</f:facet>
+					<h:commandButton action="#{notebookBean.remove(notebook)}"
+						value="Remover" >
+						 <f:ajax render="@form" />
+					</h:commandButton>
+				</h:column>
+				<h:column>
+					<h:commandButton value="Alterar">
+						<f:setPropertyActionListener target="#{notebookBean.notebook}"
+							value="#{notebook}" />
+						<f:ajax render=":form1" />
+					</h:commandButton>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</h:body>
+</html>

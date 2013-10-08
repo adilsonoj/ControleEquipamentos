@@ -2,13 +2,15 @@ package mb.dsam.mb;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import mb.dsam.dao.NotebookDao;
 import mb.dsam.modelo.Notebook;
 
-@Stateless
+@ViewScoped
+@ManagedBean
 public class NotebookBean {
 	
 	@Inject
