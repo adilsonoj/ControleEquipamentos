@@ -1,5 +1,6 @@
 package mb.dsam.mb;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -28,10 +29,11 @@ public class EmprestimoBean {
 	@Inject
 	NotebookDao notebookDao;
 	
+	Calendar data = Calendar.getInstance();
 	
 	public void grava() {
-		Notebook contaRelacionada = notebookDao.busca(notebookNumeroPatrimonial);
-		emprestimo.setNotebook(contaRelacionada);
+		Notebook notebookRelacionado = notebookDao.busca(notebookNumeroPatrimonial);
+		emprestimo.setNotebook(notebookRelacionado);
 		emprestimoDao.adiciona(emprestimo);
 		this.emprestimos = emprestimoDao.lista();
 		limpaFormularioDoJSF();
@@ -40,11 +42,17 @@ public class EmprestimoBean {
 
 	public void remove(Emprestimo emprestimo) {
 		System.out.println("Removendo a Emprestimo");
-		Notebook notebookRelacionada = notebookDao.busca(notebookNumeroPatrimonial);
-		emprestimo.setNotebook(notebookRelacionada);
+		Notebook notebookRelacionado = notebookDao.busca(notebookNumeroPatrimonial);
+		emprestimo.setNotebook(notebookRelacionado);
 		emprestimoDao.remove(emprestimo);
 		this.emprestimos=emprestimoDao.lista();
 		limpaFormularioDoJSF();
+	}
+	
+	public void fecha(Emprestimo emprestimo){
+		emprestimo.setDataEntrada(Calendar.getInstance());
+		emprestimoDao.fecha(emprestimo);
+		this.emprestimos=emprestimoDao.lista();
 	}
 	
 	public Emprestimo getEmprestimo() {
@@ -75,5 +83,10 @@ public class EmprestimoBean {
 	private void limpaFormularioDoJSF() {
 		this.emprestimo = new Emprestimo();
 	}
+	
+	public List<Emprestimo> getListaNaoDevolvidos(){
+		return emprestimoDao.listaNaoDevolvidos();
+	}
+	
 	
 }

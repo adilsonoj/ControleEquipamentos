@@ -40,5 +40,12 @@ public class EmprestimoDao {
 			return query.getResultList();
 		}
 		
+		public void fecha(Emprestimo emprestimo){
+			this.manager.merge(emprestimo);
+		}
+		
+		public List<Emprestimo> listaNaoDevolvidos(){
+			return this.manager.createQuery("Select m from Emprestimo m where dataentrada is null", Emprestimo.class).getResultList();
+		}
 		
 }

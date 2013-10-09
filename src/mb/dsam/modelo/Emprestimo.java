@@ -18,10 +18,10 @@ public class Emprestimo implements Serializable{
 	private String usuario;
 	
 	@Temporal(TemporalType.DATE)
-	private Calendar dataSaida;
+	private Calendar dataSaida = Calendar.getInstance();
 	
 	@Temporal(TemporalType.DATE)
-	private Calendar dataEntrada = Calendar.getInstance();
+	private Calendar dataEntrada;
 	
 	
 	@ManyToOne

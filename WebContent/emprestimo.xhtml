@@ -32,11 +32,12 @@
 				
 				
 				<h:outputLabel value="Data de Saida:" for="dataSaida" />
-				<p:calendar id="dataSaida"
-							value="#{emprestimoBean.emprestimo.dataSaida}" >
+				<h:outputText id="dataSaida" value="#{emprestimoBean.emprestimo.dataSaida.time}"   >
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
-				</p:calendar>
+				</h:outputText>
+				
+				
 				
 				<h:commandButton value="Gravar" action="#{emprestimoBean.grava }" >
 					<f:ajax execute="@form" render="@form :form2:datatable" />
@@ -45,9 +46,9 @@
 			</fieldset>
 			
 		</h:form>
-		<h2>Listagem de Equipamentos</h2>
+		<h2>Listagem de Emprestimos</h2>
 		<h:form id="form2">
-			<h:dataTable value="#{emprestimoBean.emprestimos}" var="emprestimo"
+			<h:dataTable value="#{emprestimoBean.listaNaoDevolvidos}" var="emprestimo"
 				id="datatable" styleClass="dados" rowClasses="impar,par">
 				<h:column>
 					<f:facet name="header">NP</f:facet>
@@ -59,15 +60,12 @@
 		</h:column>
 				<h:column>
 					<f:facet name="header">Data de Saida</f:facet>
-			#{emprestimo.dataSaida}
+						<h:outputText value="#{emprestimo.dataSaida.time}" >
+						<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+					</h:outputText>
 		</h:column>
-				<h:column>
-					<f:facet name="header">Data de Entrada</f:facet>
-			<h:outputText value="#{emprestimo.dataEntrada}" id="dataEntrada">  
-  				<f:convertDateTime locale="pt,BR" dateStyle="long" pattern="dd/MM/yyyy" />  
-			</h:outputText> 
-			
-		</h:column>
+		
 				<h:column>
 					<f:facet name="header">Ações</f:facet>
 					<h:commandButton action="#{emprestimoBean.remove(emprestimo)}"
@@ -76,10 +74,8 @@
 					</h:commandButton>
 				</h:column>
 				<h:column>
-					<h:commandButton value="Alterar">
-						<f:setPropertyActionListener target="#{emprestimoBean.emprestimo}"
-							value="#{emprestimo}" />
-						<f:ajax render=":form1" />
+					<h:commandButton value="Devolução" action="#{emprestimoBean.fecha(emprestimo)}" >
+						<f:ajax render="@form" />
 					</h:commandButton>
 				</h:column>
 			</h:dataTable>
