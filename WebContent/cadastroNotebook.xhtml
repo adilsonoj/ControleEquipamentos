@@ -44,20 +44,34 @@
 		</h:form>
 		<h2>Listagem de Equipamentos</h2>
 		<h:form id="form2">
-			<h:dataTable value="#{notebookBean.notebooks}" var="notebook"
+			<h:dataTable value="#{notebookBean.notebooks}" var="notebook" 
 				id="datatable" styleClass="dados" rowClasses="impar,par">
 				<h:column>
 					<f:facet name="header">NP</f:facet>
 			#{notebook.numeroPatrimonial}
 		</h:column>
 				<h:column>
-					<f:facet name="header">Nome</f:facet>
+					<f:facet name="header">NOME</f:facet>
 			#{notebook.nome}
 		</h:column>
 				<h:column>
 					<f:facet name="header">IP</f:facet>
 			#{notebook.ip}
 		</h:column>
+		<h:column>
+					<f:facet name="header">MAC</f:facet>
+			#{notebook.macAdress}
+		</h:column>
+		<h:column>
+					<f:facet name="header">PROCESSADOR</f:facet>
+			#{notebook.processador}
+		</h:column>
+		<h:column>
+					<f:facet name="header">MEMÓRIA</f:facet>
+			#{notebook.memoria}
+		</h:column>
+		
+					
 				<h:column>
 					<f:facet name="header">Ações</f:facet>
 					<h:commandButton action="#{notebookBean.remove(notebook)}"

@@ -10,6 +10,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import mb.dsam.dao.PcDao;
+import mb.dsam.modelo.Emprestimo;
+import mb.dsam.modelo.Notebook;
 import mb.dsam.modelo.PC;
 
 @ViewScoped
@@ -55,13 +57,14 @@ public class PcBean implements Serializable {
 		return this.pcs;
 	}
 
-	public void remove() {
+	public void remove(PC pc) {
 		System.out.println("Removendo a pc");
-		pcDao.remove(this.pc);
+		pcDao.remove(pc);
 		this.pcs=pcDao.lista();
 		limpaFormularioDoJSF();
 	}
-
+	
+	
 	/**
 	 * Esse metodo apenas limpa o formulario da forma com que o JSF espera.
 	 * Invoque-o no momento em que precisar do formulario vazio.

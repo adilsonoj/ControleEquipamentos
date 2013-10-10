@@ -3,8 +3,8 @@ package mb.dsam.mb;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import mb.dsam.dao.EmprestimoDao;
@@ -12,7 +12,7 @@ import mb.dsam.dao.NotebookDao;
 import mb.dsam.modelo.Emprestimo;
 import mb.dsam.modelo.Notebook;
 
-@ViewScoped
+@RequestScoped
 @ManagedBean
 public class EmprestimoBean {
 	

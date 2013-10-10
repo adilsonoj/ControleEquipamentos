@@ -7,6 +7,7 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import mb.dsam.dao.NotebookDao;
+import mb.dsam.modelo.Emprestimo;
 import mb.dsam.modelo.Notebook;
 
 @ViewScoped
@@ -19,6 +20,8 @@ public class NotebookBean {
 	@Inject
 	NotebookDao dao;
 	
+	
+
 	private List<Notebook> notebooks;
 
 	public Notebook getNotebook() {
