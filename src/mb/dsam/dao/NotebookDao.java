@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import mb.dsam.modelo.Notebook;
 
@@ -35,4 +36,6 @@ public class NotebookDao {
 	public Notebook altera(Notebook notebook){
 		return this.manager.merge(notebook);
 	}
+	
+	
 }

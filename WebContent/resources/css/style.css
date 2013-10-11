@@ -21,6 +21,14 @@ body{
 	left: 50%;
 	margin-left: -450px;
 }
+
+#cabecalho h1{
+	position: relative;
+	padding-top: 15px;
+	
+	
+}
+
 #usuarioLogado  {
 	color: white;
 	display: block;

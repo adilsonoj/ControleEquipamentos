@@ -2,39 +2,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<ui:composition template="/_template.xhtml">
+	<ui:composition template="/_template.xhtml">
 	<ui:define name="corpo">
-	
-	<h:form id="form1">
+		<h:form id="form1">
 			<h:messages styleClass="erros" />
 			
 			<fieldset>
-				<legend>Emprestimo de Notebook</legend>
+				<legend>Emprestimos do Notebook</legend>
 				<h2>
-					<h:outputText value="Novo Emprestimo"/>
+					<h:outputText value="Emprestimos"/>
 				</h2>
 				<h:outputLabel value="Notebook:" for="notebook" />
 				<h:selectOneMenu value="#{emprestimoBean.notebookNumeroPatrimonial}" id="notebook">
 	        		<f:selectItem itemLabel="Escolha o Notebook" itemValue="" noSelectionOption="true"/>
 	        		<f:selectItems value="#{notebookBean.notebooks}" var="notebook" itemLabel="NP: #{notebook.numeroPatrimonial}" itemValue="#{notebook.numeroPatrimonial}" />
 	        	</h:selectOneMenu>
+							
 				
-				<h:outputLabel value="Nome do Usuario:" for="nome" />
-				<h:inputText id="nome" value="#{emprestimoBean.emprestimo.usuario}"/>
-				
-				
-				<h:outputLabel value="Data de Saida:" for="dataSaida" />
-				<h:outputText id="dataSaida" value="#{emprestimoBean.emprestimo.dataSaida.time}"   >
-					<f:convertDateTime pattern="dd/MM/yyyy"
-						timeZone="America/Sao_Paulo" />
-				</h:outputText>
-				
-				
-				
-				<h:commandButton value="Gravar" action="#{emprestimoBean.grava }" >
+				<h:commandButton value="Listar" >
 					<f:ajax execute="@form" render="@form :form2:datatable" />
 				</h:commandButton>	
 							
@@ -43,7 +30,7 @@
 		</h:form>
 		<h2>Listagem de Emprestimos</h2>
 		<h:form id="form2">
-			<h:dataTable value="#{emprestimoBean.listaNaoDevolvidos}" var="emprestimo"
+			<h:dataTable value="#{emprestimoBean.listaPorNotebook}" var="emprestimo"
 				id="datatable" styleClass="dados" rowClasses="impar,par">
 				<h:column>
 					<f:facet name="header">NP</f:facet>
@@ -72,13 +59,10 @@
 						 <f:ajax render="@form" />
 					</h:commandButton>
 				</h:column>
-				<h:column>
-					<h:commandButton value="Devolução" action="#{emprestimoBean.fecha(emprestimo)}" >
-						<f:ajax render="@form" />
-					</h:commandButton>
-				</h:column>
+				
 			</h:dataTable>
 		</h:form>
+	
 	</ui:define>
-</ui:composition>
+	</ui:composition>
 </html>

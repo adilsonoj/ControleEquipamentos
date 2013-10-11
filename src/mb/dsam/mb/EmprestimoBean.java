@@ -3,8 +3,8 @@ package mb.dsam.mb;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import mb.dsam.dao.EmprestimoDao;
@@ -12,7 +12,7 @@ import mb.dsam.dao.NotebookDao;
 import mb.dsam.modelo.Emprestimo;
 import mb.dsam.modelo.Notebook;
 
-@RequestScoped
+@ViewScoped
 @ManagedBean
 public class EmprestimoBean {
 	
@@ -76,9 +76,7 @@ public class EmprestimoBean {
 	}
 	
 	
-	public void listaEmprestimosDoNotebook() {
-		emprestimos = emprestimoDao.listaTodosEmprestimos(notebook);
-	}
+	
 	
 	private void limpaFormularioDoJSF() {
 		this.emprestimo = new Emprestimo();
@@ -86,6 +84,11 @@ public class EmprestimoBean {
 	
 	public List<Emprestimo> getListaNaoDevolvidos(){
 		return emprestimoDao.listaNaoDevolvidos();
+	}
+	
+	public List<Emprestimo> getListaPorNotebook(){
+		
+		return emprestimoDao.emprestimoPorNotebook(notebookNumeroPatrimonial);
 	}
 	
 	

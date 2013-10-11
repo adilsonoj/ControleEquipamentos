@@ -4,13 +4,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<h:outputStylesheet library="css" name="style.css" />
-	
-</h:head>
-
-<h:body>
+<ui:composition template="/_template.xhtml">
+	<ui:define name="corpo">
 	
 	<h:form id="form1">
 			<h:messages styleClass="erros" />
@@ -88,5 +83,6 @@
 				</h:column>
 			</h:dataTable>
 		</h:form>
-	</h:body>
+	</ui:define>
+</ui:composition>
 </html>

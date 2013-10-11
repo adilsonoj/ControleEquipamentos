@@ -33,19 +33,24 @@ public class EmprestimoDao {
 			this.manager.remove(emprestimoParaRemover);
 		}
 		
-		public List<Emprestimo> listaTodosEmprestimos(Notebook notebook){
-			String jpql = "Select m from Emprestimo m " + "where m.notebook = :notebook order by m.valor desc";
-			Query query = this.manager.createQuery(jpql);
-			query.setParameter("notebook", notebook);
-			return query.getResultList();
-		}
-		
+			
 		public void fecha(Emprestimo emprestimo){
 			this.manager.merge(emprestimo);
 		}
 		
 		public List<Emprestimo> listaNaoDevolvidos(){
 			return this.manager.createQuery("Select m from Emprestimo m where dataentrada is null", Emprestimo.class).getResultList();
+		}
+		
+		public Emprestimo buscaPorNP(Integer notebook_numeropatrimonial) {
+			return this.manager.find(Emprestimo.class, notebook_numeropatrimonial);
+		}
+		
+		public List<Emprestimo> emprestimoPorNotebook(Integer notebook_numeropatrimonial){
+			String jpql = "Select m from Emprestimo m where m.notebook.numeroPatrimonial = :notebook_numeropatrimonial";
+			Query query = this.manager.createQuery(jpql);
+			query.setParameter("notebook_numeropatrimonial", notebook_numeropatrimonial);
+			return query.getResultList();
 		}
 		
 }
