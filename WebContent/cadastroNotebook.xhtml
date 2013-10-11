@@ -2,35 +2,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/_template.xhtml">
 	<ui:define name="corpo">
 	
 	<h:form id="form1">
-			<h:messages styleClass="erros" />
+			<p:messages styleClass="erros" />
 			<fieldset>
 				<legend>Cadastro de Notebook</legend>
 				<h2>
 					<h:outputText value="Novo Equipamento"/>
 				</h2>
 				<h:outputLabel value="NP:" for="numeroPatrimonial" />
-				<h:inputText id="numeroPatrimonial" value="#{notebookBean.notebook.numeroPatrimonial}" required="true"/>
+				<p:inputText id="numeroPatrimonial" value="#{notebookBean.notebook.numeroPatrimonial}" required="true"/>
 				
 				<h:outputLabel value="Nome:" for="nome" />
-				<h:inputText id="nome" value="#{notebookBean.notebook.nome}"/>
+				<p:inputText id="nome" value="#{notebookBean.notebook.nome}"/>
 				
 				<h:outputLabel value="IP:" for="ip" />
-				<h:inputText id="ip" value="#{notebookBean.notebook.ip}"/>
+				<p:inputText id="ip" value="#{notebookBean.notebook.ip}"/>
 				
 				<h:outputLabel value="MAC:" for="macAdress" />
-				<h:inputText id="macAdress" value="#{notebookBean.notebook.macAdress}"/>
+				<p:inputMask id="macAdress" value="#{notebookBean.notebook.macAdress}" mask="99:99:99:99:99:99"/>
 				
 				<h:outputLabel value="Processador:" for="processador" />
-				<h:inputText id="processador" value="#{notebookBean.notebook.processador}"/>
+				<p:inputText id="processador" value="#{notebookBean.notebook.processador}"/>
 				
 				<h:outputLabel value="Memória:" for="memoria" />
-				<h:inputText id="memoria" value="#{notebookBean.notebook.memoria}"/>
+				<p:inputText id="memoria" value="#{notebookBean.notebook.memoria}"/>
 				
 				<h:commandButton value="Gravar" action="#{notebookBean.grava }" >
 					<f:ajax execute="@form" render="@form :form2:datatable" />
@@ -39,49 +40,28 @@
 		</h:form>
 		<h2>Listagem de Equipamentos</h2>
 		<h:form id="form2">
-			<h:dataTable value="#{notebookBean.notebooks}" var="notebook" 
-				id="datatable" styleClass="dados" rowClasses="impar,par">
-				<h:column>
-					<f:facet name="header">NP</f:facet>
-			#{notebook.numeroPatrimonial}
-		</h:column>
-				<h:column>
-					<f:facet name="header">NOME</f:facet>
-			#{notebook.nome}
-		</h:column>
-				<h:column>
-					<f:facet name="header">IP</f:facet>
-			#{notebook.ip}
-		</h:column>
-		<h:column>
-					<f:facet name="header">MAC</f:facet>
-			#{notebook.macAdress}
-		</h:column>
-		<h:column>
-					<f:facet name="header">PROCESSADOR</f:facet>
-			#{notebook.processador}
-		</h:column>
-		<h:column>
-					<f:facet name="header">MEMÓRIA</f:facet>
-			#{notebook.memoria}
-		</h:column>
-		
+			<p:dataTable value="#{notebookBean.notebooks}" var="notebook" 
+				id="datatable" styleClass="dados" rowClasses="impar,par"  paginator="true" rows="10" dynamic="true" lazy="true">
+				
+				<p:column headerText="NP">#{notebook.numeroPatrimonial}</p:column>
+				<p:column headerText="NOME">#{notebook.nome}</p:column>
+				<p:column headerText="IP">#{notebook.ip}</p:column>
+				<p:column headerText="MAC">#{notebook.macAdress}</p:column>
+				<p:column headerText="PROCESSADOR">#{notebook.processador}</p:column>
+				<p:column headerText="MEMÓRIA">#{notebook.memoria}</p:column>
+				<p:column headerText="AÇÕES">
 					
-				<h:column>
-					<f:facet name="header">Ações</f:facet>
-					<h:commandButton action="#{notebookBean.remove(notebook)}"
-						value="Remover" >
+					<h:commandButton  action="#{notebookBean.remove(notebook)}" value="Remover" >
 						 <f:ajax render="@form" />
 					</h:commandButton>
-				</h:column>
-				<h:column>
+				</p:column>
+				<p:column>
 					<h:commandButton value="Alterar">
-						<f:setPropertyActionListener target="#{notebookBean.notebook}"
-							value="#{notebook}" />
+						<f:setPropertyActionListener target="#{notebookBean.notebook}" value="#{notebook}" />
 						<f:ajax render=":form1" />
 					</h:commandButton>
-				</h:column>
-			</h:dataTable>
+				</p:column>
+			</p:dataTable>
 		</h:form>
 	</ui:define>
 </ui:composition>
