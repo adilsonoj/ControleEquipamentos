@@ -41,7 +41,7 @@
 		<h2>Listagem de Equipamentos</h2>
 		<h:form id="form2">
 			<p:dataTable value="#{notebookBean.notebooks}" var="notebook" 
-				id="datatable" styleClass="dados" rowClasses="impar,par"  paginator="true" rows="10" dynamic="true" lazy="true">
+				id="datatable" paginator="true" rows="10" dynamic="true" lazy="true">
 				
 				<p:column headerText="NP">#{notebook.numeroPatrimonial}</p:column>
 				<p:column headerText="NOME">#{notebook.nome}</p:column>
@@ -54,8 +54,7 @@
 					<h:commandButton  action="#{notebookBean.remove(notebook)}" value="Remover" >
 						 <f:ajax render="@form" />
 					</h:commandButton>
-				</p:column>
-				<p:column>
+				
 					<h:commandButton value="Alterar">
 						<f:setPropertyActionListener target="#{notebookBean.notebook}" value="#{notebook}" />
 						<f:ajax render=":form1" />

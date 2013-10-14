@@ -19,8 +19,8 @@ public class NotebookDao {
 		this.manager.persist(notebook);
 	}
 
-	public Notebook busca(Integer id) {
-		return this.manager.find(Notebook.class, id);
+	public Notebook busca(Integer numeroPatrimonial) {
+		return this.manager.find(Notebook.class, numeroPatrimonial);
 	}
 
 	public List<Notebook> lista() {

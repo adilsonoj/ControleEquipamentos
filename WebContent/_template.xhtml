@@ -21,7 +21,15 @@
 
 	
 	<div id="conteudo">
-		
+			<p:menubar>
+				<p:menuitem value="Cadastro de PC" url="cadastroPC.xhtml" />
+				<p:menuitem value="Cadastro de Notebook" url="cadastroNotebook.xhtml" />
+				<p:submenu label="Emprestimo">
+					<p:menuitem value="Novo Emprestimo" url="emprestimo.xhtml" />
+					<p:menuitem value="Listagem" url="emprestimoPorNotebook.xhtml" />
+				</p:submenu>
+				
+			</p:menubar>
 			<ui:insert name="corpo" />
 	</div>
 

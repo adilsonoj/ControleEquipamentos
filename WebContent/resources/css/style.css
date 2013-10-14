@@ -26,8 +26,8 @@ body{
 	position: relative;
 	padding-top: 15px;
 	
-	
 }
+
 
 #usuarioLogado  {
 	color: white;
@@ -58,7 +58,7 @@ body{
 
 /* miolo */
 #conteudo, section {
-	width:900px;
+	width:990px;
 	height:auto;
 	position:relative;
 	padding:10px 0px;
@@ -133,13 +133,15 @@ input:after {
 }
 input[type=submit], button {
 	margin: 0 auto;
-	margin-left: 140px;
+	margin-left: 40px;
+	display: inline;
 }
+
 input[type=submit] {
 	background:url("../resources/imagens/fundo_botao.gif") repeat-x scroll 0 0 #2A2A2A;
 	border:1px solid #272727;
 	color:#FFFFFF;
-	cursor:pointer;
+	
 	padding:3px;
 	position: relative;
 	text-shadow:1px 1px 0 #000000;
@@ -147,13 +149,16 @@ input[type=submit] {
 	-moz-border-radius:5px 5px 5px 5px;
 	-webkit-border-radius:5px 5px 5px 5px;
 	border-radius:5px 5px 5px 5px;
+	
+	
 }
+
+
+
 table button {
 	margin: 0 4px;
 }
-.acoes {
-	text-align: center;
-}
+
 
 form {
 	margin-bottom:10px;
@@ -165,7 +170,7 @@ form fieldset {
 	padding: 10px 0px 10px 10px;
 	margin: 5px 0 10px 0;
 	text-align: left;
-	width: 887px;
+	width: 980px;
 }
 	form .ui-fieldset {
 		width: 873px;
@@ -175,7 +180,7 @@ form fieldset {
 	margin-bottom: 20px;
 }
 .ui-tabs fieldset {
-	width:830px;	
+	width:990px;	
 }
 
 form fieldset legend {

@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
 	<ui:composition template="/_template.xhtml">
 	<ui:define name="corpo">
@@ -30,34 +31,29 @@
 		</h:form>
 		<h2>Listagem de Emprestimos</h2>
 		<h:form id="form2">
-			<h:dataTable value="#{emprestimoBean.listaPorNotebook}" var="emprestimo"
-				id="datatable" styleClass="dados" rowClasses="impar,par">
-				<h:column>
-					<f:facet name="header">NP</f:facet>
-			#{emprestimo.notebook.numeroPatrimonial}
-		</h:column>
-				<h:column>
-					<f:facet name="header">Usuário</f:facet>
-			#{emprestimo.usuario}
-		</h:column>
+			<p:dataTable value="#{emprestimoBean.listaPorNotebook}" var="emprestimo"
+				id="datatable" paginator="true" rows="10" dynamic="true" lazy="true">
+				<p:column headerText="NP">#{emprestimo.notebook.numeroPatrimonial}</p:column>
+				<p:column headerText="Usuário">#{emprestimo.usuario}</p:column>
 		
-				<h:column>
-					<f:facet name="header">Data de Saida</f:facet>
-						<h:outputText value="#{emprestimo.dataSaida.time}" >
-						<f:convertDateTime pattern="dd/MM/yyyy"
-								timeZone="America/Sao_Paulo" />
+				<p:column headerText="Data de Saída">
+					<h:outputText value="#{emprestimo.dataSaida.time}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 					</h:outputText>
-		</h:column>
+				</p:column>
+				<p:column headerText="Data de Entrada">
+					<h:outputText value="#{emprestimo.dataEntrada.time}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</p:column>
 		
-				<h:column>
-					<f:facet name="header">Ações</f:facet>
-					<h:commandButton action="#{emprestimoBean.remove(emprestimo)}"
-						value="Remover" >
+				<p:column headerText="Ações">
+					<h:commandButton action="#{emprestimoBean.remove(emprestimo)}" value="Remover" >
 						 <f:ajax render="@form" />
 					</h:commandButton>
-				</h:column>
+				</p:column>
 				
-			</h:dataTable>
+			</p:dataTable>
 		</h:form>
 	
 	</ui:define>

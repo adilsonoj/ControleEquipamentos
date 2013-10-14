@@ -33,8 +33,8 @@ public class NotebookBean {
 	}
 	
 	public void grava() {
+		
 		if (this.notebook.getNumeroPatrimonial() == null) {
-			System.out.println("Gravando a notebook");
 			dao.adiciona(notebook);
 			this.notebooks = dao.lista();
 			limpaFormularioDoJSF();
@@ -52,16 +52,17 @@ public class NotebookBean {
 		return notebooks;
 	}
 	
-	public void remove() {
+	public void remove(Notebook notebook) {
 		System.out.println("Removendo...");
-		dao.remove(this.notebook);
+		dao.remove(notebook);
 		this.notebooks = dao.lista();
 		limpaFormularioDoJSF();
 	}
+	
+	
 
 	/**
 	 * Esse metodo apenas limpa o formulario da forma com que o JSF espera.
-	 * Invoque-o no momento em que precisar do formulario vazio.
 	 */
 	private void limpaFormularioDoJSF() {
 		this.notebook = new Notebook();

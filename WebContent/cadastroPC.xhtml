@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
       
 <ui:composition template="/_template.xhtml">
 	<ui:define name="corpo">
@@ -15,31 +16,31 @@
 					<h:outputText value="Novo Equipamento"/>
 				</h2>
 				<h:outputLabel value="NP:" for="numeroPatrimonial" />
-				<h:inputText id="numeroPatrimonial" value="#{pcBean.pc.numeroPatrimonial}" required="true"/>
+				<p:inputText id="numeroPatrimonial" value="#{pcBean.pc.numeroPatrimonial}" required="true"/>
 				
 				<h:outputLabel value="Nome:" for="nome" />
-				<h:inputText id="nome" value="#{pcBean.pc.nome}"/>
+				<p:inputText id="nome" value="#{pcBean.pc.nome}"/>
 				
 				<h:outputLabel value="IP:" for="ip" />
-				<h:inputText id="ip" value="#{pcBean.pc.ip}"/>
+				<p:inputText id="ip" value="#{pcBean.pc.ip}"/>
 				
 				<h:outputLabel value="MAC:" for="macAdress" />
-				<h:inputText id="macAdress" value="#{pcBean.pc.macAdress}"/>
+				<p:inputText id="macAdress" value="#{pcBean.pc.macAdress}"/>
 				
 				<h:outputLabel value="Processador:" for="processador" />
-				<h:inputText id="processador" value="#{pcBean.pc.processador}"/>
+				<p:inputText id="processador" value="#{pcBean.pc.processador}"/>
 				
 				<h:outputLabel value="Memória:" for="memoria" />
-				<h:inputText id="memoria" value="#{pcBean.pc.memoria}"/>
+				<p:inputText id="memoria" value="#{pcBean.pc.memoria}"/>
 				
 				<h:outputLabel value="Lacre:" for="lacre" />
-				<h:inputText id="lacre" value="#{pcBean.pc.lacre}"/>
+				<p:inputText id="lacre" value="#{pcBean.pc.lacre}"/>
 				
-				<h:outputLabel value="Elemento Organizacional:" for="elementoOrganizacional" />
-				<h:inputText id="elementoOrganizacional" value="#{pcBean.pc.elementoOrganizacional}"/>
+				<h:outputLabel value="Elemento Org. :" for="elementoOrganizacional" />
+				<p:inputText id="elementoOrganizacional" value="#{pcBean.pc.elementoOrganizacional}"/>
 				
 				<h:outputLabel value="Andar:" for="andar" />
-				<h:inputText id="andar" value="#{pcBean.pc.andar}"/>
+				<p:inputText id="andar" value="#{pcBean.pc.andar}"/>
 				
 				<h:commandButton value="Gravar" action="#{pcBean.grava }" >
 					<f:ajax execute="@form" render="@form :form2:datatable" />
@@ -48,60 +49,31 @@
 		</h:form>
 		<h2>Listagem de Equipamentos</h2>
 		<h:form id="form2">
-			<h:dataTable value="#{pcBean.pcs}" var="pc"
-				id="datatable" styleClass="dados" rowClasses="impar,par">
-				<h:column>
-					<f:facet name="header">NP</f:facet>
-			#{pc.numeroPatrimonial}
-		</h:column>
-				<h:column>
-					<f:facet name="header">NOME</f:facet>
-			#{pc.nome}
-		</h:column>
-				<h:column>
-					<f:facet name="header">IP</f:facet>
-			#{pc.ip}
-		</h:column>
-		<h:column>
-					<f:facet name="header">MAC</f:facet>
-			#{pc.macAdress}
-		</h:column>
-		<h:column>
-					<f:facet name="header">PROCESSADOR</f:facet>
-			#{pc.processador}
-		</h:column>
-		<h:column>
-					<f:facet name="header">MEMÓRIA</f:facet>
-			#{pc.memoria}
-		</h:column>
-		<h:column>
-					<f:facet name="header">LACRE</f:facet>
-			#{pc.lacre}
-		</h:column>
-		<h:column>
-					<f:facet name="header">ANDAR</f:facet>
-			#{pc.andar}
-		</h:column>
-		<h:column>
-					<f:facet name="header">ELEMENTO ORGANIZACIONAL</f:facet>
-			#{pc.elementoOrganizacional}
-		</h:column>
-		
-				<h:column   >
-					<f:facet name="header" >AÇÕES</f:facet>
+			<p:dataTable value="#{pcBean.pcs}" var="pc"
+				id="datatable" paginator="true" rows="10" dynamic="true" lazy="true">
+				<p:column headerText="NP">#{pc.numeroPatrimonial}</p:column>
+				<p:column headerText="NOME">#{pc.nome}</p:column>
+				<p:column headerText="IP">#{pc.ip}</p:column>
+				<p:column headerText="MAC">#{pc.macAdress}</p:column>
+				<p:column headerText="PROCESSADOR">#{pc.processador}</p:column>
+				<p:column headerText="MEMÓRIA">#{pc.memoria}</p:column>
+				<p:column headerText="LACRE">#{pc.lacre}</p:column>
+				<p:column headerText="ANDAR">#{pc.andar}</p:column>
+				<p:column headerText="ELEMENTO ORG.">	#{pc.elementoOrganizacional}</p:column>
+				<p:column  headerText="AÇÕES">
+					
 					<h:commandButton action="#{pcBean.remove(pc)}"
 						value="Remover" >
 						 <f:ajax render="@form" />
 					</h:commandButton>
-				</h:column>
-				<h:column   >
+			
 					<h:commandButton value="Alterar" >
 						<f:setPropertyActionListener target="#{pcBean.pc}"
 							value="#{pc}" />
 						<f:ajax render=":form1" />
 					</h:commandButton>
-				</h:column>
-			</h:dataTable>
+				</p:column>
+			</p:dataTable>
 		</h:form>
 		</ui:define>
 </ui:composition>
