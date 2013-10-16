@@ -7,8 +7,8 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import mb.dsam.dao.NotebookDao;
-import mb.dsam.modelo.Emprestimo;
 import mb.dsam.modelo.Notebook;
+import mb.dsam.modelo.TipoSistemaOperacional;
 
 @ViewScoped
 @ManagedBean
@@ -68,6 +68,8 @@ public class NotebookBean {
 		this.notebook = new Notebook();
 	}
 	
-	
+	public TipoSistemaOperacional[] getTiposSistemasOperacionais() {
+		return TipoSistemaOperacional.values();
+	}
 	
 }

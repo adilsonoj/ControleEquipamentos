@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition template="/_template.xhtml">
+	<ui:define name="corpo">
+		<h:form id="form1">
+			<h:messages styleClass="erros" />
+			<fieldset>
+				<legend>Dados do Formulário</legend>
+				
+						<h:outputLabel value="SO:" for="so" />
+						<h:selectOneMenu value="#{pcBean.so.tipoSistemaOperacional}">
+			    			<f:selectItem itemLabel="Sistema Operacional" itemValue="" noSelectionOption="true"/>
+			    			<f:selectItems value="#{sistemaOperacionalBean.tiposSistemaOperacional}" />
+			    		</h:selectOneMenu>
+						<h:commandButton value="Gravar" action="#{sistemaOperacionalBean.grava }" >
+					
+				</h:commandButton>
+			</fieldset>
+		</h:form>
+	</ui:define>
+	</ui:composition>
+	
+</html>

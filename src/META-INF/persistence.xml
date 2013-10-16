@@ -12,7 +12,7 @@
 		<jta-data-source>java:/SisSpdDS</jta-data-source>
 		
 		<!-- Aqui sao listadas todas as entidades -->
-		<class>mb.dsam.modelo.PC</class>
+		<class>mb.dsam.modelo.Pc</class>
 		<class>mb.dsam.modelo.Notebook</class>
 
 		<properties>
@@ -23,7 +23,7 @@
 			<property name="hibernate.format_sql" value="false" />
 			
 			<!-- poderia ser: update, create, create-drop, none -->
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 
 		</properties>
 	</persistence-unit>

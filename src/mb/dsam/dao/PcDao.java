@@ -6,7 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import mb.dsam.modelo.PC;
+import mb.dsam.modelo.Pc;
 
 @Stateless
 public class PcDao {
@@ -14,25 +14,30 @@ public class PcDao {
 	@PersistenceContext
 	EntityManager manager;
 
-	public void adiciona(PC pc) {
+	public void adiciona(Pc pc) {
 		this.manager.persist(pc);
 	}
 
-	public PC busca(Integer id) {
-		return this.manager.find(PC.class, id);
+	public Pc busca(Integer id) {
+		return this.manager.find(Pc.class, id);
 	}
 
-	public List<PC> lista() {
-		return this.manager.createQuery("select c from PC c", PC.class)
+	public List<Pc> lista() {
+		return this.manager.createQuery("select c from Pc c", Pc.class)
+				.getResultList();
+	}
+	
+	public List<Pc> listaComSo() {
+		return this.manager.createQuery("select c from Pc c", Pc.class)
 				.getResultList();
 	}
 
-	public void remove(PC pc) {
-		PC pcParaRemover = this.manager.find(PC.class, pc.getNumeroPatrimonial());
+	public void remove(Pc pc) {
+		Pc pcParaRemover = this.manager.find(Pc.class, pc.getNumeroPatrimonial());
 		this.manager.remove(pcParaRemover);
 	}
 	
-	public PC altera(PC pc){
+	public Pc altera(Pc pc){
 		return this.manager.merge(pc);
 	}
 }

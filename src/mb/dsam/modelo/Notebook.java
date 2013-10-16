@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Notebook implements Serializable{
@@ -21,7 +22,7 @@ public class Notebook implements Serializable{
 	@OneToMany(mappedBy="notebook")
 	private List<Emprestimo> emprestimos;
 	
-	
+		
 	public List<Emprestimo> getEmprestimos() {
 		return emprestimos;
 	}

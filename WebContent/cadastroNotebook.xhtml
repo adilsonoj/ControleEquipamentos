@@ -21,11 +21,17 @@
 				<h:outputLabel value="Nome:" for="nome" />
 				<p:inputText id="nome" value="#{notebookBean.notebook.nome}"/>
 				
+				<h:outputLabel value="SO:" for="so" />
+				<h:selectOneMenu value="#{notebookBean.notebook.sistemaOperacional}" id="so">
+		    		<f:selectItem itemLabel="Sistema Operacional" itemValue="" noSelectionOption="true"/>
+		    		<f:selectItems value="#{notebookBean.tiposSistemasOperacionais}" />
+		    	</h:selectOneMenu>
+				
 				<h:outputLabel value="IP:" for="ip" />
 				<p:inputText id="ip" value="#{notebookBean.notebook.ip}"/>
 				
 				<h:outputLabel value="MAC:" for="macAdress" />
-				<p:inputMask id="macAdress" value="#{notebookBean.notebook.macAdress}" mask="99:99:99:99:99:99"/>
+				<p:inputMask id="macAdress" value="#{notebookBean.notebook.macAdress}" mask="**:**:**:**:**:**"/>
 				
 				<h:outputLabel value="Processador:" for="processador" />
 				<p:inputText id="processador" value="#{notebookBean.notebook.processador}"/>

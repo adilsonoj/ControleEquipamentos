@@ -1,12 +1,15 @@
 package mb.dsam.modelo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-public class PC implements Serializable{
+public class Pc implements Serializable{
 	
 	/**
 	 * 
@@ -23,6 +26,9 @@ public class PC implements Serializable{
 	private String elementoOrganizacional;
 	private Integer andar;
 	
+	@OneToOne(mappedBy="pc")
+	@PrimaryKeyJoinColumn
+	private SistemaOperacional sistemaOperacional;
 	
 	public Integer getAndar() {
 		return andar;

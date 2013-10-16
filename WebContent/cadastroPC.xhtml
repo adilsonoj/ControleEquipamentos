@@ -10,6 +10,8 @@
 	
 	<h:form id="form1">
 			<h:messages styleClass="erros" />
+			
+			
 			<fieldset>
 				<legend>Dados do Formulário</legend>
 				<h2>
@@ -21,11 +23,13 @@
 				<h:outputLabel value="Nome:" for="nome" />
 				<p:inputText id="nome" value="#{pcBean.pc.nome}"/>
 				
+							    	
+				
 				<h:outputLabel value="IP:" for="ip" />
 				<p:inputText id="ip" value="#{pcBean.pc.ip}"/>
 				
 				<h:outputLabel value="MAC:" for="macAdress" />
-				<p:inputText id="macAdress" value="#{pcBean.pc.macAdress}"/>
+				<p:inputMask id="macAdress" value="#{pcBean.pc.macAdress}"  mask="**:**:**:**:**:**"/>
 				
 				<h:outputLabel value="Processador:" for="processador" />
 				<p:inputText id="processador" value="#{pcBean.pc.processador}"/>
@@ -42,7 +46,20 @@
 				<h:outputLabel value="Andar:" for="andar" />
 				<p:inputText id="andar" value="#{pcBean.pc.andar}"/>
 				
-				<h:commandButton value="Gravar" action="#{pcBean.grava }" >
+				
+			
+			
+		
+				<h:outputLabel value="SO:" for="so" />
+						
+						<h:selectOneMenu value="#{pcBean.so.tipoSistemaOperacional}">
+			    			<f:selectItem itemLabel="Sistema Operacional" itemValue="" noSelectionOption="true"/>
+			    			<f:selectItems value="#{sistemaOperacionalBean.tiposSistemaOperacional}" />
+			    		</h:selectOneMenu>
+			    		<h:outputLabel value="Chave:" for="chave" />
+				<p:inputText id="chave" value="#{pcBean.so.chave}"/>
+						
+						<h:commandButton value="Gravar" action="#{pcBean.grava }" >
 					<f:ajax execute="@form" render="@form :form2:datatable" />
 				</h:commandButton>				
 			</fieldset>
@@ -70,6 +87,8 @@
 					<h:commandButton value="Alterar" >
 						<f:setPropertyActionListener target="#{pcBean.pc}"
 							value="#{pc}" />
+							<f:setPropertyActionListener target="#{pcBean.so}"
+							value="#{so}" />
 						<f:ajax render=":form1" />
 					</h:commandButton>
 				</p:column>
