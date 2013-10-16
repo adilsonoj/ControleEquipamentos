@@ -35,4 +35,6 @@ public class SistemaOperacionalDao {
 	public SistemaOperacional altera(SistemaOperacional so){
 		return this.manager.merge(so);
 	}
+	
+	
 }

@@ -25,8 +25,7 @@ public class SistemaOperacionalBean implements Serializable {
 	SistemaOperacional sistemaOperacional;
 	@Inject
 	SistemaOperacionalDao dao;
-	@Inject
-	Pc pc;
+	
 	
 	private List<SistemaOperacional> sistemasOperacionais;
 

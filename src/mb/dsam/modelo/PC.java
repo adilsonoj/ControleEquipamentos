@@ -1,12 +1,12 @@
 package mb.dsam.modelo;
 
 import java.io.Serializable;
-import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class Pc implements Serializable{
@@ -26,10 +26,18 @@ public class Pc implements Serializable{
 	private String elementoOrganizacional;
 	private Integer andar;
 	
-	@OneToOne(mappedBy="pc")
-	@PrimaryKeyJoinColumn
+	
 	private SistemaOperacional sistemaOperacional;
 	
+	
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinColumn(name="id_fk")
+	public SistemaOperacional getSistemaOperacional() {
+		return sistemaOperacional;
+	}
+	public void setSistemaOperacional(SistemaOperacional sistemaOperacional) {
+		this.sistemaOperacional = sistemaOperacional;
+	}
 	public Integer getAndar() {
 		return andar;
 	}

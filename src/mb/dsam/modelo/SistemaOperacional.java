@@ -3,12 +3,9 @@ package mb.dsam.modelo;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class SistemaOperacional implements Serializable{
@@ -16,44 +13,12 @@ public class SistemaOperacional implements Serializable{
 	@Id
 	@GeneratedValue
 	private Long id;
+	private String nome;
 	
-	
-	@OneToOne
+	@OneToOne(mappedBy = "sistemaOperacional")
 	private Pc pc;
 	
-	@OneToOne
-	private Notebook notebook;
-	private String chave;
 	
-	@Enumerated(EnumType.STRING)
-	private TipoSistemaOperacional tipoSistemaOperacional;
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	
-	
-	
-	
-	public String getChave() {
-		return chave;
-	}
-	public void setChave(String chave) {
-		this.chave = chave;
-	}
-	
-	public void setTipoSistemaOperacional(
-			TipoSistemaOperacional tipoSistemaOperacional) {
-		this.tipoSistemaOperacional = tipoSistemaOperacional;
-	}
-	
-	public TipoSistemaOperacional getTipoSistemaOperacional() {
-		return tipoSistemaOperacional;
-	}
 	
 	public Pc getPc() {
 		return pc;
@@ -61,12 +26,17 @@ public class SistemaOperacional implements Serializable{
 	public void setPc(Pc pc) {
 		this.pc = pc;
 	}
-	public Notebook getNotebook() {
-		return notebook;
+	public Long getId() {
+		return id;
 	}
-	public void setNotebook(Notebook notebook) {
-		this.notebook = notebook;
+	public void setId(Long id) {
+		this.id = id;
 	}
-	
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 	
 }

@@ -22,25 +22,12 @@ public class PcBean implements Serializable {
 
 	@Inject
 	private Pc pc;
-	@Inject
-	private SistemaOperacional so;
 	
 	@Inject
 	private PcDao pcDao;
-	@Inject
-	private SistemaOperacionalDao soDao;
 	
 	private List<Pc> pcs;
 	
-
-	
-	public SistemaOperacional getSo() {
-		return so;
-	}
-
-	public void setSo(SistemaOperacional so) {
-		this.so = so;
-	}
 
 	public Pc getPc() {
 		return pc;
@@ -52,30 +39,14 @@ public class PcBean implements Serializable {
 	
 	public void grava() {
 		if (this.pc.getNumeroPatrimonial() == null) {
-			
-				pcDao.adiciona(pc);
-				gravaSO();
-				this.pcs = pcDao.lista();
-				limpaFormularioDoJSF();
-			
-			
+			pcDao.adiciona(pc);
+			this.pcs = pcDao.lista();
+			limpaFormularioDoJSF();
 		} else {
 			pcDao.altera(pc);
-			alteraSO();
 			this.pcs = pcDao.lista();
 			limpaFormularioDoJSF();
 		}
-	}
-	
-	private void gravaSO(){
-		pc = pcDao.busca(this.pc.getNumeroPatrimonial());
-		so.setPc(pc);
-		soDao.adiciona(so);
-	}
-	private void alteraSO(){
-		pc = pcDao.busca(this.pc.getNumeroPatrimonial());
-		so.setPc(pc);
-		soDao.altera(so);
 	}
 	
 	public List<Pc> getPcs() {

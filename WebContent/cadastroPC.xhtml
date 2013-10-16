@@ -50,14 +50,12 @@
 			
 			
 		
-				<h:outputLabel value="SO:" for="so" />
-						
-						<h:selectOneMenu value="#{pcBean.so.tipoSistemaOperacional}">
+						<h:outputLabel value="SO:" for="so" />
+						<p:selectOneMenu value="#{pcBean.pc.sistemaOperacional}">
 			    			<f:selectItem itemLabel="Sistema Operacional" itemValue="" noSelectionOption="true"/>
-			    			<f:selectItems value="#{sistemaOperacionalBean.tiposSistemaOperacional}" />
-			    		</h:selectOneMenu>
-			    		<h:outputLabel value="Chave:" for="chave" />
-				<p:inputText id="chave" value="#{pcBean.so.chave}"/>
+			    			<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
+			    		</p:selectOneMenu>
+			    		
 						
 						<h:commandButton value="Gravar" action="#{pcBean.grava }" >
 					<f:ajax execute="@form" render="@form :form2:datatable" />
@@ -77,6 +75,7 @@
 				<p:column headerText="LACRE">#{pc.lacre}</p:column>
 				<p:column headerText="ANDAR">#{pc.andar}</p:column>
 				<p:column headerText="ELEMENTO ORG.">	#{pc.elementoOrganizacional}</p:column>
+				<p:column headerText="SO">	#{pc.sistemaOperacional}</p:column>
 				<p:column  headerText="AÇÕES">
 					
 					<h:commandButton action="#{pcBean.remove(pc)}"
@@ -87,8 +86,7 @@
 					<h:commandButton value="Alterar" >
 						<f:setPropertyActionListener target="#{pcBean.pc}"
 							value="#{pc}" />
-							<f:setPropertyActionListener target="#{pcBean.so}"
-							value="#{so}" />
+							
 						<f:ajax render=":form1" />
 					</h:commandButton>
 				</p:column>
