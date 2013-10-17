@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/_template.xhtml">
+	<ui:define name="corpo">
+	
+	<h:form id="form1">
+			<h:messages styleClass="erros" />
+			
+			<fieldset>
+				<legend>Serial</legend>
+				<h2>
+					<h:outputText value="Novo"/>
+				</h2>
+				<h:outputLabel value="SO:" for="so" />
+				<h:selectOneMenu value="#{chaveSerialBean.sistemaOperacionalId}" id="so">
+	        		<f:selectItem itemLabel="Escolha o SO" itemValue="" noSelectionOption="true"/>
+	        		<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}" />
+	        	</h:selectOneMenu>
+				
+				<h:outputLabel value="Serial:" for="serial" />
+				<h:inputText id="serial" value="#{chaveSerialBean.chaveSerial.serial}"/>
+				
+			
+				<h:commandButton value="Gravar" action="#{chaveSerialBean.grava }" >
+					<f:ajax execute="@form" render="@form :form2:datatable" />
+				</h:commandButton>	
+							
+			</fieldset>
+			
+		</h:form>
+		<h2>Listagem de Emprestimos</h2>
+		<h:form id="form2">
+			<p:dataTable value="#{chaveSerialBean.chaveSerials}" var="serial"
+				id="datatable" paginator="true" rows="10" dynamic="true" lazy="true">
+				<p:column headerText="PC">#{serial.pc}</p:column>
+				<p:column headerText="Serial">#{serial.serial}</p:column>
+				<p:column headerText="SO">#{serial.sistemaOperacional.nome}</p:column>
+		
+						
+				<p:column headerText="AÇÕES">
+					<h:commandButton action="#{chaveSerialBean.remove(serial)}" value="Remover" >
+						 <f:ajax render="@form" />
+					</h:commandButton>
+				
+					
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

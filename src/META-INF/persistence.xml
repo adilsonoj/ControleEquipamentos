@@ -14,7 +14,10 @@
 		<!-- Aqui sao listadas todas as entidades -->
 		<class>mb.dsam.modelo.Pc</class>
 		<class>mb.dsam.modelo.Notebook</class>
-
+		<class>mb.dsam.modelo.SistemaOperacional</class>
+		<class>mb.dsam.modelo.ChaveSerial</class>
+		<class>mb.dsam.modelo.Impressora</class>
+		<class>mb.dsam.modelo.Emprestimo</class>
 		<properties>
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />

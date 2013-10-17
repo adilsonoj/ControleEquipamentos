@@ -1,10 +1,12 @@
 package mb.dsam.modelo;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Impressora {
+public class Impressora implements Serializable{
 
 	@Id
 	private Integer numeroPatrimonial;

@@ -5,14 +5,12 @@ import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
+import mb.dsam.dao.ChaveSerialDao;
 import mb.dsam.dao.PcDao;
-import mb.dsam.dao.SistemaOperacionalDao;
+import mb.dsam.modelo.ChaveSerial;
 import mb.dsam.modelo.Pc;
-import mb.dsam.modelo.SistemaOperacional;
-import mb.dsam.modelo.TipoSistemaOperacional;
 
 @SessionScoped
 @ManagedBean
@@ -25,8 +23,14 @@ public class PcBean implements Serializable {
 	
 	@Inject
 	private PcDao pcDao;
+	@Inject
+	private ChaveSerialDao serialDao;
 	
+	@Inject
+	private ChaveSerial chaveSerial;
 	private List<Pc> pcs;
+	@Inject
+	private ChaveSerialBean chaveSerialBean;
 	
 
 	public Pc getPc() {
@@ -39,6 +43,7 @@ public class PcBean implements Serializable {
 	
 	public void grava() {
 		if (this.pc.getNumeroPatrimonial() == null) {
+			chaveSerialBean.grava();
 			pcDao.adiciona(pc);
 			this.pcs = pcDao.lista();
 			limpaFormularioDoJSF();
@@ -73,8 +78,6 @@ public class PcBean implements Serializable {
 		this.pc = new Pc();
 	}
 	
-	public TipoSistemaOperacional[] getTiposSistemaOperacional() {
-		return TipoSistemaOperacional.values();
-	}
+	
 	
 }

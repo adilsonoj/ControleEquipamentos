@@ -26,18 +26,10 @@ public class Pc implements Serializable{
 	private String elementoOrganizacional;
 	private Integer andar;
 	
+	@OneToOne
+	private ChaveSerial chaveSerial;
 	
-	private SistemaOperacional sistemaOperacional;
-	
-	
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name="id_fk")
-	public SistemaOperacional getSistemaOperacional() {
-		return sistemaOperacional;
-	}
-	public void setSistemaOperacional(SistemaOperacional sistemaOperacional) {
-		this.sistemaOperacional = sistemaOperacional;
-	}
+		
 	public Integer getAndar() {
 		return andar;
 	}
@@ -92,6 +84,13 @@ public class Pc implements Serializable{
 	public void setElementoOrganizacional(String elementoOrganizacional) {
 		this.elementoOrganizacional = elementoOrganizacional;
 	}
+	public ChaveSerial getChaveSerial() {
+		return chaveSerial;
+	}
+	public void setChaveSerial(ChaveSerial chaveSerial) {
+		this.chaveSerial = chaveSerial;
+	}
+	
 	
 	
 }

@@ -1,5 +1,6 @@
 package mb.dsam.mb;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -12,7 +13,7 @@ import mb.dsam.modelo.TipoSistemaOperacional;
 
 @ViewScoped
 @ManagedBean
-public class NotebookBean {
+public class NotebookBean implements Serializable{
 	
 	@Inject
 	Notebook notebook;

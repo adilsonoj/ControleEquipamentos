@@ -47,11 +47,9 @@
 				<p:inputText id="andar" value="#{pcBean.pc.andar}"/>
 				
 				
-			
-			
-		
+
 						<h:outputLabel value="SO:" for="so" />
-						<p:selectOneMenu value="#{pcBean.pc.sistemaOperacional}">
+						<p:selectOneMenu value="#{chaveSerialBean.sistemaOperacionalId}">
 			    			<f:selectItem itemLabel="Sistema Operacional" itemValue="" noSelectionOption="true"/>
 			    			<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
 			    		</p:selectOneMenu>
@@ -75,7 +73,7 @@
 				<p:column headerText="LACRE">#{pc.lacre}</p:column>
 				<p:column headerText="ANDAR">#{pc.andar}</p:column>
 				<p:column headerText="ELEMENTO ORG.">	#{pc.elementoOrganizacional}</p:column>
-				<p:column headerText="SO">	#{pc.sistemaOperacional}</p:column>
+				<p:column headerText="SO">	#{pc.chaveSerial.id}</p:column>
 				<p:column  headerText="AÇÕES">
 					
 					<h:commandButton action="#{pcBean.remove(pc)}"
