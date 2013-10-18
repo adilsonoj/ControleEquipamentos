@@ -17,11 +17,13 @@
 					<h:outputText value="Novo"/>
 				</h2>
 				<h:outputLabel value="SO:" for="so" />
-				<h:selectOneMenu value="#{chaveSerialBean.sistemaOperacionalId}" id="so">
-	        		<f:selectItem itemLabel="Escolha o SO" itemValue="" noSelectionOption="true"/>
+				
+				<h:selectOneMenu value="#{chaveSerialBean.sistemaOperacionalId}"  id="so">
+	        		<f:selectItem itemLabel="#{chaveSerialBean.chaveSerial.sistemaOperacional.nome}" itemValue="" noSelectionOption="false"/>
 	        		<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}" />
 	        	</h:selectOneMenu>
-				
+	        	
+	        
 				<h:outputLabel value="Serial:" for="serial" />
 				<h:inputText id="serial" value="#{chaveSerialBean.chaveSerial.serial}"/>
 				
@@ -40,14 +42,20 @@
 				<p:column headerText="PC">#{serial.pc}</p:column>
 				<p:column headerText="Serial">#{serial.serial}</p:column>
 				<p:column headerText="SO">#{serial.sistemaOperacional.nome}</p:column>
-		
+				<p:column headerText="SO">#{serial.sistemaOperacional.id}</p:column>
+				
 						
 				<p:column headerText="AÇÕES">
 					<h:commandButton action="#{chaveSerialBean.remove(serial)}" value="Remover" >
 						 <f:ajax render="@form" />
 					</h:commandButton>
 				
-					
+					<h:commandButton value="Alterar" >
+							<f:setPropertyActionListener target="#{chaveSerialBean.chaveSerial}"
+							value="#{serial}" />
+						
+						<f:ajax render=":form1" />
+						</h:commandButton>
 				</p:column>
 			</p:dataTable>
 		</h:form>

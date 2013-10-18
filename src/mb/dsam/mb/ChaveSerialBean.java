@@ -55,6 +55,8 @@ public class ChaveSerialBean implements Serializable{
 			this.chaveSerials = dao.lista();
 			limpaFormularioDoJSF();
 		} else {
+			SistemaOperacional soRelacionado = soDao.busca(sistemaOperacionalId);
+			chaveSerial.setSistemaOperacional(soRelacionado);
 			dao.altera(chaveSerial);
 			this.chaveSerials =dao.lista();
 			limpaFormularioDoJSF();
@@ -90,5 +92,13 @@ public class ChaveSerialBean implements Serializable{
 	 */
 	private void limpaFormularioDoJSF() {
 		this.chaveSerial = new ChaveSerial();
+	}
+
+	public SistemaOperacional getSistemaOperacional() {
+		return sistemaOperacional;
+	}
+
+	public void setSistemaOperacional(SistemaOperacional sistemaOperacional) {
+		this.sistemaOperacional = sistemaOperacional;
 	}
 }

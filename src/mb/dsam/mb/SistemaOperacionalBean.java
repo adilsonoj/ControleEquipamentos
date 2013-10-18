@@ -33,15 +33,14 @@ public class SistemaOperacionalBean implements Serializable {
 		return sistemaOperacional;
 	}
 
-	public void setSo(SistemaOperacional sistemaOperacional) {
-		this.sistemaOperacional = sistemaOperacional;
-	}
+	
 
 	public List<SistemaOperacional> getSistemasOperacionais() {
 		if (this.sistemasOperacionais == null){
 			this.sistemasOperacionais = dao.lista();
 		}
 		return sistemasOperacionais;
+		
 	}
 	
 	public void grava() {
