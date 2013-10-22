@@ -8,9 +8,10 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import mb.dsam.dao.ChaveSerialDao;
+import mb.dsam.dao.PcDao;
 import mb.dsam.dao.SistemaOperacionalDao;
 import mb.dsam.modelo.ChaveSerial;
-import mb.dsam.modelo.Notebook;
+import mb.dsam.modelo.Pc;
 import mb.dsam.modelo.SistemaOperacional;
 
 @ViewScoped
@@ -22,15 +23,21 @@ public class ChaveSerialBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	ChaveSerial chaveSerial;
+	private ChaveSerial chaveSerial;
 	
 	@Inject
-	ChaveSerialDao dao;
+	private ChaveSerialDao dao;
 	
 	@Inject
-	SistemaOperacional sistemaOperacional;
+	private SistemaOperacional sistemaOperacional;
 	@Inject
-	SistemaOperacionalDao soDao;
+	private SistemaOperacionalDao soDao;
+	@Inject
+	private PcDao pcDao;
+	@Inject 
+	private Pc pc;
+	@Inject
+	private PcBean pcBean;
 	
 	private Integer sistemaOperacionalId;	
 	
@@ -52,11 +59,15 @@ public class ChaveSerialBean implements Serializable{
 			chaveSerial.setSistemaOperacional(soRelacionado);
 			
 			dao.adiciona(chaveSerial);
+			
+			this.pcBean.grava();
+			
 			this.chaveSerials = dao.lista();
 			limpaFormularioDoJSF();
 		} else {
 			SistemaOperacional soRelacionado = soDao.busca(sistemaOperacionalId);
 			chaveSerial.setSistemaOperacional(soRelacionado);
+		
 			dao.altera(chaveSerial);
 			this.chaveSerials =dao.lista();
 			limpaFormularioDoJSF();
@@ -101,4 +112,31 @@ public class ChaveSerialBean implements Serializable{
 	public void setSistemaOperacional(SistemaOperacional sistemaOperacional) {
 		this.sistemaOperacional = sistemaOperacional;
 	}
+	
+	public Pc getPc() {
+		return pc;
+	}
+
+	public void setPc(Pc pc) {
+		this.pc = pc;
+	}
+
+	public Integer getPcId() {
+		return pcId;
+	}
+
+	public void setPcId(Integer pcId) {
+		this.pcId = pcId;
+	}
+
+	private Integer pcId;
+
+	public ChaveSerialDao getDao() {
+		return dao;
+	}
+
+	public void setDao(ChaveSerialDao dao) {
+		this.dao = dao;
+	}
+	
 }

@@ -18,10 +18,12 @@
 					<h:outputText value="Novo Equipamento"/>
 				</h2>
 				<h:outputLabel value="NP:" for="numeroPatrimonial" />
-				<p:inputText id="numeroPatrimonial" value="#{pcBean.pc.numeroPatrimonial}" required="true"/>
+				<p:inputText id="numeroPatrimonial" value="#{pcBean.pc.numeroPatrimonial}"  required="true"/>
 				
 				<h:outputLabel value="Nome:" for="nome" />
 				<p:inputText id="nome" value="#{pcBean.pc.nome}"/>
+				
+				<h:outputText value="#{chaveSerialBean.dao.busca(3)}" />
 				
 							    	
 				
@@ -47,15 +49,19 @@
 				<p:inputText id="andar" value="#{pcBean.pc.andar}"/>
 				
 				
-
+						<!-- Cadastro de SO  -->
 						<h:outputLabel value="SO:" for="so" />
-						<p:selectOneMenu value="#{chaveSerialBean.sistemaOperacionalId}">
+						<h:selectOneMenu value="#{pcBean.sistemaOperacionalId}">
 			    			<f:selectItem itemLabel="Sistema Operacional" itemValue="" noSelectionOption="true"/>
 			    			<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
-			    		</p:selectOneMenu>
+			    		</h:selectOneMenu>
+			    		
+			    		<h:outputLabel value="Serial:" for="serial" />
+						<p:inputText id="serial" value="#{pcBean.chaveSerial.serial}"/>
+			    		
 			    		
 						
-						<h:commandButton value="Gravar" action="#{pcBean.grava }" >
+						<h:commandButton value="Gravar" action="#{pcBean.grava }">
 					<f:ajax execute="@form" render="@form :form2:datatable" />
 				</h:commandButton>				
 			</fieldset>
@@ -73,7 +79,9 @@
 				<p:column headerText="LACRE">#{pc.lacre}</p:column>
 				<p:column headerText="ANDAR">#{pc.andar}</p:column>
 				<p:column headerText="ELEMENTO ORG.">	#{pc.elementoOrganizacional}</p:column>
-				<p:column headerText="SO">	#{pc.chaveSerial.id}</p:column>
+				<p:column headerText="SO">	#{pc.chaveSerial.sistemaOperacional.nome}</p:column>
+				<p:column headerText="SO">	#{pc.chaveSerial.serial}</p:column>
+				
 				<p:column  headerText="AÇÕES">
 					
 					<h:commandButton action="#{pcBean.remove(pc)}"

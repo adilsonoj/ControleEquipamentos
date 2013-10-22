@@ -18,7 +18,7 @@ public class ChaveSerialDao {
 		this.manager.persist(chaveSerial);
 	}
 
-	public ChaveSerial busca(Integer numeroPatrimonial) {
+	public ChaveSerial busca(Long numeroPatrimonial) {
 		return this.manager.find(ChaveSerial.class, numeroPatrimonial);
 	}
 
