@@ -3,6 +3,7 @@ package mb.dsam.mb;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
@@ -39,7 +40,7 @@ public class ChaveSerialBean implements Serializable{
 	@Inject
 	private PcBean pcBean;
 	
-	private Integer sistemaOperacionalId;	
+	private Long sistemaOperacionalId;	
 	
 
 	private List<ChaveSerial> chaveSerials;
@@ -60,7 +61,7 @@ public class ChaveSerialBean implements Serializable{
 			
 			dao.adiciona(chaveSerial);
 			
-			this.pcBean.grava();
+			
 			
 			this.chaveSerials = dao.lista();
 			limpaFormularioDoJSF();
@@ -90,11 +91,11 @@ public class ChaveSerialBean implements Serializable{
 	
 	
 
-	public Integer getSistemaOperacionalId() {
+	public Long getSistemaOperacionalId() {
 		return sistemaOperacionalId;
 	}
 
-	public void setSistemaOperacionalId(Integer sistemaOperacionalId) {
+	public void setSistemaOperacionalId(Long sistemaOperacionalId) {
 		this.sistemaOperacionalId = sistemaOperacionalId;
 	}
 

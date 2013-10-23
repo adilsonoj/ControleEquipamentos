@@ -4,9 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class Pc implements Serializable{
@@ -16,7 +18,7 @@ public class Pc implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	private Integer numeroPatrimonial;
+	private Long numeroPatrimonial;
 	private String nome;
 	private Integer ip;
 	private String macAdress;
@@ -26,8 +28,10 @@ public class Pc implements Serializable{
 	private String elementoOrganizacional;
 	private Integer andar;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = true, mappedBy="pc")
+	@PrimaryKeyJoinColumn
 	private ChaveSerial chaveSerial;
+	
 	
 		
 	public Integer getAndar() {
@@ -36,10 +40,10 @@ public class Pc implements Serializable{
 	public void setAndar(Integer andar) {
 		this.andar = andar;
 	}
-	public Integer getNumeroPatrimonial() {
+	public Long getNumeroPatrimonial() {
 		return numeroPatrimonial;
 	}
-	public void setNumeroPatrimonial(Integer numeroPatrimonial) {
+	public void setNumeroPatrimonial(Long numeroPatrimonial) {
 		this.numeroPatrimonial = numeroPatrimonial;
 	}
 	public String getNome() {
@@ -84,13 +88,14 @@ public class Pc implements Serializable{
 	public void setElementoOrganizacional(String elementoOrganizacional) {
 		this.elementoOrganizacional = elementoOrganizacional;
 	}
-	public ChaveSerial getChaveSerial() {
-		return chaveSerial;
-	}
+	
 	public void setChaveSerial(ChaveSerial chaveSerial) {
 		this.chaveSerial = chaveSerial;
 	}
 	
+	public ChaveSerial getChaveSerial() {
+		return chaveSerial;
+	}
 	
 	
 }

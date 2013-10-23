@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import mb.dsam.dao.SistemaOperacionalDao;
-import mb.dsam.modelo.Pc;
 import mb.dsam.modelo.SistemaOperacional;
 import mb.dsam.modelo.TipoSistemaOperacional;
 

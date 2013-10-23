@@ -16,8 +16,11 @@
 				<h2>
 					<h:outputText value="Novo"/>
 				</h2>
-				<h:outputLabel value="SO:" for="so" />
 				
+				<h:outputLabel value="NP:" for="np" />
+				<h:inputText id="np" value="#{chaveSerialBean.chaveSerial.pc}"/>
+				
+				<h:outputLabel value="SO:" for="so" />
 				<h:selectOneMenu value="#{chaveSerialBean.sistemaOperacionalId}"  id="so">
 	        		<f:selectItem itemLabel="#{chaveSerialBean.chaveSerial.sistemaOperacional.nome}" itemValue="" noSelectionOption="false"/>
 	        		<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}" />
@@ -25,7 +28,7 @@
 	        	
 	        
 				<h:outputLabel value="Serial:" for="serial" />
-				<h:inputText id="serial" value="#{chaveSerialBean.chaveSerial.serial}"/>
+				<h:inputText id="serial" value="#{chaveSerialBean.chaveSerial.chaveSerial}"/>
 				
 			
 				<h:commandButton value="Gravar" action="#{chaveSerialBean.grava }" >
@@ -40,7 +43,8 @@
 			<p:dataTable value="#{chaveSerialBean.chaveSerials}" var="serial"
 				id="datatable" paginator="true" rows="10" dynamic="true" lazy="true">
 				<p:column headerText="PC">#{serial.pc}</p:column>
-				<p:column headerText="Serial">#{serial.serial}</p:column>
+				<p:column headerText="NP">#{serial.pc.numeroPatrimonial}</p:column>
+				<p:column headerText="Serial">#{serial.chaveSerial}</p:column>
 				<p:column headerText="SO">#{serial.sistemaOperacional.nome}</p:column>
 				<p:column headerText="SO">#{serial.sistemaOperacional.id}</p:column>
 				

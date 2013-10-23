@@ -18,7 +18,7 @@ public class PcDao {
 		this.manager.persist(pc);
 	}
 
-	public Pc busca(Integer id) {
+	public Pc busca(Long id) {
 		return this.manager.find(Pc.class, id);
 	}
 

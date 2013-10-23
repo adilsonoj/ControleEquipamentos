@@ -3,8 +3,8 @@ package mb.dsam.mb;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import mb.dsam.dao.ChaveSerialDao;
@@ -14,7 +14,7 @@ import mb.dsam.modelo.ChaveSerial;
 import mb.dsam.modelo.Pc;
 import mb.dsam.modelo.SistemaOperacional;
 
-@SessionScoped
+@ViewScoped
 @ManagedBean
 public class PcBean implements Serializable {
 	
@@ -35,9 +35,9 @@ public class PcBean implements Serializable {
 	@Inject
 	private SistemaOperacionalDao soDao;
 	
-	private Integer sistemaOperacionalId;
+	private Long sistemaOperacionalId;
 	
-	private Integer serialId;
+	
 
 	public Pc getPc() {
 		return pc;
@@ -50,25 +50,28 @@ public class PcBean implements Serializable {
 	public void grava() {
 		if (this.pc.getNumeroPatrimonial() == null) {
 			
-			gravaChaveSerial();
-			
-			ChaveSerial chaveRelacionada = chaveSerialDao.busca(this.chaveSerial.getId());
-			this.pc.setChaveSerial(chaveRelacionada);
-			
-			
 			pcDao.adiciona(pc);
 			
+			Pc pcRelacionado = pcDao.busca(pc.getNumeroPatrimonial());
+			this.chaveSerial.setPc(pcRelacionado);
+			
+			SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);
+			this.chaveSerial.setSistemaOperacional(soRelacionado);
+			this.chaveSerialDao.adiciona(chaveSerial);
+	
 			this.pcs = pcDao.lista();
 			limpaFormularioDoJSF();
 		} else {
-			gravaChaveSerial();
-			
-			ChaveSerial chaveRelacionada = chaveSerialDao.busca(this.chaveSerial.getId());
-			this.pc.setChaveSerial(chaveRelacionada);
-			
-			
+
 			pcDao.altera(pc);
 			
+			Pc pcRelacionado = pcDao.busca(pc.getNumeroPatrimonial());
+			this.chaveSerial.setPc(pcRelacionado);
+			
+			SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);
+			this.chaveSerial.setSistemaOperacional(soRelacionado);
+			this.chaveSerialDao.adiciona(chaveSerial);
+	
 			this.pcs = pcDao.lista();
 			limpaFormularioDoJSF();
 		}
@@ -82,16 +85,16 @@ public class PcBean implements Serializable {
 	}
 
 	
-	public Integer getSistemaOperacionalId() {
+	public Long getSistemaOperacionalId() {
 		return sistemaOperacionalId;
 	}
 
-	public void setSistemaOperacionalId(Integer sistemaOperacionalId) {
+	public void setSistemaOperacionalId(Long sistemaOperacionalId) {
 		this.sistemaOperacionalId = sistemaOperacionalId;
 	}
 
 	public List<Pc> getPcs() {
-		System.out.println("Listando as pcs");
+		System.out.println("Listando os pcs");
 		if (this.pcs == null) {
 			this.pcs = pcDao.lista();
 		} 
@@ -99,7 +102,7 @@ public class PcBean implements Serializable {
 	}
 
 	public void remove(Pc pc) {
-		System.out.println("Removendo a pc");
+		System.out.println("Removendo o pc");
 		pcDao.remove(pc);
 		this.pcs=pcDao.lista();
 		limpaFormularioDoJSF();
@@ -122,13 +125,6 @@ public class PcBean implements Serializable {
 		this.chaveSerial = chaveSerial;
 	}
 
-	public Integer getSerialId() {
-		return serialId;
-	}
-
-	public void setSerialId(Integer serialId) {
-		this.serialId = serialId;
-	}
 	
 	
 	

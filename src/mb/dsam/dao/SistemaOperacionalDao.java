@@ -18,7 +18,7 @@ public class SistemaOperacionalDao {
 		this.manager.persist(so);
 	}
 
-	public SistemaOperacional busca(Integer id) {
+	public SistemaOperacional busca(Long id) {
 		return this.manager.find(SistemaOperacional.class, id);
 	}
 

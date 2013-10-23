@@ -23,10 +23,7 @@
 				<h:outputLabel value="Nome:" for="nome" />
 				<p:inputText id="nome" value="#{pcBean.pc.nome}"/>
 				
-				<h:outputText value="#{chaveSerialBean.dao.busca(3)}" />
-				
-							    	
-				
+			
 				<h:outputLabel value="IP:" for="ip" />
 				<p:inputText id="ip" value="#{pcBean.pc.ip}"/>
 				
@@ -52,12 +49,14 @@
 						<!-- Cadastro de SO  -->
 						<h:outputLabel value="SO:" for="so" />
 						<h:selectOneMenu value="#{pcBean.sistemaOperacionalId}">
-			    			<f:selectItem itemLabel="Sistema Operacional" itemValue="" noSelectionOption="true"/>
+			    			<f:selectItem itemLabel="#{pc.chaveSerial.sistemaOperacional.nome}" itemValue="" noSelectionOption="false"/>
 			    			<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
 			    		</h:selectOneMenu>
 			    		
 			    		<h:outputLabel value="Serial:" for="serial" />
-						<p:inputText id="serial" value="#{pcBean.chaveSerial.serial}"/>
+						<p:inputText id="serial" value="#{pcBean.chaveSerial.chaveSerial}"/>
+						
+					
 			    		
 			    		
 						
@@ -78,9 +77,9 @@
 				<p:column headerText="MEMÓRIA">#{pc.memoria}</p:column>
 				<p:column headerText="LACRE">#{pc.lacre}</p:column>
 				<p:column headerText="ANDAR">#{pc.andar}</p:column>
-				<p:column headerText="ELEMENTO ORG.">	#{pc.elementoOrganizacional}</p:column>
+				<p:column headerText="ELEMENTO ORG.">#{pc.elementoOrganizacional}</p:column>
 				<p:column headerText="SO">	#{pc.chaveSerial.sistemaOperacional.nome}</p:column>
-				<p:column headerText="SO">	#{pc.chaveSerial.serial}</p:column>
+				<p:column headerText="SERIAL">#{pc.chaveSerial.chaveSerial}</p:column>
 				
 				<p:column  headerText="AÇÕES">
 					
