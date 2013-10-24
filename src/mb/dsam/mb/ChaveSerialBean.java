@@ -3,13 +3,13 @@ package mb.dsam.mb;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import mb.dsam.dao.ChaveSerialDao;
-import mb.dsam.dao.PcDao;
 import mb.dsam.dao.SistemaOperacionalDao;
 import mb.dsam.modelo.ChaveSerial;
 import mb.dsam.modelo.Pc;
@@ -33,16 +33,11 @@ public class ChaveSerialBean implements Serializable{
 	private SistemaOperacional sistemaOperacional;
 	@Inject
 	private SistemaOperacionalDao soDao;
-	@Inject
-	private PcDao pcDao;
 	@Inject 
 	private Pc pc;
-	@Inject
-	private PcBean pcBean;
-	
+
 	private Long sistemaOperacionalId;	
 	
-
 	private List<ChaveSerial> chaveSerials;
 
 	public ChaveSerial getChaveSerial() {
@@ -56,25 +51,30 @@ public class ChaveSerialBean implements Serializable{
 	public void grava() {
 		
 		if (this.chaveSerial.getId() == null) {
-			SistemaOperacional soRelacionado = soDao.busca(sistemaOperacionalId);
-			chaveSerial.setSistemaOperacional(soRelacionado);
+			SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);
+			this.chaveSerial.setSistemaOperacional(soRelacionado);
 			
-			dao.adiciona(chaveSerial);
-			
-			
-			
-			this.chaveSerials = dao.lista();
+			this.dao.altera(this.chaveSerial);
+			this.chaveSerials = this.dao.lista();
 			limpaFormularioDoJSF();
 		} else {
-			SistemaOperacional soRelacionado = soDao.busca(sistemaOperacionalId);
-			chaveSerial.setSistemaOperacional(soRelacionado);
-		
+			SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);
+			this.chaveSerial.setSistemaOperacional(soRelacionado);
 			dao.altera(chaveSerial);
-			this.chaveSerials =dao.lista();
+			chaveSerials = dao.lista();
 			limpaFormularioDoJSF();
 		}
 	}
 
+	public void altera(){
+		SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);
+		this.chaveSerial.setSistemaOperacional(soRelacionado);
+		
+		dao.altera(chaveSerial);
+		chaveSerials = dao.lista();
+		limpaFormularioDoJSF();
+	}
+	
 	public List<ChaveSerial> getChaveSerials() {
 		if (this.chaveSerials == null){
 			this.chaveSerials = dao.lista();
@@ -104,6 +104,7 @@ public class ChaveSerialBean implements Serializable{
 	 */
 	private void limpaFormularioDoJSF() {
 		this.chaveSerial = new ChaveSerial();
+		this.sistemaOperacional = new SistemaOperacional();
 	}
 
 	public SistemaOperacional getSistemaOperacional() {
@@ -120,24 +121,6 @@ public class ChaveSerialBean implements Serializable{
 
 	public void setPc(Pc pc) {
 		this.pc = pc;
-	}
-
-	public Integer getPcId() {
-		return pcId;
-	}
-
-	public void setPcId(Integer pcId) {
-		this.pcId = pcId;
-	}
-
-	private Integer pcId;
-
-	public ChaveSerialDao getDao() {
-		return dao;
-	}
-
-	public void setDao(ChaveSerialDao dao) {
-		this.dao = dao;
 	}
 	
 }

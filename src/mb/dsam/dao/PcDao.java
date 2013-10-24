@@ -27,6 +27,10 @@ public class PcDao {
 				.getResultList();
 	}
 	
+	public List<Pc> listaComChave(){
+		return this.manager.createQuery("select p from Pc p left join fetch p.chaveSerial", Pc.class).getResultList();
+	}
+	
 
 	public void remove(Pc pc) {
 		Pc pcParaRemover = this.manager.find(Pc.class, pc.getNumeroPatrimonial());

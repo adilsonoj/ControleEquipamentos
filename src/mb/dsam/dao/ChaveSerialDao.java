@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import mb.dsam.modelo.ChaveSerial;
+import mb.dsam.modelo.Pc;
 
 
 @Stateless
@@ -20,6 +21,10 @@ public class ChaveSerialDao {
 
 	public ChaveSerial busca(Long numeroPatrimonial) {
 		return this.manager.find(ChaveSerial.class, numeroPatrimonial);
+	}
+	
+	public ChaveSerial buscaPorPc(Pc pc){
+		return this.manager.find(ChaveSerial.class, pc);
 	}
 
 	public List<ChaveSerial> lista() {

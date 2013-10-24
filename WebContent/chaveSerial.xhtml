@@ -17,12 +17,12 @@
 					<h:outputText value="Novo"/>
 				</h2>
 				
-				<h:outputLabel value="NP:" for="np" />
-				<h:inputText id="np" value="#{chaveSerialBean.chaveSerial.pc}"/>
+				<h:outputLabel value="#{chaveSerialBean.chaveSerial.pc}" />
+				
 				
 				<h:outputLabel value="SO:" for="so" />
 				<h:selectOneMenu value="#{chaveSerialBean.sistemaOperacionalId}"  id="so">
-	        		<f:selectItem itemLabel="#{chaveSerialBean.chaveSerial.sistemaOperacional.nome}" itemValue="" noSelectionOption="false"/>
+	        		<f:selectItem itemLabel="#{chaveSerialBean.chaveSerial.sistemaOperacional.nome}" itemValue="" noSelectionOption="true"/>
 	        		<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}" />
 	        	</h:selectOneMenu>
 	        	
@@ -32,6 +32,9 @@
 				
 			
 				<h:commandButton value="Gravar" action="#{chaveSerialBean.grava }" >
+					<f:ajax execute="@form" render="@form :form2:datatable" />
+				</h:commandButton>	
+				<h:commandButton value="Editar" action="#{chaveSerialBean.altera }" rendered="#{ not empty chaveSerialBean.chaveSerial.id}" >
 					<f:ajax execute="@form" render="@form :form2:datatable" />
 				</h:commandButton>	
 							

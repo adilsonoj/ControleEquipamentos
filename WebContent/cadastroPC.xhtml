@@ -49,25 +49,30 @@
 						<!-- Cadastro de SO  -->
 						<h:outputLabel value="SO:" for="so" />
 						<h:selectOneMenu value="#{pcBean.sistemaOperacionalId}">
-			    			<f:selectItem itemLabel="#{pc.chaveSerial.sistemaOperacional.nome}" itemValue="" noSelectionOption="false"/>
+			    			<f:selectItem itemLabel="#{pcBean.pc.chaveSerial.sistemaOperacional.nome}" itemValue="" noSelectionOption="true"/>
 			    			<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
 			    		</h:selectOneMenu>
 			    		
 			    		<h:outputLabel value="Serial:" for="serial" />
 						<p:inputText id="serial" value="#{pcBean.chaveSerial.chaveSerial}"/>
 						
+						
+						<h:outputLabel value="#{pcBean.pc.chaveSerial.serial}" />
 					
 			    		
 			    		
 						
 						<h:commandButton value="Gravar" action="#{pcBean.grava }">
 					<f:ajax execute="@form" render="@form :form2:datatable" />
+				</h:commandButton>	
+				<h:commandButton value="Editar" action="#{pcBean.altera }" rendered="#{not empty pcBean.pc.numeroPatrimonial}">
+					<f:ajax execute="@form" render="@form :form2:datatable" />
 				</h:commandButton>				
 			</fieldset>
 		</h:form>
 		<h2>Listagem de Equipamentos</h2>
 		<h:form id="form2">
-			<p:dataTable value="#{pcBean.pcs}" var="pc"
+			<p:dataTable value="#{pcBean.pcsComChaveSerial}" var="pc"
 				id="datatable" paginator="true" rows="10" dynamic="true" lazy="true">
 				<p:column headerText="NP">#{pc.numeroPatrimonial}</p:column>
 				<p:column headerText="NOME">#{pc.nome}</p:column>

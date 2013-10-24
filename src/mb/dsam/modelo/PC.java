@@ -3,10 +3,10 @@ package mb.dsam.modelo;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -17,7 +17,7 @@ public class Pc implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id
+	@Id @Column(unique=true)
 	private Long numeroPatrimonial;
 	private String nome;
 	private Integer ip;

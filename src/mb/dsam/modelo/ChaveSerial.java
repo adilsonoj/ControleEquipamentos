@@ -3,6 +3,7 @@ package mb.dsam.modelo;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,7 +15,10 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(uniqueConstraints={@UniqueConstraint(columnNames={"chaveSerial", "sistemaoperacional_id"})})
+@Table(uniqueConstraints={
+		@UniqueConstraint(columnNames={"chaveSerial", "sistemaoperacional_id"}),
+		@UniqueConstraint(columnNames={"pc_numeropatrimonial"})
+})
 public class ChaveSerial implements Serializable{
 	
 	@Id
@@ -22,7 +26,7 @@ public class ChaveSerial implements Serializable{
 	private Long id;
 	private String ChaveSerial;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	private Pc pc;
 	
 	@ManyToOne

@@ -3,16 +3,16 @@ package mb.dsam.mb;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import mb.dsam.dao.SistemaOperacionalDao;
 import mb.dsam.modelo.SistemaOperacional;
 import mb.dsam.modelo.TipoSistemaOperacional;
 
-@SessionScoped
-@Named
+@ViewScoped
+@ManagedBean
 public class SistemaOperacionalBean implements Serializable {
 	
 	/**
