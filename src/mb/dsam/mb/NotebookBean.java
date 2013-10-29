@@ -10,10 +10,12 @@ import javax.inject.Inject;
 import mb.dsam.dao.ChaveSerialDao;
 import mb.dsam.dao.MemoriaDao;
 import mb.dsam.dao.NotebookDao;
+import mb.dsam.dao.ProcessadorDao;
 import mb.dsam.dao.SistemaOperacionalDao;
 import mb.dsam.modelo.ChaveSerial;
 import mb.dsam.modelo.Memoria;
 import mb.dsam.modelo.Notebook;
+import mb.dsam.modelo.Processador;
 import mb.dsam.modelo.SistemaOperacional;
 import mb.dsam.modelo.TipoSistemaOperacional;
 
@@ -35,7 +37,16 @@ public class NotebookBean implements Serializable{
 	private MemoriaDao memoriaDao;
 	@Inject
 	private Memoria memoria;
+	@Inject
+	private Processador processador;
+	@Inject
+	private ProcessadorDao processadorDao;
 	
+	
+	private Long processadorId;
+	
+	
+
 	public Memoria getMemoria() {
 		return memoria;
 	}
@@ -59,6 +70,9 @@ public class NotebookBean implements Serializable{
 	
 	
 	public void grava() {
+		Processador processadorRelacionado = processadorDao.busca(this.processadorId);
+		this.notebook.setProcessador(processadorRelacionado);
+		
 		Memoria memoriaRelacionado = memoriaDao.busca(this.memoriaId);
 		this.notebook.setMemoria(memoriaRelacionado);
 		notebookDao.adiciona(notebook);
@@ -80,6 +94,9 @@ public class NotebookBean implements Serializable{
 }
 
 public void altera(){
+	Processador processadorRelacionado = processadorDao.busca(this.processadorId);
+	this.notebook.setProcessador(processadorRelacionado);
+	
 	Memoria memoriaRelacionado = memoriaDao.busca(this.memoriaId);
 	this.notebook.setMemoria(memoriaRelacionado);
 	notebookDao.altera(notebook);
@@ -98,18 +115,7 @@ public void altera(){
 
 }
 	
-	public void grava_old() {
-		
-		if (this.notebook.getNumeroPatrimonial() == null) {
-			notebookDao.adiciona(notebook);
-			this.notebooks = notebookDao.lista();
-			limpaFormularioDoJSF();
-		} else {
-			notebookDao.altera(notebook);
-			this.notebooks =notebookDao.lista();
-			limpaFormularioDoJSF();
-		}
-	}
+	
 
 	public List<Notebook> getNotebooks() {
 		if (this.notebooks == null){
@@ -168,6 +174,21 @@ public void altera(){
 
 	public void setMemoriaId(Long memoriaId) {
 		this.memoriaId = memoriaId;
+	}
+	public Processador getProcessador() {
+		return processador;
+	}
+
+	public void setProcessador(Processador processador) {
+		this.processador = processador;
+	}
+
+	public Long getProcessadorId() {
+		return processadorId;
+	}
+
+	public void setProcessadorId(Long processadorId) {
+		this.processadorId = processadorId;
 	}
 	
 }

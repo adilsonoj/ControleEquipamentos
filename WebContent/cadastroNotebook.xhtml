@@ -20,9 +20,7 @@
 				
 				<h:outputLabel value="Nome:" for="nome" />
 				<p:inputText id="nome" value="#{notebookBean.notebook.nome}"/>
-				
-				
-				
+
 				<h:outputLabel value="IP:" for="ip" />
 				<p:inputText id="ip" value="#{notebookBean.notebook.ip}"/>
 				
@@ -30,7 +28,10 @@
 				<p:inputMask id="macAdress" value="#{notebookBean.notebook.macAdress}" mask="**:**:**:**:**:**"/>
 				
 				<h:outputLabel value="Processador:" for="processador" />
-				<p:inputText id="processador" value="#{notebookBean.notebook.processador}"/>
+				<h:selectOneMenu value="#{notebookBean.processadorId}">
+			    			<f:selectItem itemLabel="#{notebookBean.notebook.processador.marca}-#{notebookBean.notebook.processador.modelo}" itemValue="" noSelectionOption="false"/>
+			    			<f:selectItems value="#{processadorBean.processadores}" var="processador" itemLabel="#{processador.marca}-#{processador.modelo}" itemValue="#{processador.id}"/>
+			    </h:selectOneMenu>
 				
 				<h:outputLabel value="Memória:" for="memoria" />
 				<h:selectOneMenu value="#{notebookBean.memoriaId}">
@@ -38,15 +39,14 @@
 			    			<f:selectItems value="#{memoriaBean.memorias}" var="memoria" itemLabel="#{memoria.modelo}-#{memoria.tamanho}" itemValue="#{memoria.id}"/>
 			    </h:selectOneMenu>
 				
-				
 				<h:outputLabel value="SO:" for="so" />
 				<h:selectOneMenu value="#{notebookBean.sistemaOperacionalId}" id="so">
 		    		<f:selectItem itemLabel="#{notebookBean.notebook.chaveSerial.sistemaOperacional.nome}" itemValue="" noSelectionOption="true"/>
 		    		<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
 		    	</h:selectOneMenu>
 		    	<h:outputLabel value="Serial:" for="serial" />
-			    		<h:outputLabel value="#{notebookBean.notebook.chaveSerial.serial}" />
-						<p:inputText id="serial" value="#{notebookBean.chaveSerial.serial}"/>
+			    <h:outputLabel value="#{notebookBean.notebook.chaveSerial.serial}" />
+				<p:inputText id="serial" value="#{notebookBean.chaveSerial.serial}"/>
 				
 				
 				<h:commandButton value="Gravar" action="#{notebookBean.grava }" rendered="#{empty notebookBean.notebook.numeroPatrimonial}">
@@ -66,12 +66,11 @@
 				<p:column headerText="NOME">#{notebook.nome}</p:column>
 				<p:column headerText="IP">#{notebook.ip}</p:column>
 				<p:column headerText="MAC">#{notebook.macAdress}</p:column>
-				<p:column headerText="PROCESSADOR">#{notebook.processador}</p:column>
-				<p:column headerText="MEMÓRIA">#{notebook.memoria.modelo}-#{notebook.memoria.tamanho}</p:column>
+				<p:column headerText="PROCESSADOR">#{notebook.processador.marca} - #{notebook.processador.modelo}</p:column>
+				<p:column headerText="MEMÓRIA">#{notebook.memoria.modelo} - #{notebook.memoria.tamanho}</p:column>
 				<p:column headerText="SO">	#{notebook.chaveSerial.sistemaOperacional.nome}</p:column>
 				<p:column headerText="SERIAL">#{notebook.chaveSerial.chaveSerial}</p:column>
 				<p:column headerText="AÇÕES">
-					
 					<h:commandButton  action="#{notebookBean.remove(notebook)}" value="Remover" >
 						 <f:ajax render="@form" />
 					</h:commandButton>

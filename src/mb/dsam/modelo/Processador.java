@@ -16,6 +16,11 @@ public class Processador implements Serializable {
 	
 	@OneToMany(mappedBy="processador")
 	private List<Pc> pcs;
+	
+	@OneToMany(mappedBy="processador")
+	private List<Notebook> notebooks;
+
+	
 
 	public String getMarca() {
 		return marca;
@@ -39,6 +44,10 @@ public class Processador implements Serializable {
 
 	public List<Pc> getPcs() {
 		return pcs;
+	}
+	
+	public List<Notebook> getNotebooks() {
+		return notebooks;
 	}
 
 }

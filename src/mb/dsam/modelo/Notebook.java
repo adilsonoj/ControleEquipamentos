@@ -21,7 +21,7 @@ public class Notebook implements Serializable{
 	private Long ip;
 	private String macAdress;
 	
-	private String processador;
+	
 	
 	@OneToMany(mappedBy="notebook")
 	private List<Emprestimo> emprestimos;
@@ -32,6 +32,8 @@ public class Notebook implements Serializable{
 	
 	@ManyToOne(optional = true)
 	private Memoria memoria;
+	@ManyToOne(optional = true)
+	private Processador processador;
 		
 	public List<Emprestimo> getEmprestimos() {
 		return emprestimos;
@@ -67,10 +69,10 @@ public class Notebook implements Serializable{
 	public void setMemoria(Memoria memoria) {
 		this.memoria = memoria;
 	}
-	public String getProcessador() {
+	public Processador getProcessador() {
 		return processador;
 	}
-	public void setProcessador(String processador) {
+	public void setProcessador(Processador processador) {
 		this.processador = processador;
 	}
 
