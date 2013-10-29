@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/_template.xhtml">
+		<ui:define name="corpo">
+	
+		<h:form id="form1">
+				<h:messages styleClass="erros" />
+				
+				<fieldset>
+					<legend>Formulário</legend>
+					<h2>
+						<h:outputText value="Novo Processador"/>
+					</h2>
+					<h:outputLabel value="Marca:" for="marca" />
+					<p:inputText id="marca" value="#{processadorBean.processador.marca}" required="true"/>
+					
+					<h:outputLabel value="Modelo:" for="modelo" />
+					<p:inputText id="modelo" value="#{processadorBean.processador.modelo}" required="true"/>
+					
+					<h:commandButton value="Gravar" action="#{processadorBean.grava }" >
+						<f:ajax execute="@form" render="@form :form2:datatable" />
+					</h:commandButton>				
+				</fieldset>
+			</h:form>
+			<h2>Listagem de Memórias</h2>
+			<h:form id="form2">
+				<p:dataTable value="#{processadorBean.processadores}" var="processador"
+					id="datatable" paginator="true" rows="10" dynamic="true" lazy="true">
+					<p:column headerText="ID">#{processador.id}</p:column>
+					<p:column headerText="MARCA">#{processador.marca}</p:column>
+					<p:column headerText="MODELO">#{processador.modelo}</p:column>
+					<p:column  headerText="AÇÕES">
+						
+						<h:commandButton action="#{processadorBean.remove(processador)}"
+							value="Remover" >
+							 <f:ajax render="@form" />
+						</h:commandButton>
+						
+						<h:commandButton value="Alterar" >
+							<f:setPropertyActionListener target="#{processadorBean.processador}"
+								value="#{processador}" />
+							<f:ajax render=":form1" />
+						</h:commandButton>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

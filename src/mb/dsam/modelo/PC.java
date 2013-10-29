@@ -24,7 +24,7 @@ public class Pc implements Serializable{
 	private Integer ip;
 	private String macAdress;
 	
-	private String processador;
+	
 	private Integer lacre;
 	private String elementoOrganizacional;
 	private Integer andar;
@@ -35,7 +35,8 @@ public class Pc implements Serializable{
 	
 	@ManyToOne(optional = true)
 	private Memoria memoria;
-	
+	@ManyToOne(optional = true)
+	private Processador processador;
 	
 		
 	public Integer getAndar() {
@@ -74,10 +75,10 @@ public class Pc implements Serializable{
 	public void setMemoria(Memoria memoria) {
 		this.memoria = memoria;
 	}
-	public String getProcessador() {
+	public Processador getProcessador() {
 		return processador;
 	}
-	public void setProcessador(String processador) {
+	public void setProcessador(Processador processador) {
 		this.processador = processador;
 	}
 	public Integer getLacre() {

@@ -31,11 +31,15 @@
 				<p:inputMask id="macAdress" value="#{pcBean.pc.macAdress}"  mask="**:**:**:**:**:**"/>
 				
 				<h:outputLabel value="Processador:" for="processador" />
-				<p:inputText id="processador" value="#{pcBean.pc.processador}"/>
+				<h:selectOneMenu value="#{pcBean.processadorId}">
+			    			<f:selectItem itemLabel="#{pcBean.pc.processador.marca}-#{pcBean.pc.processador.modelo}" itemValue="" noSelectionOption="false"/>
+			    			<f:selectItems value="#{processadorBean.processadores}" var="processador" itemLabel="#{processador.marca}-#{processador.modelo}" itemValue="#{processador.id}"/>
+			    </h:selectOneMenu>
+				
 				
 				<h:outputLabel value="Memória:" for="memoria" />
 				<h:selectOneMenu value="#{pcBean.memoriaId}">
-			    			<f:selectItem itemLabel="#{pcBean.pc.memoria.modelo}-#{pcBean.pc.memoria.tamanho}" itemValue="" noSelectionOption="true"/>
+			    			<f:selectItem itemLabel="#{pcBean.pc.memoria.modelo}-#{pcBean.pc.memoria.tamanho}" itemValue="" noSelectionOption="false"/>
 			    			<f:selectItems value="#{memoriaBean.memorias}" var="memoria" itemLabel="#{memoria.modelo}-#{memoria.tamanho}" itemValue="#{memoria.id}"/>
 			    </h:selectOneMenu>
 				
@@ -53,21 +57,16 @@
 						<!-- Cadastro de SO  -->
 						<h:outputLabel value="SO:" for="so" />
 						<h:selectOneMenu value="#{pcBean.sistemaOperacionalId}">
-			    			<f:selectItem itemLabel="#{pcBean.pc.chaveSerial.sistemaOperacional.nome}" itemValue="" noSelectionOption="true"/>
+			    			<f:selectItem itemLabel="#{pcBean.pc.chaveSerial.sistemaOperacional.nome}" itemValue="" noSelectionOption="false"/>
 			    			<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
 			    		</h:selectOneMenu>
 			    		
 			    		<h:outputLabel value="Serial:" for="serial" />
 			    		<h:outputLabel value="#{pcBean.pc.chaveSerial.serial}" />
 						<p:inputText id="serial" value="#{pcBean.chaveSerial.serial}"/>
+				
 						
-						
-						
-					
-			    		
-			    		
-						
-						<h:commandButton value="Gravar" action="#{pcBean.grava }" rendered="#{empty pcBean.pc.numeroPatrimonial}">
+				<h:commandButton value="Gravar" action="#{pcBean.grava }" rendered="#{empty pcBean.pc.numeroPatrimonial}">
 					<f:ajax execute="@form" render="@form :form2:datatable" />
 				</h:commandButton>	
 				<h:commandButton value="Altera" action="#{pcBean.altera }" rendered="#{not empty pcBean.pc.numeroPatrimonial}">
@@ -87,8 +86,8 @@
 				<p:column headerText="NOME">#{pc.nome}</p:column>
 				<p:column headerText="IP">#{pc.ip}</p:column>
 				<p:column headerText="MAC">#{pc.macAdress}</p:column>
-				<p:column headerText="PROCESSADOR">#{pc.processador}</p:column>
-				<p:column headerText="MEMÓRIA">#{pc.memoria.modelo}-#{pc.memoria.tamanho}</p:column>
+				<p:column headerText="PROCESSADOR">#{pc.processador.marca} - #{pc.processador.modelo}</p:column>
+				<p:column headerText="MEMÓRIA">#{pc.memoria.modelo} - #{pc.memoria.tamanho}</p:column>
 				<p:column headerText="LACRE">#{pc.lacre}</p:column>
 				<p:column headerText="ANDAR">#{pc.andar}</p:column>
 				<p:column headerText="ELEMENTO ORG.">#{pc.elementoOrganizacional}</p:column>

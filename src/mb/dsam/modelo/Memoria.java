@@ -1,5 +1,6 @@
 package mb.dsam.modelo;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Memoria {
+public class Memoria implements Serializable{
 	@Id @GeneratedValue
 	private Long id;
 	private String modelo;

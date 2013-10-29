@@ -10,10 +10,12 @@ import javax.inject.Inject;
 import mb.dsam.dao.ChaveSerialDao;
 import mb.dsam.dao.MemoriaDao;
 import mb.dsam.dao.PcDao;
+import mb.dsam.dao.ProcessadorDao;
 import mb.dsam.dao.SistemaOperacionalDao;
 import mb.dsam.modelo.ChaveSerial;
 import mb.dsam.modelo.Memoria;
 import mb.dsam.modelo.Pc;
+import mb.dsam.modelo.Processador;
 import mb.dsam.modelo.SistemaOperacional;
 
 @ViewScoped
@@ -36,9 +38,14 @@ public class PcBean implements Serializable {
 	private Memoria memoria;
 	@Inject
 	private MemoriaDao memoriaDao;
+	@Inject
+	private Processador processador;
+	@Inject
+	private ProcessadorDao processadorDao;
 	
 	
-
+	private Long processadorId;
+	
 	private Long sistemaOperacionalId;
 	private String serial;
 	private Long memoriaId;
@@ -56,6 +63,9 @@ public class PcBean implements Serializable {
 	}
 	
 	public void grava() {
+			Processador processadorRelacionado = processadorDao.busca(this.processadorId);
+			this.pc.setProcessador(processadorRelacionado);
+			
 			Memoria memoriaRelacionado = memoriaDao.busca(this.memoriaId);
 			this.pc.setMemoria(memoriaRelacionado);
 			pcDao.adiciona(pc);
@@ -77,6 +87,9 @@ public class PcBean implements Serializable {
 	}
 	
 	public void altera(){
+		Processador processadorRelacionado = processadorDao.busca(this.processadorId);
+		this.pc.setProcessador(processadorRelacionado);
+		
 		Memoria memoriaRelacionado = memoriaDao.busca(this.memoriaId);
 		this.pc.setMemoria(memoriaRelacionado);
 		pcDao.altera(pc);
@@ -182,4 +195,20 @@ public class PcBean implements Serializable {
 		this.memoria = memoria;
 	}
 	
+	public Processador getProcessador() {
+		return processador;
+	}
+
+	public void setProcessador(Processador processador) {
+		this.processador = processador;
+	}
+
+	public Long getProcessadorId() {
+		return processadorId;
+	}
+
+	public void setProcessadorId(Long processadorId) {
+		this.processadorId = processadorId;
+	}
+
 }
