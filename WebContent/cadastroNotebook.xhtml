@@ -33,7 +33,10 @@
 				<p:inputText id="processador" value="#{notebookBean.notebook.processador}"/>
 				
 				<h:outputLabel value="Memória:" for="memoria" />
-				<p:inputText id="memoria" value="#{notebookBean.notebook.memoria}"/>
+				<h:selectOneMenu value="#{notebookBean.memoriaId}">
+			    			<f:selectItem itemLabel="#{notebookBean.notebook.memoria.modelo}-#{notebookBean.notebook.memoria.tamanho}" itemValue="" noSelectionOption="true"/>
+			    			<f:selectItems value="#{memoriaBean.memorias}" var="memoria" itemLabel="#{memoria.modelo}-#{memoria.tamanho}" itemValue="#{memoria.id}"/>
+			    </h:selectOneMenu>
 				
 				
 				<h:outputLabel value="SO:" for="so" />
@@ -64,7 +67,7 @@
 				<p:column headerText="IP">#{notebook.ip}</p:column>
 				<p:column headerText="MAC">#{notebook.macAdress}</p:column>
 				<p:column headerText="PROCESSADOR">#{notebook.processador}</p:column>
-				<p:column headerText="MEMÓRIA">#{notebook.memoria}</p:column>
+				<p:column headerText="MEMÓRIA">#{notebook.memoria.modelo}-#{notebook.memoria.tamanho}</p:column>
 				<p:column headerText="SO">	#{notebook.chaveSerial.sistemaOperacional.nome}</p:column>
 				<p:column headerText="SERIAL">#{notebook.chaveSerial.chaveSerial}</p:column>
 				<p:column headerText="AÇÕES">

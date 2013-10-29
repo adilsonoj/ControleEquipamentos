@@ -8,9 +8,11 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import mb.dsam.dao.ChaveSerialDao;
+import mb.dsam.dao.MemoriaDao;
 import mb.dsam.dao.NotebookDao;
 import mb.dsam.dao.SistemaOperacionalDao;
 import mb.dsam.modelo.ChaveSerial;
+import mb.dsam.modelo.Memoria;
 import mb.dsam.modelo.Notebook;
 import mb.dsam.modelo.SistemaOperacional;
 import mb.dsam.modelo.TipoSistemaOperacional;
@@ -29,6 +31,16 @@ public class NotebookBean implements Serializable{
 	private ChaveSerialDao chaveSerialDao;
 	@Inject
 	private SistemaOperacionalDao soDao;
+	@Inject
+	private MemoriaDao memoriaDao;
+	@Inject
+	private Memoria memoria;
+	
+	public Memoria getMemoria() {
+		return memoria;
+	}
+
+	private Long memoriaId;
 	
 	private Long sistemaOperacionalId;
 
@@ -47,7 +59,8 @@ public class NotebookBean implements Serializable{
 	
 	
 	public void grava() {
-		
+		Memoria memoriaRelacionado = memoriaDao.busca(this.memoriaId);
+		this.notebook.setMemoria(memoriaRelacionado);
 		notebookDao.adiciona(notebook);
 		
 		Notebook notebookRelacionado = notebookDao.busca(notebook.getNumeroPatrimonial());
@@ -67,7 +80,8 @@ public class NotebookBean implements Serializable{
 }
 
 public void altera(){
-	
+	Memoria memoriaRelacionado = memoriaDao.busca(this.memoriaId);
+	this.notebook.setMemoria(memoriaRelacionado);
 	notebookDao.altera(notebook);
 	
 	ChaveSerial chave = chaveSerialDao.buscaPorNotebook(notebook);
@@ -146,6 +160,14 @@ public void altera(){
 
 	public void setChavesSeriais(List<ChaveSerial> chavesSeriais) {
 		this.chavesSeriais = chavesSeriais;
+	}
+
+	public Long getMemoriaId() {
+		return memoriaId;
+	}
+
+	public void setMemoriaId(Long memoriaId) {
+		this.memoriaId = memoriaId;
 	}
 	
 }

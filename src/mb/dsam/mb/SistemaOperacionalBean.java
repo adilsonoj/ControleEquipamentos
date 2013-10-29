@@ -73,8 +73,6 @@ public class SistemaOperacionalBean implements Serializable {
 		this.sistemaOperacional = new SistemaOperacional();
 	}
 	
-	public TipoSistemaOperacional[] getTiposSistemaOperacional() {
-		return TipoSistemaOperacional.values();
-	}
+	
 	
 }

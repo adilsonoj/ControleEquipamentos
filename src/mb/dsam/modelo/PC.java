@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -22,7 +23,7 @@ public class Pc implements Serializable{
 	private String nome;
 	private Integer ip;
 	private String macAdress;
-	private String memoria;
+	
 	private String processador;
 	private Integer lacre;
 	private String elementoOrganizacional;
@@ -31,6 +32,9 @@ public class Pc implements Serializable{
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = true, mappedBy="pc")
 	@PrimaryKeyJoinColumn
 	private ChaveSerial chaveSerial;
+	
+	@ManyToOne(optional = true)
+	private Memoria memoria;
 	
 	
 		
@@ -64,10 +68,10 @@ public class Pc implements Serializable{
 	public void setMacAdress(String macAdress) {
 		this.macAdress = macAdress;
 	}
-	public String getMemoria() {
+	public Memoria getMemoria() {
 		return memoria;
 	}
-	public void setMemoria(String memoria) {
+	public void setMemoria(Memoria memoria) {
 		this.memoria = memoria;
 	}
 	public String getProcessador() {

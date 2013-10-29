@@ -18,6 +18,7 @@
 		<class>mb.dsam.modelo.ChaveSerial</class>
 		<class>mb.dsam.modelo.Impressora</class>
 		<class>mb.dsam.modelo.Emprestimo</class>
+		<class>mb.dsam.modelo.Memoria</class>
 		<properties>
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />

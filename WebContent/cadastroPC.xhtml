@@ -34,7 +34,11 @@
 				<p:inputText id="processador" value="#{pcBean.pc.processador}"/>
 				
 				<h:outputLabel value="Memória:" for="memoria" />
-				<p:inputText id="memoria" value="#{pcBean.pc.memoria}"/>
+				<h:selectOneMenu value="#{pcBean.memoriaId}">
+			    			<f:selectItem itemLabel="#{pcBean.pc.memoria.modelo}-#{pcBean.pc.memoria.tamanho}" itemValue="" noSelectionOption="true"/>
+			    			<f:selectItems value="#{memoriaBean.memorias}" var="memoria" itemLabel="#{memoria.modelo}-#{memoria.tamanho}" itemValue="#{memoria.id}"/>
+			    </h:selectOneMenu>
+				
 				
 				<h:outputLabel value="Lacre:" for="lacre" />
 				<p:inputText id="lacre" value="#{pcBean.pc.lacre}"/>
@@ -84,7 +88,7 @@
 				<p:column headerText="IP">#{pc.ip}</p:column>
 				<p:column headerText="MAC">#{pc.macAdress}</p:column>
 				<p:column headerText="PROCESSADOR">#{pc.processador}</p:column>
-				<p:column headerText="MEMÓRIA">#{pc.memoria}</p:column>
+				<p:column headerText="MEMÓRIA">#{pc.memoria.modelo}-#{pc.memoria.tamanho}</p:column>
 				<p:column headerText="LACRE">#{pc.lacre}</p:column>
 				<p:column headerText="ANDAR">#{pc.andar}</p:column>
 				<p:column headerText="ELEMENTO ORG.">#{pc.elementoOrganizacional}</p:column>

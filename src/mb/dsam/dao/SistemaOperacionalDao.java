@@ -1,5 +1,6 @@
 package mb.dsam.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -9,7 +10,7 @@ import javax.persistence.PersistenceContext;
 import mb.dsam.modelo.SistemaOperacional;
 
 @Stateless
-public class SistemaOperacionalDao {
+public class SistemaOperacionalDao implements Serializable{
 	
 	@PersistenceContext
 	EntityManager manager;

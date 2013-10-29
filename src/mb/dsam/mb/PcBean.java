@@ -8,9 +8,11 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import mb.dsam.dao.ChaveSerialDao;
+import mb.dsam.dao.MemoriaDao;
 import mb.dsam.dao.PcDao;
 import mb.dsam.dao.SistemaOperacionalDao;
 import mb.dsam.modelo.ChaveSerial;
+import mb.dsam.modelo.Memoria;
 import mb.dsam.modelo.Pc;
 import mb.dsam.modelo.SistemaOperacional;
 
@@ -30,10 +32,16 @@ public class PcBean implements Serializable {
 	private ChaveSerialDao chaveSerialDao;
 	@Inject
 	private SistemaOperacionalDao soDao;
+	@Inject
+	private Memoria memoria;
+	@Inject
+	private MemoriaDao memoriaDao;
 	
+	
+
 	private Long sistemaOperacionalId;
 	private String serial;
-	
+	private Long memoriaId;
 	private List<ChaveSerial> chavesSeriais;
 	
 	private List<Pc> pcs;
@@ -48,7 +56,8 @@ public class PcBean implements Serializable {
 	}
 	
 	public void grava() {
-				
+			Memoria memoriaRelacionado = memoriaDao.busca(this.memoriaId);
+			this.pc.setMemoria(memoriaRelacionado);
 			pcDao.adiciona(pc);
 			
 			Pc pcRelacionado = pcDao.busca(pc.getNumeroPatrimonial());
@@ -68,7 +77,8 @@ public class PcBean implements Serializable {
 	}
 	
 	public void altera(){
-		
+		Memoria memoriaRelacionado = memoriaDao.busca(this.memoriaId);
+		this.pc.setMemoria(memoriaRelacionado);
 		pcDao.altera(pc);
 		
 		ChaveSerial chave = chaveSerialDao.buscaPorPc(pc);
@@ -155,7 +165,21 @@ public class PcBean implements Serializable {
 		this.serial = serial;
 	}
 
+	public Long getMemoriaId() {
+		return memoriaId;
+	}
+
+	public void setMemoriaId(Long memoriaId) {
+		this.memoriaId = memoriaId;
+	}
+
 	
-	
+	public Memoria getMemoria() {
+		return memoria;
+	}
+
+	public void setMemoria(Memoria memoria) {
+		this.memoria = memoria;
+	}
 	
 }

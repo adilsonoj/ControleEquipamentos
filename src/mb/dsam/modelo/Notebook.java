@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -19,7 +20,7 @@ public class Notebook implements Serializable{
 	private String nome;
 	private Long ip;
 	private String macAdress;
-	private String memoria;
+	
 	private String processador;
 	
 	@OneToMany(mappedBy="notebook")
@@ -29,6 +30,8 @@ public class Notebook implements Serializable{
 	@PrimaryKeyJoinColumn
 	private ChaveSerial chaveSerial;
 	
+	@ManyToOne(optional = true)
+	private Memoria memoria;
 		
 	public List<Emprestimo> getEmprestimos() {
 		return emprestimos;
@@ -58,10 +61,10 @@ public class Notebook implements Serializable{
 	public void setMacAdress(String macAdress) {
 		this.macAdress = macAdress;
 	}
-	public String getMemoria() {
+	public Memoria getMemoria() {
 		return memoria;
 	}
-	public void setMemoria(String memoria) {
+	public void setMemoria(Memoria memoria) {
 		this.memoria = memoria;
 	}
 	public String getProcessador() {
