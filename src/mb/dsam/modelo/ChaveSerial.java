@@ -2,15 +2,12 @@ package mb.dsam.modelo;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -28,6 +25,9 @@ public class ChaveSerial implements Serializable{
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	private Pc pc;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	private Notebook notebook;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private SistemaOperacional sistemaOperacional;
@@ -71,6 +71,14 @@ public class ChaveSerial implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Notebook getNotebook() {
+		return notebook;
+	}
+
+	public void setNotebook(Notebook notebook) {
+		this.notebook = notebook;
 	}
 	
 	

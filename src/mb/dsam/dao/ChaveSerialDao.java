@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import mb.dsam.modelo.ChaveSerial;
+import mb.dsam.modelo.Notebook;
 import mb.dsam.modelo.Pc;
 
 
@@ -25,6 +26,11 @@ public class ChaveSerialDao {
 	
 	public ChaveSerial buscaPorPc(Pc pc){
 		return this.manager.createQuery("select c from ChaveSerial c where c.pc = pc", ChaveSerial.class)
+				.getSingleResult();
+	}
+	
+	public ChaveSerial buscaPorNotebook(Notebook notebook){
+		return this.manager.createQuery("select c from ChaveSerial c where c.notebook = notebook", ChaveSerial.class)
 				.getSingleResult();
 	}
 

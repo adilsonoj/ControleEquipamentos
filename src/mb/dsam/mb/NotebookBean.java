@@ -7,8 +7,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
+import mb.dsam.dao.ChaveSerialDao;
 import mb.dsam.dao.NotebookDao;
+import mb.dsam.dao.SistemaOperacionalDao;
+import mb.dsam.modelo.ChaveSerial;
 import mb.dsam.modelo.Notebook;
+import mb.dsam.modelo.SistemaOperacional;
 import mb.dsam.modelo.TipoSistemaOperacional;
 
 @ViewScoped
@@ -17,13 +21,20 @@ public class NotebookBean implements Serializable{
 	
 	@Inject
 	Notebook notebook;
-	
 	@Inject
-	NotebookDao dao;
+	NotebookDao notebookDao;
+	@Inject
+	private ChaveSerial chaveSerial;
+	@Inject
+	private ChaveSerialDao chaveSerialDao;
+	@Inject
+	private SistemaOperacionalDao soDao;
 	
-	
+	private Long sistemaOperacionalId;
 
 	private List<Notebook> notebooks;
+	
+	private List<ChaveSerial> chavesSeriais;
 
 	public Notebook getNotebook() {
 		return notebook;
@@ -33,30 +44,70 @@ public class NotebookBean implements Serializable{
 		this.notebook = notebook;
 	}
 	
+	
+	
 	public void grava() {
 		
+		notebookDao.adiciona(notebook);
+		
+		Notebook notebookRelacionado = notebookDao.busca(notebook.getNumeroPatrimonial());
+		this.chaveSerial.setNotebook(notebookRelacionado);
+		
+		SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);
+		this.chaveSerial.setSistemaOperacional(soRelacionado);
+		
+		
+		this.chaveSerialDao.adiciona(chaveSerial);
+		
+		this.chavesSeriais = chaveSerialDao.lista();
+		this.notebooks = notebookDao.lista();
+		
+		limpaFormularioDoJSF();
+	
+}
+
+public void altera(){
+	
+	notebookDao.altera(notebook);
+	
+	ChaveSerial chave = chaveSerialDao.buscaPorNotebook(notebook);
+	
+	
+	SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);
+	chave.setSistemaOperacional(soRelacionado);
+	chave.setChaveSerial(this.chaveSerial.getSerial());
+	this.chaveSerialDao.altera(chave);
+	
+	this.chavesSeriais = chaveSerialDao.lista();
+	this.notebooks = notebookDao.lista();
+	limpaFormularioDoJSF();
+
+}
+	
+	public void grava_old() {
+		
 		if (this.notebook.getNumeroPatrimonial() == null) {
-			dao.adiciona(notebook);
-			this.notebooks = dao.lista();
+			notebookDao.adiciona(notebook);
+			this.notebooks = notebookDao.lista();
 			limpaFormularioDoJSF();
 		} else {
-			dao.altera(notebook);
-			this.notebooks =dao.lista();
+			notebookDao.altera(notebook);
+			this.notebooks =notebookDao.lista();
 			limpaFormularioDoJSF();
 		}
 	}
 
 	public List<Notebook> getNotebooks() {
 		if (this.notebooks == null){
-			this.notebooks = dao.lista();
+			this.notebooks = notebookDao.lista();
 		}
 		return notebooks;
 	}
 	
 	public void remove(Notebook notebook) {
 		System.out.println("Removendo...");
-		dao.remove(notebook);
-		this.notebooks = dao.lista();
+		notebookDao.remove(notebook);
+		this.notebooks = notebookDao.lista();
 		limpaFormularioDoJSF();
 	}
 	
@@ -71,6 +122,30 @@ public class NotebookBean implements Serializable{
 	
 	public TipoSistemaOperacional[] getTiposSistemasOperacionais() {
 		return TipoSistemaOperacional.values();
+	}
+
+	public ChaveSerial getChaveSerial() {
+		return chaveSerial;
+	}
+
+	public void setChaveSerial(ChaveSerial chaveSerial) {
+		this.chaveSerial = chaveSerial;
+	}
+
+	public Long getSistemaOperacionalId() {
+		return sistemaOperacionalId;
+	}
+
+	public void setSistemaOperacionalId(Long sistemaOperacionalId) {
+		this.sistemaOperacionalId = sistemaOperacionalId;
+	}
+
+	public List<ChaveSerial> getChavesSeriais() {
+		return chavesSeriais;
+	}
+
+	public void setChavesSeriais(List<ChaveSerial> chavesSeriais) {
+		this.chavesSeriais = chavesSeriais;
 	}
 	
 }

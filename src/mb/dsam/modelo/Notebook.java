@@ -3,10 +3,13 @@ package mb.dsam.modelo;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class Notebook implements Serializable{
@@ -21,6 +24,10 @@ public class Notebook implements Serializable{
 	
 	@OneToMany(mappedBy="notebook")
 	private List<Emprestimo> emprestimos;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = true, mappedBy="notebook")
+	@PrimaryKeyJoinColumn
+	private ChaveSerial chaveSerial;
 	
 		
 	public List<Emprestimo> getEmprestimos() {
@@ -62,6 +69,18 @@ public class Notebook implements Serializable{
 	}
 	public void setProcessador(String processador) {
 		this.processador = processador;
+	}
+
+	public ChaveSerial getChaveSerial() {
+		return chaveSerial;
+	}
+
+	public void setChaveSerial(ChaveSerial chaveSerial) {
+		this.chaveSerial = chaveSerial;
+	}
+
+	public void setEmprestimos(List<Emprestimo> emprestimos) {
+		this.emprestimos = emprestimos;
 	}
 	
 	

@@ -54,18 +54,19 @@
 			    		</h:selectOneMenu>
 			    		
 			    		<h:outputLabel value="Serial:" for="serial" />
+			    		<h:outputLabel value="#{pcBean.pc.chaveSerial.serial}" />
 						<p:inputText id="serial" value="#{pcBean.chaveSerial.serial}"/>
 						
 						
-						<h:outputLabel value="#{pcBean.pc.chaveSerial.serial}" />
+						
 					
 			    		
 			    		
 						
-						<h:commandButton value="Gravar" action="#{pcBean.grava }">
+						<h:commandButton value="Gravar" action="#{pcBean.grava }" rendered="#{empty pcBean.pc.numeroPatrimonial}">
 					<f:ajax execute="@form" render="@form :form2:datatable" />
 				</h:commandButton>	
-				<h:commandButton value="Altera" action="#{pcBean.altera }">
+				<h:commandButton value="Altera" action="#{pcBean.altera }" rendered="#{not empty pcBean.pc.numeroPatrimonial}">
 					<f:ajax execute="@form" render="@form :form2:datatable" />
 				</h:commandButton>
 							

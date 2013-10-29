@@ -21,11 +21,7 @@
 				<h:outputLabel value="Nome:" for="nome" />
 				<p:inputText id="nome" value="#{notebookBean.notebook.nome}"/>
 				
-				<h:outputLabel value="SO:" for="so" />
-				<h:selectOneMenu value="#{notebookBean.notebook.sistemaOperacional}" id="so">
-		    		<f:selectItem itemLabel="Sistema Operacional" itemValue="" noSelectionOption="true"/>
-		    		<f:selectItems value="#{notebookBean.tiposSistemasOperacionais}" />
-		    	</h:selectOneMenu>
+				
 				
 				<h:outputLabel value="IP:" for="ip" />
 				<p:inputText id="ip" value="#{notebookBean.notebook.ip}"/>
@@ -39,9 +35,23 @@
 				<h:outputLabel value="Memória:" for="memoria" />
 				<p:inputText id="memoria" value="#{notebookBean.notebook.memoria}"/>
 				
-				<h:commandButton value="Gravar" action="#{notebookBean.grava }" >
+				
+				<h:outputLabel value="SO:" for="so" />
+				<h:selectOneMenu value="#{notebookBean.sistemaOperacionalId}" id="so">
+		    		<f:selectItem itemLabel="#{notebookBean.notebook.chaveSerial.sistemaOperacional.nome}" itemValue="" noSelectionOption="true"/>
+		    		<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
+		    	</h:selectOneMenu>
+		    	<h:outputLabel value="Serial:" for="serial" />
+			    		<h:outputLabel value="#{notebookBean.notebook.chaveSerial.serial}" />
+						<p:inputText id="serial" value="#{notebookBean.chaveSerial.serial}"/>
+				
+				
+				<h:commandButton value="Gravar" action="#{notebookBean.grava }" rendered="#{empty notebookBean.notebook.numeroPatrimonial}">
 					<f:ajax execute="@form" render="@form :form2:datatable" />
 				</h:commandButton>				
+				<h:commandButton value="Altera" action="#{notebookBean.altera }" rendered="#{not empty notebookBean.notebook.numeroPatrimonial}">
+					<f:ajax execute="@form" render="@form :form2:datatable" />
+				</h:commandButton>
 			</fieldset>
 		</h:form>
 		<h2>Listagem de Equipamentos</h2>
@@ -55,6 +65,8 @@
 				<p:column headerText="MAC">#{notebook.macAdress}</p:column>
 				<p:column headerText="PROCESSADOR">#{notebook.processador}</p:column>
 				<p:column headerText="MEMÓRIA">#{notebook.memoria}</p:column>
+				<p:column headerText="SO">	#{notebook.chaveSerial.sistemaOperacional.nome}</p:column>
+				<p:column headerText="SERIAL">#{notebook.chaveSerial.chaveSerial}</p:column>
 				<p:column headerText="AÇÕES">
 					
 					<h:commandButton  action="#{notebookBean.remove(notebook)}" value="Remover" >
