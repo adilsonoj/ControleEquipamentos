@@ -21,6 +21,8 @@ public class PcDao {
 	public Pc busca(Long id) {
 		return this.manager.find(Pc.class, id);
 	}
+	
+	
 
 	public List<Pc> lista() {
 		return this.manager.createQuery("select c from Pc c", Pc.class)

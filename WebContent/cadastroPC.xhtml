@@ -54,7 +54,7 @@
 			    		</h:selectOneMenu>
 			    		
 			    		<h:outputLabel value="Serial:" for="serial" />
-						<p:inputText id="serial" value="#{pcBean.chaveSerial.chaveSerial}"/>
+						<p:inputText id="serial" value="#{pcBean.chaveSerial.serial}"/>
 						
 						
 						<h:outputLabel value="#{pcBean.pc.chaveSerial.serial}" />
@@ -65,11 +65,15 @@
 						<h:commandButton value="Gravar" action="#{pcBean.grava }">
 					<f:ajax execute="@form" render="@form :form2:datatable" />
 				</h:commandButton>	
-				<h:commandButton value="Editar" action="#{pcBean.altera }" rendered="#{not empty pcBean.pc.numeroPatrimonial}">
+				<h:commandButton value="Altera" action="#{pcBean.altera }">
 					<f:ajax execute="@form" render="@form :form2:datatable" />
-				</h:commandButton>				
+				</h:commandButton>
+							
 			</fieldset>
 		</h:form>
+		
+		
+		
 		<h2>Listagem de Equipamentos</h2>
 		<h:form id="form2">
 			<p:dataTable value="#{pcBean.pcsComChaveSerial}" var="pc"

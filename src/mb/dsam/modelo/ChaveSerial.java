@@ -29,7 +29,7 @@ public class ChaveSerial implements Serializable{
 	@OneToOne(fetch = FetchType.EAGER)
 	private Pc pc;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	private SistemaOperacional sistemaOperacional;
 
 	

@@ -32,6 +32,7 @@ public class PcBean implements Serializable {
 	private SistemaOperacionalDao soDao;
 	
 	private Long sistemaOperacionalId;
+	private String serial;
 	
 	private List<ChaveSerial> chavesSeriais;
 	
@@ -47,8 +48,7 @@ public class PcBean implements Serializable {
 	}
 	
 	public void grava() {
-		if (this.pc.getNumeroPatrimonial() == null) {
-			
+				
 			pcDao.adiciona(pc);
 			
 			Pc pcRelacionado = pcDao.busca(pc.getNumeroPatrimonial());
@@ -57,39 +57,32 @@ public class PcBean implements Serializable {
 			SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);
 			this.chaveSerial.setSistemaOperacional(soRelacionado);
 			
+			
 			this.chaveSerialDao.adiciona(chaveSerial);
 			
 			this.chavesSeriais = chaveSerialDao.lista();
-			this.pcs = pcDao.lista();
+			this.pcs = pcDao.listaComChave();
 			
 			limpaFormularioDoJSF();
-		} else {
-
-			pcDao.altera(pc);
-			
-			Pc pcRelacionado = pcDao.busca(pc.getNumeroPatrimonial());
-			this.chaveSerial.setPc(pcRelacionado);
-			
-			SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);
-			this.chaveSerial.setSistemaOperacional(soRelacionado);
-			this.chaveSerialDao.adiciona(chaveSerial);
-			
-			this.chavesSeriais = chaveSerialDao.lista();
-			this.pcs = pcDao.lista();
-			limpaFormularioDoJSF();
-		}
+		
 	}
 	
 	public void altera(){
 		
-		SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);
-		this.chaveSerial.setSistemaOperacional(soRelacionado);
+		pcDao.altera(pc);
 		
-		this.chaveSerialDao.altera(chaveSerial);
-
-		this.pcs = pcDao.lista();
+		ChaveSerial chave = chaveSerialDao.buscaPorPc(pc);
+		
+		
+		SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);
+		chave.setSistemaOperacional(soRelacionado);
+		chave.setChaveSerial(this.chaveSerial.getSerial());
+		this.chaveSerialDao.altera(chave);
+		
 		this.chavesSeriais = chaveSerialDao.lista();
+		this.pcs = pcDao.listaComChave();
 		limpaFormularioDoJSF();
+	
 	}
 	
 	private void gravaChaveSerial(){
@@ -152,6 +145,14 @@ public class PcBean implements Serializable {
 
 	public void setChavesSeriais(List<ChaveSerial> chavesSeriais) {
 		this.chavesSeriais = chavesSeriais;
+	}
+
+	public String getSerial() {
+		return serial;
+	}
+
+	public void setSerial(String serial) {
+		this.serial = serial;
 	}
 
 	

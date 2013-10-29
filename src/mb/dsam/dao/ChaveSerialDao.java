@@ -19,12 +19,13 @@ public class ChaveSerialDao {
 		this.manager.persist(chaveSerial);
 	}
 
-	public ChaveSerial busca(Long numeroPatrimonial) {
-		return this.manager.find(ChaveSerial.class, numeroPatrimonial);
+	public ChaveSerial busca(Long id) {
+		return this.manager.find(ChaveSerial.class, id);
 	}
 	
 	public ChaveSerial buscaPorPc(Pc pc){
-		return this.manager.find(ChaveSerial.class, pc);
+		return this.manager.createQuery("select c from ChaveSerial c where c.pc = pc", ChaveSerial.class)
+				.getSingleResult();
 	}
 
 	public List<ChaveSerial> lista() {
