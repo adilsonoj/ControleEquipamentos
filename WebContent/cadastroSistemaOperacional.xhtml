@@ -1,4 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -12,10 +13,12 @@
 			<h:messages styleClass="erros" />
 			
 			
+			
 			<fieldset>
-				<legend>Dados do Formulário</legend>
+					<legend>Cadastro de Sistema Operacional</legend>
 				<h2>
-					<h:outputText value="Novo Sistema Operacional"/>
+					<h:outputText value="Novo" rendered="#{empty sistemaOperacionalBean.sistemaOperacional.id}"/>
+					<h:outputText value="Alterar" rendered="#{not empty sistemaOperacionalBean.sistemaOperacional.id}"/>
 				</h2>
 				<h:outputLabel value="Nome:" for="nome" />
 				<p:inputText id="nome" value="#{sistemaOperacionalBean.sistemaOperacional.nome}" required="true"/>
@@ -29,7 +32,7 @@
 		<h:form id="form2">
 			<p:dataTable value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so"
 				id="datatable" paginator="true" rows="10" dynamic="true" lazy="true">
-				<p:column headerText="ID">#{so.id}</p:column>
+				
 				<p:column headerText="NOME">#{so.nome}</p:column>
 				
 				<p:column  headerText="AÇÕES">
@@ -45,6 +48,9 @@
 						<f:ajax render=":form1" />
 					</h:commandButton>
 				</p:column>
+				<f:facet name="footer">  
+           	         		Total de: #{sistemaOperacionalBean.sistemasOperacionais.size()}    
+       			 </f:facet> 
 			</p:dataTable>
 		</h:form>
 		</ui:define>

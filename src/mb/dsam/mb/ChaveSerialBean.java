@@ -8,10 +8,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.Query;
 
 import mb.dsam.dao.ChaveSerialDao;
 import mb.dsam.dao.SistemaOperacionalDao;
 import mb.dsam.modelo.ChaveSerial;
+import mb.dsam.modelo.Emprestimo;
 import mb.dsam.modelo.Pc;
 import mb.dsam.modelo.SistemaOperacional;
 
@@ -122,5 +124,11 @@ public class ChaveSerialBean implements Serializable{
 	public void setPc(Pc pc) {
 		this.pc = pc;
 	}
+	
+	public List<ChaveSerial> getListaPorSo(){
+		return dao.listaPorSo(this.sistemaOperacionalId);
+	}
+	
+	
 	
 }

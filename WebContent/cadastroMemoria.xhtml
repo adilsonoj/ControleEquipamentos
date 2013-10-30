@@ -13,9 +13,10 @@
 			
 			
 			<fieldset>
-				<legend>Formulário</legend>
+				<legend>Cadastro de Memória</legend>
 				<h2>
-					<h:outputText value="Nova Memória"/>
+					<h:outputText value="Novo" rendered="#{empty memoriaBean.memoria.id}"/>
+					<h:outputText value="Alterar" rendered="#{not empty memoriaBean.memoria.id}"/>
 				</h2>
 				<h:outputLabel value="Modelo:" for="modelo" />
 				<p:inputText id="modelo" value="#{memoriaBean.memoria.modelo}" required="true"/>
@@ -32,9 +33,9 @@
 		<h:form id="form2">
 			<p:dataTable value="#{memoriaBean.memorias}" var="memoria"
 				id="datatable" paginator="true" rows="10" dynamic="true" lazy="true">
-				<p:column headerText="ID">#{memoria.id}</p:column>
+				
 				<p:column headerText="MODELO">#{memoria.modelo}</p:column>
-				<p:column headerText="MODELO">#{memoria.tamanho}</p:column>
+				<p:column headerText="TAMANHO">#{memoria.tamanho}</p:column>
 				<p:column  headerText="AÇÕES">
 					
 					<h:commandButton action="#{memoriaBean.remove(memoria)}"
@@ -48,6 +49,9 @@
 						<f:ajax render=":form1" />
 					</h:commandButton>
 				</p:column>
+				<f:facet name="footer">  
+           	         		Total de: #{memoriaBean.memorias.size()}    
+       			 </f:facet> 
 			</p:dataTable>
 		</h:form>
 		</ui:define>

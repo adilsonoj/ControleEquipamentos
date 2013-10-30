@@ -12,9 +12,10 @@
 			<h:messages styleClass="erros" />
 			
 			<fieldset>
-				<legend>Emprestimo de Notebook</legend>
+					<legend>Empréstimo</legend>
 				<h2>
-					<h:outputText value="Novo Emprestimo"/>
+					<h:outputText value="Novo" rendered="#{empty emprestimoBean.emprestimo.id}"/>
+					<h:outputText value="Alterar" rendered="#{not empty emprestimoBean.emprestimo.id}"/>
 				</h2>
 				<h:outputLabel value="Notebook:" for="notebook" />
 				<h:selectOneMenu value="#{emprestimoBean.notebookNumeroPatrimonial}" id="notebook">

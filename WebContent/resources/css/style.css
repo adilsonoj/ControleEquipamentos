@@ -137,7 +137,23 @@ input[type=submit], button {
 	display: inline;
 }
 
-input[type=submit] {
+input[type=submit], button {
+	background:url("../resources/imagens/fundo_botao.gif") repeat-x scroll 0 0 #2A2A2A;
+	border:1px solid #272727;
+	color:#FFFFFF;
+	
+	padding:3px;
+	position: relative;
+	text-shadow:1px 1px 0 #000000;
+	
+	-moz-border-radius:5px 5px 5px 5px;
+	-webkit-border-radius:5px 5px 5px 5px;
+	border-radius:5px 5px 5px 5px;
+	
+	
+}
+
+input[type=button] {
 	background:url("../resources/imagens/fundo_botao.gif") repeat-x scroll 0 0 #2A2A2A;
 	border:1px solid #272727;
 	color:#FFFFFF;

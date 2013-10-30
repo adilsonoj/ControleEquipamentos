@@ -13,7 +13,8 @@
 			<fieldset>
 				<legend>Cadastro de Notebook</legend>
 				<h2>
-					<h:outputText value="Novo Equipamento"/>
+					<h:outputText value="Novo" rendered="#{empty notebookBean.notebook.numeroPatrimonial}"/>
+					<h:outputText value="Alterar" rendered="#{not empty notebookBean.notebook.numeroPatrimonial}"/>
 				</h2>
 				<h:outputLabel value="NP:" for="numeroPatrimonial" />
 				<p:inputText id="numeroPatrimonial" value="#{notebookBean.notebook.numeroPatrimonial}" required="true"/>
@@ -57,7 +58,7 @@
 				</h:commandButton>
 			</fieldset>
 		</h:form>
-		<h2>Listagem de Equipamentos</h2>
+		<h2>Listagem de Notebooks</h2>
 		<h:form id="form2">
 			<p:dataTable value="#{notebookBean.notebooks}" var="notebook" 
 				id="datatable" paginator="true" rows="10" dynamic="true" lazy="true">
@@ -80,6 +81,9 @@
 						<f:ajax render=":form1" />
 					</h:commandButton>
 				</p:column>
+				<f:facet name="footer">  
+           	         		Total de: #{notebookBean.notebooks.size()}    
+       			 </f:facet> 
 			</p:dataTable>
 		</h:form>
 	</ui:define>

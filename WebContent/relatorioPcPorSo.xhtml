@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/_template.xhtml">
+	<ui:define name="corpo">
+		<h2>Notebooks</h2>
+		<h:form id="form">
+				<p:messages styleClass="erros" />
+  
+  			 
+				<h:outputLabel value="SO:" for="so" />
+						<h:selectOneMenu value="#{chaveSerialBean.sistemaOperacionalId}" required="true">
+			    			<f:selectItem itemLabel="Escolha o SO" itemValue="" noSelectionOption="true"/>
+			    			<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
+			    		</h:selectOneMenu>
+	        	
+	        	<h:commandButton value="Listar" >
+					<f:ajax execute="@form" render="@form :form2:datatable" />
+				</h:commandButton>	
+				
+				
+				
+		</h:form>
+		<h2>PCs por Sistema Operacional </h2>
+		<h:form id="form2">
+			<h:commandButton value="Imprimir" type="button" >  
+       			 <p:printer target="datatable" />  
+    		</h:commandButton>  
+			<p:dataTable value="#{chaveSerialBean.listaPorSo}" var="pc"
+				id="datatable"  dynamic="true" lazy="true">
+				<f:facet name="header">  
+          		  	#{pc.sistemaOperacional.nome} 
+      		    </f:facet> 
+      		    
+				<p:column headerText="NP">#{pc.pc.numeroPatrimonial}</p:column>
+				<p:column headerText="NOME">#{pc.pc.nome}</p:column>
+				<p:column headerText="IP">#{pc.pc.ip}</p:column>
+				<p:column headerText="PROCESSADOR">#{pc.pc.processador}</p:column>
+				<p:column headerText="MEMÓRIA">#{pc.pc.memoria}</p:column>
+		
+				<f:facet name="footer">  
+           	         		Total de: #{chaveSerialBean.listaPorSo.size()}    
+       			 </f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+	</ui:composition>
+</html>

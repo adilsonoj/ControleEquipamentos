@@ -18,29 +18,34 @@
 		<h1>SISSPD</h1>
 	</div>
 
-
-	
 	<div id="conteudo">
 			<p:menubar>
-				<p:menuitem value="Cadastro de PC" url="cadastroPC.xhtml" />
-				<p:menuitem value="Cadastro de Notebook" url="cadastroNotebook.xhtml" />
-				<p:submenu label="Emprestimo">
-					<p:menuitem value="Novo Emprestimo" url="emprestimo.xhtml" />
-					<p:menuitem value="Listagem" url="emprestimoPorNotebook.xhtml" />
+				<p:submenu label="Cadastro">
+					<p:menuitem value="PC" url="cadastroPC.xhtml" />
+				<p:menuitem value="Notebook" url="cadastroNotebook.xhtml" />
 				</p:submenu>
-				<p:submenu label="Administrador">
+				
+				<p:submenu label="Empréstimo">
+					<p:menuitem value="Novo" url="emprestimo.xhtml" />
+					<p:menuitem value="Por Notebook" url="emprestimoPorNotebook.xhtml" />
+				</p:submenu>
+				<p:submenu label="Administrar">
 					<p:menuitem value="Sistema Operacional" url="cadastroSistemaOperacional.xhtml" />
 					<p:menuitem value="Memória" url="cadastroMemoria.xhtml" />
 					<p:menuitem value="Processador" url="cadastroProcessador.xhtml" />
 					
 				</p:submenu>
-				
+				<p:submenu label="Relátorios">
+					<p:menuitem value="PCs" url="relatorioTodosPcs.xhtml" />
+					<p:menuitem value="PCs por SO" url="relatorioPcPorSo.xhtml" />
+					<p:menuitem value="Notebooks" url="relatorioTodosNotebooks.xhtml" />
+					
+				</p:submenu>
 			</p:menubar>
 			<ui:insert name="corpo" />
 	</div>
 
-	<div id="rodape">SISSPD. Todos os Direitos reservados a
-		DSAM.</div>
+	<div id="rodape">SISSPD. Todos os Direitos reservados a DSAM.</div>
 
 </h:body>
 </html>

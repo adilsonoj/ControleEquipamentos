@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/_template.xhtml">
+	<ui:define name="corpo">
+		<h2>Notebooks</h2>
+		<h:form id="form">
+			<h:commandButton value="Imprimir" type="button" >  
+       			 <p:printer target="datatable" />  
+    		</h:commandButton>  
+  
+  			 
+			<p:dataTable value="#{notebookBean.notebooks}" var="notebook" 
+				id="datatable" dynamic="true" lazy="true">
+				
+				<p:column headerText="NP">#{notebook.numeroPatrimonial}</p:column>
+				<p:column headerText="NOME">#{notebook.nome}</p:column>
+				<p:column headerText="IP">#{notebook.ip}</p:column>
+				<p:column headerText="MAC">#{notebook.macAdress}</p:column>
+				<p:column headerText="PROCESSADOR">#{notebook.processador.marca} - #{notebook.processador.modelo}</p:column>
+				<p:column headerText="MEMÓRIA">#{notebook.memoria.modelo} - #{notebook.memoria.tamanho}</p:column>
+				<p:column headerText="SO">	#{notebook.chaveSerial.sistemaOperacional.nome}</p:column>
+				<p:column headerText="SERIAL">#{notebook.chaveSerial.chaveSerial}</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+	</ui:composition>
+</html>
