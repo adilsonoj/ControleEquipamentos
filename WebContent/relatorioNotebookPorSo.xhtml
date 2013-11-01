@@ -3,11 +3,11 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+        xmlns:p="http://primefaces.org/ui">
 
 	<ui:composition template="/_template.xhtml">
 	<ui:define name="corpo">
-		<h2>PCs por Sistema Operacional </h2>
+		<h2>Notebooks por Sistema Operacional</h2>
 		<h:form id="form">
 				<p:messages styleClass="erros" />
   
@@ -25,28 +25,29 @@
 				
 				
 		</h:form>
-		<h2>PCs</h2>
+		<h2>Notebooks</h2>
 		<h:form id="form2">
 			<h:commandButton value="Imprimir" type="button" >  
        			 <p:printer target="datatable" />  
     		</h:commandButton>  
-			<p:dataTable value="#{chaveSerialBean.listaPorSo}" var="pc"
+			<p:dataTable value="#{chaveSerialBean.listaNotebookPorSo}" var="notebook"
 				id="datatable"  dynamic="true" lazy="true">
 				<f:facet name="header">  
-          		  	#{pc.sistemaOperacional.nome} 
+          		  	#{notebook.sistemaOperacional.nome} 
       		    </f:facet> 
       		    
-				<p:column headerText="NP">#{pc.pc.numeroPatrimonial}</p:column>
-				<p:column headerText="NOME">#{pc.pc.nome}</p:column>
-				<p:column headerText="IP">#{pc.pc.ip}</p:column>
-				<p:column headerText="PROCESSADOR">#{pc.pc.processador}</p:column>
-				<p:column headerText="MEMÓRIA">#{pc.pc.memoria}</p:column>
+				<p:column headerText="NP">#{notebook.notebook.numeroPatrimonial}</p:column>
+				<p:column headerText="NOME">#{notebook.notebook.nome}</p:column>
+				<p:column headerText="IP">#{notebook.notebook.ip}</p:column>
+				<p:column headerText="PROCESSADOR">#{notebook.notebook.processador}</p:column>
+				<p:column headerText="MEMÓRIA">#{notebook.notebook.memoria}</p:column>
 		
 				<f:facet name="footer">  
-           	         		Total de: #{chaveSerialBean.listaPorSo.size()}    
+           	         		Total de: #{chaveSerialBean.listaNotebookPorSo.size()}    
        			 </f:facet>
 			</p:dataTable>
 		</h:form>
 	</ui:define>
 	</ui:composition>
+
 </html>

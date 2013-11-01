@@ -26,14 +26,20 @@ public class ChaveSerialDao {
 		return this.manager.find(ChaveSerial.class, id);
 	}
 	
-	public ChaveSerial buscaPorPc(Pc pc){
-		return this.manager.createQuery("select c from ChaveSerial c where c.pc = pc", ChaveSerial.class)
-				.getSingleResult();
+	public ChaveSerial buscaPorPc(Long numeroPatrimonial){
+		String jpql = "select c from ChaveSerial c where c.pc.numeroPatrimonial = :numeroPatrimonial";
+		Query query = this.manager.createQuery(jpql);
+		query.setParameter("numeroPatrimonial", numeroPatrimonial);
+		
+		return (ChaveSerial) query.getSingleResult();
 	}
 	
-	public ChaveSerial buscaPorNotebook(Notebook notebook){
-		return this.manager.createQuery("select c from ChaveSerial c where c.notebook = notebook", ChaveSerial.class)
-				.getSingleResult();
+	public ChaveSerial buscaPorNotebook(Integer numeroPatrimonial){
+		String jpql = "select c from ChaveSerial c where c.notebook.numeroPatrimonial = :numeroPatrimonial";
+		Query query = this.manager.createQuery(jpql);
+		query.setParameter("numeroPatrimonial", numeroPatrimonial);
+		
+		return (ChaveSerial) query.getSingleResult();
 	}
 
 	public List<ChaveSerial> lista() {
@@ -43,7 +49,14 @@ public class ChaveSerialDao {
 	
 		
 	public List<ChaveSerial> listaPorSo(Long sistemaoperacional_id){
-		String jpql = "select c from ChaveSerial c where c.sistemaOperacional.id = :sistemaoperacional_id";
+		String jpql = "select c from ChaveSerial c where c.sistemaOperacional.id = :sistemaoperacional_id and pc_numeropatrimonial != null";
+		Query query = this.manager.createQuery(jpql);
+		query.setParameter("sistemaoperacional_id", sistemaoperacional_id);
+		return query.getResultList();
+	}
+	
+	public List<ChaveSerial> listaNotebookPorSo(Long sistemaoperacional_id){
+		String jpql = "select c from ChaveSerial c where c.sistemaOperacional.id = :sistemaoperacional_id and notebook_numeropatrimonial != null";
 		Query query = this.manager.createQuery(jpql);
 		query.setParameter("sistemaoperacional_id", sistemaoperacional_id);
 		return query.getResultList();

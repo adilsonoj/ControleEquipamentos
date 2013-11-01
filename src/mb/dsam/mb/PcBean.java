@@ -94,7 +94,7 @@ public class PcBean implements Serializable {
 		this.pc.setMemoria(memoriaRelacionado);
 		pcDao.altera(pc);
 		
-		ChaveSerial chave = chaveSerialDao.buscaPorPc(pc);
+		ChaveSerial chave = chaveSerialDao.buscaPorPc(pc.getNumeroPatrimonial());
 		
 		
 		SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);

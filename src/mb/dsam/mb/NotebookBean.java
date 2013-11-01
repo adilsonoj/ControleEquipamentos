@@ -101,7 +101,7 @@ public void altera(){
 	this.notebook.setMemoria(memoriaRelacionado);
 	notebookDao.altera(notebook);
 	
-	ChaveSerial chave = chaveSerialDao.buscaPorNotebook(notebook);
+	ChaveSerial chave = chaveSerialDao.buscaPorNotebook(notebook.getNumeroPatrimonial());
 	
 	
 	SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);

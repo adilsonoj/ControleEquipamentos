@@ -129,6 +129,10 @@ public class ChaveSerialBean implements Serializable{
 		return dao.listaPorSo(this.sistemaOperacionalId);
 	}
 	
+	public List<ChaveSerial> getListaNotebookPorSo(){
+		return dao.listaNotebookPorSo(this.sistemaOperacionalId);
+	}
+	
 	
 	
 }
