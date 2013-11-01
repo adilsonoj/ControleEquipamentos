@@ -3,8 +3,10 @@ package mb.dsam.mb;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import mb.dsam.dao.ChaveSerialDao;
@@ -59,6 +61,8 @@ public class NotebookBean implements Serializable{
 	
 	private List<ChaveSerial> chavesSeriais;
 
+	
+	
 	public Notebook getNotebook() {
 		return notebook;
 	}
@@ -70,6 +74,8 @@ public class NotebookBean implements Serializable{
 	
 	
 	public void grava() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		
 		Processador processadorRelacionado = processadorDao.busca(this.processadorId);
 		this.notebook.setProcessador(processadorRelacionado);
 		
@@ -83,8 +89,12 @@ public class NotebookBean implements Serializable{
 		SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);
 		this.chaveSerial.setSistemaOperacional(soRelacionado);
 		
+		try {
+			this.chaveSerialDao.adiciona(chaveSerial);
+		} catch (Exception e) {
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, " Esse Serial já existe!", null));
+		}
 		
-		this.chaveSerialDao.adiciona(chaveSerial);
 		
 		this.chavesSeriais = chaveSerialDao.lista();
 		this.notebooks = notebookDao.lista();
@@ -94,6 +104,8 @@ public class NotebookBean implements Serializable{
 }
 
 public void altera(){
+	FacesContext facesContext = FacesContext.getCurrentInstance();
+	
 	Processador processadorRelacionado = processadorDao.busca(this.processadorId);
 	this.notebook.setProcessador(processadorRelacionado);
 	
@@ -107,7 +119,12 @@ public void altera(){
 	SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);
 	chave.setSistemaOperacional(soRelacionado);
 	chave.setChaveSerial(this.chaveSerial.getSerial());
-	this.chaveSerialDao.altera(chave);
+	try {
+		this.chaveSerialDao.altera(chave);
+	} catch (Exception e) {
+		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, " Esse Serial já existe!", null));
+	}
+	
 	
 	this.chavesSeriais = chaveSerialDao.lista();
 	this.notebooks = notebookDao.lista();
@@ -138,6 +155,8 @@ public void altera(){
 	 */
 	private void limpaFormularioDoJSF() {
 		this.notebook = new Notebook();
+		this.chaveSerial = new ChaveSerial();
+	
 	}
 	
 	public TipoSistemaOperacional[] getTiposSistemasOperacionais() {

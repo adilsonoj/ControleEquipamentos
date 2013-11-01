@@ -35,19 +35,19 @@
 			    </h:selectOneMenu>
 				
 				<h:outputLabel value="Memória:" for="memoria" />
-				<h:selectOneMenu value="#{notebookBean.memoriaId}">
-			    			<f:selectItem itemLabel="#{notebookBean.notebook.memoria.modelo}-#{notebookBean.notebook.memoria.tamanho}" itemValue="" noSelectionOption="true"/>
+				<h:selectOneMenu value="#{notebookBean.memoriaId}" >
+			    			<f:selectItem itemLabel="#{notebookBean.notebook.memoria.modelo}-#{notebookBean.notebook.memoria.tamanho}" itemValue="" noSelectionOption="false"/>
 			    			<f:selectItems value="#{memoriaBean.memorias}" var="memoria" itemLabel="#{memoria.modelo}-#{memoria.tamanho}" itemValue="#{memoria.id}"/>
 			    </h:selectOneMenu>
 				
 				<h:outputLabel value="SO:" for="so" />
 				<h:selectOneMenu value="#{notebookBean.sistemaOperacionalId}" id="so">
-		    		<f:selectItem itemLabel="#{notebookBean.notebook.chaveSerial.sistemaOperacional.nome}" itemValue="" noSelectionOption="true"/>
+		    		<f:selectItem itemLabel="#{notebookBean.notebook.chaveSerial.sistemaOperacional.nome}" itemValue="" noSelectionOption="false"/>
 		    		<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
 		    	</h:selectOneMenu>
 		    	<h:outputLabel value="Serial:" for="serial" />
 			    <h:outputLabel value="#{notebookBean.notebook.chaveSerial.serial}" />
-				<p:inputText id="serial" value="#{notebookBean.chaveSerial.serial}"/>
+				<p:inputText id="serial" value="#{notebookBean.chaveSerial.serial}" label="#{notebookBean.notebook.chaveSerial.serial}"/>
 				
 				
 				<h:commandButton value="Gravar" action="#{notebookBean.grava }" rendered="#{empty notebookBean.notebook.numeroPatrimonial}">
