@@ -21,7 +21,7 @@ public class Pc implements Serializable{
 	@Id @Column(unique=true)
 	private Long numeroPatrimonial;
 	private String nome;
-	private Integer ip;
+	private String ip;
 	private String macAdress;
 	
 	
@@ -57,10 +57,10 @@ public class Pc implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Integer getIp() {
+	public String getIp() {
 		return ip;
 	}
-	public void setIp(Integer ip) {
+	public void setIp(String ip) {
 		this.ip = ip;
 	}
 	public String getMacAdress() {

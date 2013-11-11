@@ -18,7 +18,7 @@ public class Notebook implements Serializable{
 	@Id
 	private Integer numeroPatrimonial;
 	private String nome;
-	private Long ip;
+	private String ip;
 	private String macAdress;
 	
 	
@@ -51,10 +51,10 @@ public class Notebook implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Long getIp() {
+	public String getIp() {
 		return ip;
 	}
-	public void setIp(Long ip) {
+	public void setIp(String ip) {
 		this.ip = ip;
 	}
 	public String getMacAdress() {

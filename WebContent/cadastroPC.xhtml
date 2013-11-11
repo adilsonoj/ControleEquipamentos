@@ -26,7 +26,7 @@
 				
 			
 				<h:outputLabel value="IP:" for="ip" />
-				<p:inputText id="ip" value="#{pcBean.pc.ip}"/>
+				<p:inputText id="ip" value="#{pcBean.pc.ip}" maxlength="15"/>
 				
 				<h:outputLabel value="MAC:" for="macAdress" />
 				<p:inputMask id="macAdress" value="#{pcBean.pc.macAdress}"  mask="**:**:**:**:**:**"/>

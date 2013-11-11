@@ -23,7 +23,7 @@
 				<p:inputText id="nome" value="#{notebookBean.notebook.nome}"/>
 
 				<h:outputLabel value="IP:" for="ip" />
-				<p:inputText id="ip" value="#{notebookBean.notebook.ip}"/>
+				<p:inputMask id="ip" value="#{notebookBean.notebook.ip}" maxlength="15"/>
 				
 				<h:outputLabel value="MAC:" for="macAdress" />
 				<p:inputMask id="macAdress" value="#{notebookBean.notebook.macAdress}" mask="**:**:**:**:**:**"/>
