@@ -55,6 +55,22 @@ public class PcDao {
 		query.setParameter("numeroPatrimonial", numeroPatrimonial);
 		
 		return query.getResultList();
+	}
+
+	public List<Pc> buscaPorIp(String ip) {
+		String jpql = "select p from Pc p where p.ip = :ip";
+		Query query = this.manager.createQuery(jpql);
+		query.setParameter("ip", ip);
+		
+		return query.getResultList();
+	}
+
+	public List<Pc> buscaPorNome(String nome) {
+		String jpql = "select p from Pc p where p.nome = :nome";
+		Query query = this.manager.createQuery(jpql);
+		query.setParameter("nome", nome);
+		
+		return query.getResultList();
 	} 
 	
 	

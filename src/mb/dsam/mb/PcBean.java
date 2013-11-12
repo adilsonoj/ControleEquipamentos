@@ -54,6 +54,8 @@ public class PcBean implements Serializable {
 	
 	private Long sistemaOperacionalId;
 	private String serial;
+	private String ip;
+	private String nome;
 	private Long memoriaId;
 	private List<ChaveSerial> chavesSeriais;
 	
@@ -169,7 +171,13 @@ public class PcBean implements Serializable {
 		return pcDao.buscaPorNp(this.numeroPatrimonial);
 	}
 	
+	public List<Pc> getPcPorIp(){
+		return pcDao.buscaPorIp(this.ip);
+	}
 	
+	public List<Pc> getPcPorNome(){
+		return pcDao.buscaPorNome(this.nome);
+	}
 	
 	/**
 	 * Esse metodo apenas limpa o formulario da forma com que o JSF espera.
@@ -244,6 +252,22 @@ public class PcBean implements Serializable {
 
 	public void setNumeroPatrimonial(Long numeroPatrimonial) {
 		this.numeroPatrimonial = numeroPatrimonial;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	
 	

@@ -29,19 +29,21 @@
 					<p:menuitem value="Novo" url="emprestimo.xhtml" />
 					<p:menuitem value="Por Notebook" url="emprestimoPorNotebook.xhtml" />
 				</p:submenu>
+				
+				<p:submenu label="Consultar">
+					<p:menuitem value="PC por NP" url="relatorioPcPorNp.xhtml" />
+					<p:menuitem value="PC por IP" url="relatorioPcPorIp.xhtml" />
+					<p:menuitem value="PC por NOME" url="relatorioPcPorNome.xhtml" />
+				</p:submenu>
+				<p:submenu label="Relatórios">
+					<p:menuitem value="PCs" url="relatorioTodosPcs.xhtml" />
+					<p:menuitem value="PCs por SO" url="relatorioPcPorSo.xhtml" />
+					<p:menuitem value="Notebooks" url="relatorioTodosNotebooks.xhtml" />
+				</p:submenu>
 				<p:submenu label="Administrar">
 					<p:menuitem value="Sistema Operacional" url="cadastroSistemaOperacional.xhtml" />
 					<p:menuitem value="Memória" url="cadastroMemoria.xhtml" />
 					<p:menuitem value="Processador" url="cadastroProcessador.xhtml" />
-					
-				</p:submenu>
-				<p:submenu label="Relatórios">
-					<p:menuitem value="PCs" url="relatorioTodosPcs.xhtml" />
-					<p:menuitem value="PC por NP" url="relatorioPcPorNp.xhtml" />
-					<p:menuitem value="PCs por SO" url="relatorioPcPorSo.xhtml" />
-					<p:menuitem value="PCs por IP" url="relatorioPcPorIp.xhtml" />
-					<p:menuitem value="Notebooks" url="relatorioTodosNotebooks.xhtml" />
-					
 				</p:submenu>
 			</p:menubar>
 			<ui:insert name="corpo" />

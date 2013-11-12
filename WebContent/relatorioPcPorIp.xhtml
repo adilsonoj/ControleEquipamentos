@@ -12,12 +12,15 @@
 				<p:messages styleClass="erros" />
   
   			 		    		
-			    <h:outputLabel value="NP:" for="np" />
-			    <h:inputText value="#{pcBean.numeroPatrimonial}" id="np"/>
+			    <h:outputLabel value="IP:" for="ip" />
+			    <h:inputText value="#{pcBean.ip}" id="ip"/>
 	        	
 	        	<h:commandButton value="Consultar" >
 					<f:ajax execute="@form" render="@form :form2:datatable" />
-				</h:commandButton>		
+				</h:commandButton>	
+				
+				
+				
 		</h:form>
 		<h2>PC</h2>
 		<h:form id="form2">
@@ -25,7 +28,7 @@
        			 <p:printer target="datatable" />  
     		</h:commandButton>  
     		
-			<p:dataTable value="#{pcBean.pcPorNp}" var="pc"
+			<p:dataTable value="#{pcBean.pcPorIp}" var="pc"
 				id="datatable"  dynamic="true" lazy="true">
 				
 				<p:column style="width:2%">  

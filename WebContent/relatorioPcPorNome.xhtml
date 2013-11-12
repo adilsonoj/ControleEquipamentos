@@ -12,8 +12,8 @@
 				<p:messages styleClass="erros" />
   
   			 		    		
-			    <h:outputLabel value="NP:" for="np" />
-			    <h:inputText value="#{pcBean.numeroPatrimonial}" id="np"/>
+			    <h:outputLabel value="NOME DA MÁQUINA:" for="nome" />
+			    <h:inputText value="#{pcBean.nome}" id="nome"/>
 	        	
 	        	<h:commandButton value="Consultar" >
 					<f:ajax execute="@form" render="@form :form2:datatable" />
@@ -25,7 +25,7 @@
        			 <p:printer target="datatable" />  
     		</h:commandButton>  
     		
-			<p:dataTable value="#{pcBean.pcPorNp}" var="pc"
+			<p:dataTable value="#{pcBean.pcPorNome}" var="pc"
 				id="datatable"  dynamic="true" lazy="true">
 				
 				<p:column style="width:2%">  
