@@ -20,6 +20,8 @@ import mb.dsam.modelo.Pc;
 import mb.dsam.modelo.Processador;
 import mb.dsam.modelo.SistemaOperacional;
 
+import org.primefaces.event.ToggleEvent;
+
 @ViewScoped
 @ManagedBean
 public class PcBean implements Serializable {
@@ -48,6 +50,7 @@ public class PcBean implements Serializable {
 	
 	
 	private Long processadorId;
+	private Long numeroPatrimonial;
 	
 	private Long sistemaOperacionalId;
 	private String serial;
@@ -149,6 +152,11 @@ public class PcBean implements Serializable {
 	public List<Pc> getPcsComChaveSerial(){
 		return pcDao.listaComChave();
 	}
+	
+	public List<Pc> getListIps(){
+		System.out.println(pcDao.listaIps());
+		return pcDao.listaIps();
+	}
 
 	public void remove(Pc pc) {
 		System.out.println("Removendo o pc");
@@ -156,6 +164,11 @@ public class PcBean implements Serializable {
 		this.pcs=pcDao.lista();
 		limpaFormularioDoJSF();
 	}
+	
+	public List<Pc> getPcPorNp(){
+		return pcDao.buscaPorNp(this.numeroPatrimonial);
+	}
+	
 	
 	
 	/**
@@ -224,5 +237,15 @@ public class PcBean implements Serializable {
 	public void setProcessadorId(Long processadorId) {
 		this.processadorId = processadorId;
 	}
+
+	public Long getNumeroPatrimonial() {
+		return numeroPatrimonial;
+	}
+
+	public void setNumeroPatrimonial(Long numeroPatrimonial) {
+		this.numeroPatrimonial = numeroPatrimonial;
+	}
+	
+	
 
 }

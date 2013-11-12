@@ -21,7 +21,7 @@
 				<h:outputLabel value="NP:" for="numeroPatrimonial" />
 				<p:inputText id="numeroPatrimonial" value="#{pcBean.pc.numeroPatrimonial}"  required="true"/>
 				
-				<h:outputLabel value="Nome:" for="nome" />
+				<h:outputLabel value="Nome da Máquina:" for="nome" />
 				<p:inputText id="nome" value="#{pcBean.pc.nome}"/>
 				
 			
@@ -47,10 +47,7 @@
 				
 				<h:outputLabel value="Lacre:" for="lacre" />
 				<p:inputText id="lacre" value="#{pcBean.pc.lacre}"/>
-				
-				<h:outputLabel value="Elemento Org. :" for="elementoOrganizacional" />
-				<p:inputText id="elementoOrganizacional" value="#{pcBean.pc.elementoOrganizacional}"/>
-				
+							
 				<h:outputLabel value="Andar:" for="andar" />
 				<p:inputText id="andar" value="#{pcBean.pc.andar}"/>
 				
@@ -84,14 +81,13 @@
 			<p:dataTable value="#{pcBean.pcsComChaveSerial}" var="pc"
 				id="datatable" paginator="true" rows="10" dynamic="true" lazy="true">
 				<p:column headerText="NP">#{pc.numeroPatrimonial}</p:column>
-				<p:column headerText="NOME">#{pc.nome}</p:column>
+				<p:column headerText="NOME MÁQ.">#{pc.nome}</p:column>
 				<p:column headerText="IP">#{pc.ip}</p:column>
 				<p:column headerText="MAC">#{pc.macAdress}</p:column>
 				<p:column headerText="PROCESSADOR">#{pc.processador.marca} - #{pc.processador.modelo}</p:column>
 				<p:column headerText="MEMÓRIA">#{pc.memoria.modelo} - #{pc.memoria.tamanho}</p:column>
 				<p:column headerText="LACRE">#{pc.lacre}</p:column>
 				<p:column headerText="ANDAR">#{pc.andar}</p:column>
-				<p:column headerText="ELEMENTO ORG.">#{pc.elementoOrganizacional}</p:column>
 				<p:column headerText="SO">	#{pc.chaveSerial.sistemaOperacional.nome}</p:column>
 				<p:column headerText="SERIAL">#{pc.chaveSerial.chaveSerial}</p:column>
 				

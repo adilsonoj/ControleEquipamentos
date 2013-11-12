@@ -18,14 +18,13 @@
 				id="datatable"  dynamic="true" lazy="true">
 				
 				<p:column headerText="NP">#{pc.numeroPatrimonial}</p:column>
-				<p:column headerText="NOME">#{pc.nome}</p:column>
+				<p:column headerText="NOME DA MÁQ.">#{pc.nome}</p:column>
 				<p:column headerText="IP">#{pc.ip}</p:column>
 				<p:column headerText="MAC">#{pc.macAdress}</p:column>
 				<p:column headerText="PROCESSADOR">#{pc.processador.marca} - #{pc.processador.modelo}</p:column>
 				<p:column headerText="MEMÓRIA">#{pc.memoria.modelo} - #{pc.memoria.tamanho}</p:column>
 				<p:column headerText="LACRE">#{pc.lacre}</p:column>
 				<p:column headerText="ANDAR">#{pc.andar}</p:column>
-				<p:column headerText="ELEMENTO ORG.">#{pc.elementoOrganizacional}</p:column>
 				<p:column headerText="SO">	#{pc.chaveSerial.sistemaOperacional.nome}</p:column>
 				<p:column headerText="SERIAL">#{pc.chaveSerial.chaveSerial}</p:column>
 				

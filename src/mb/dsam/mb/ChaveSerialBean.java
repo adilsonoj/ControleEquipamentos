@@ -4,11 +4,15 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.Query;
+
+import org.primefaces.event.ToggleEvent;
 
 import mb.dsam.dao.ChaveSerialDao;
 import mb.dsam.dao.SistemaOperacionalDao;
@@ -132,6 +136,14 @@ public class ChaveSerialBean implements Serializable{
 	public List<ChaveSerial> getListaNotebookPorSo(){
 		return dao.listaNotebookPorSo(this.sistemaOperacionalId);
 	}
+	
+	public void onRowToggle(ToggleEvent event) {  
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,  
+                                            "Row State " + event.getVisibility(),  
+                                            "PC:" + ((ChaveSerial) event.getData()).getPc());  
+          
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+    }  
 	
 	
 	

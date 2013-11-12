@@ -9,7 +9,7 @@
 	<ui:define name="corpo">
 		<h2>PCs por Sistema Operacional </h2>
 		<h:form id="form">
-				<p:messages styleClass="erros" />
+				<p:growl styleClass="erros" id="growl"/>
   
   			 
 				<h:outputLabel value="SO:" for="so" />
@@ -23,28 +23,52 @@
 				</h:commandButton>	
 				
 				
-				
 		</h:form>
 		<h2>PCs</h2>
 		<h:form id="form2">
 			<h:commandButton value="Imprimir" type="button" >  
        			 <p:printer target="datatable" />  
     		</h:commandButton>  
+    		
 			<p:dataTable value="#{chaveSerialBean.listaPorSo}" var="pc"
 				id="datatable"  dynamic="true" lazy="true">
+				
+				
+				
+				<p:column style="width:2%">  
+         		   <p:rowToggler />  
+      			</p:column> 
+				
 				<f:facet name="header">  
           		  	#{pc.sistemaOperacional.nome} 
       		    </f:facet> 
       		    
 				<p:column headerText="NP">#{pc.pc.numeroPatrimonial}</p:column>
-				<p:column headerText="NOME">#{pc.pc.nome}</p:column>
+				<p:column headerText="NOME DA MÁQ.">#{pc.pc.nome}</p:column>
 				<p:column headerText="IP">#{pc.pc.ip}</p:column>
-				<p:column headerText="PROCESSADOR">#{pc.pc.processador}</p:column>
-				<p:column headerText="MEMÓRIA">#{pc.pc.memoria}</p:column>
+				<p:column headerText="PROCESSADOR">#{pc.pc.processador.marca} - #{pc.pc.processador.modelo}</p:column>
+				<p:column headerText="MEMÓRIA">#{pc.pc.memoria.modelo} - #{pc.pc.memoria.tamanho}</p:column>
 		
 				<f:facet name="footer">  
            	         		Total de: #{chaveSerialBean.listaPorSo.size()}    
        			 </f:facet>
+       			 
+       			<p:rowExpansion>  
+	            	<h:panelGrid id="display" columns="2" cellpadding="4" style="width:300px;"  
+	                            styleClass=" ui-widget-content grid">  
+	  
+		                <h:outputText value="NP:" />  
+		                <h:outputText id="np" value="#{pc.pc.numeroPatrimonial}" />  
+		  
+		                <h:outputText value="NOME:" />  
+		                <h:outputText id="nome" value="#{pc.pc.nome}" />  
+		  
+		                <h:outputText value="IP:" />  
+		                <h:outputText value="#{pc.pc.ip}"/>  
+	   
+	           		</h:panelGrid>  
+  
+        		</p:rowExpansion>  
 			</p:dataTable>
 		</h:form>
 	</ui:define>

@@ -26,7 +26,7 @@ public class Pc implements Serializable{
 	
 	
 	private Integer lacre;
-	private String elementoOrganizacional;
+	
 	private Integer andar;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = true, mappedBy="pc")
@@ -87,12 +87,7 @@ public class Pc implements Serializable{
 	public void setLacre(Integer lacre) {
 		this.lacre = lacre;
 	}
-	public String getElementoOrganizacional() {
-		return elementoOrganizacional;
-	}
-	public void setElementoOrganizacional(String elementoOrganizacional) {
-		this.elementoOrganizacional = elementoOrganizacional;
-	}
+	
 	
 	public void setChaveSerial(ChaveSerial chaveSerial) {
 		this.chaveSerial = chaveSerial;

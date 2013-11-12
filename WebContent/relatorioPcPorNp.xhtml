@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/_template.xhtml">
+	<ui:define name="corpo">
+		<h2>PC por Número Patrimónial </h2>
+		<h:form id="form">
+				<p:messages styleClass="erros" />
+  
+  			 		    		
+			    <h:outputLabel value="NP:" for="np" />
+			    <h:inputText value="#{pcBean.numeroPatrimonial}" id="np"/>
+	        	
+	        	<h:commandButton value="Consultar" >
+					<f:ajax execute="@form" render="@form :form2:datatable" />
+				</h:commandButton>	
+				
+				
+				
+		</h:form>
+		<h2>PC</h2>
+		<h:form id="form2">
+			<h:commandButton value="Imprimir" type="button" >  
+       			 <p:printer target="datatable" />  
+    		</h:commandButton>  
+    		
+			<p:dataTable value="#{pcBean.pcPorNp}" var="pc"
+				id="datatable"  dynamic="true" lazy="true">
+				
+				<p:column style="width:2%">  
+         		   <p:rowToggler />  
+      			</p:column> 
+      		    
+				<p:column headerText="NP">#{pc.numeroPatrimonial}</p:column>
+				<p:column headerText="NOME DA MÁQ.">#{pc.nome}</p:column>
+				<p:column headerText="IP">#{pc.ip}</p:column>
+				
+			
+				<p:rowExpansion>  
+	            	<h:panelGrid id="panelgrid" columns="2" cellpadding="4" style="width:300px;"  
+	                            styleClass=" ui-widget-content grid">  
+	  
+		                				    
+					    <h:outputLabel value="MAC:" for="macAdress" />
+						<h:outputText id="macAdress" value="#{pc.macAdress}"  />
+					    
+					    <h:outputLabel value="SO:" for="so" />
+					    <h:outputText id="so" value="#{pc.chaveSerial.sistemaOperacional.nome}"  />
+					    
+					    <h:outputLabel value="SERIAL:" for="serial" />
+					    <h:outputText id="serial" value="#{pc.chaveSerial.serial}"/>
+					    
+					    <h:outputLabel value="PROCESSADOR:" for="processador" />
+					    <h:outputText id="processador" value="#{pc.processador.marca} - #{pc.processador.modelo}"  />
+					    
+					   	<h:outputLabel value="MEMÓRIA:" for="memoria" />
+					   	<h:outputText id="memoria" value="#{pc.memoria.modelo} - #{pc.memoria.tamanho}"  />
+					   	
+					   	<h:outputLabel value="LACRE:" for="lacre" />
+						<h:outputText id="lacre" value="#{pc.lacre}"/>
+				
+						<h:outputLabel value="ANDAR:" for="andar" />
+						<h:outputText id="andar" value="#{pc.andar}"/>
+     
+	   
+	           		</h:panelGrid>  
+        		</p:rowExpansion> 
+			</p:dataTable> 
+		</h:form>
+	</ui:define>
+	</ui:composition>
+</html>

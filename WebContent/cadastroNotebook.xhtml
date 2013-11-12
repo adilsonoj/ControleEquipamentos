@@ -19,7 +19,7 @@
 				<h:outputLabel value="NP:" for="numeroPatrimonial" />
 				<p:inputText id="numeroPatrimonial" value="#{notebookBean.notebook.numeroPatrimonial}" required="true"/>
 				
-				<h:outputLabel value="Nome:" for="nome" />
+				<h:outputLabel value="NOME NOTEBOOK:" for="nome" />
 				<p:inputText id="nome" value="#{notebookBean.notebook.nome}"/>
 
 				<h:outputLabel value="IP:" for="ip" />
@@ -28,13 +28,13 @@
 				<h:outputLabel value="MAC:" for="macAdress" />
 				<p:inputMask id="macAdress" value="#{notebookBean.notebook.macAdress}" mask="**:**:**:**:**:**"/>
 				
-				<h:outputLabel value="Processador:" for="processador" />
+				<h:outputLabel value="PROCESSADOR:" for="processador" />
 				<h:selectOneMenu value="#{notebookBean.processadorId}">
 			    			<f:selectItem itemLabel="#{notebookBean.notebook.processador.marca}-#{notebookBean.notebook.processador.modelo}" itemValue="" noSelectionOption="false"/>
 			    			<f:selectItems value="#{processadorBean.processadores}" var="processador" itemLabel="#{processador.marca}-#{processador.modelo}" itemValue="#{processador.id}"/>
 			    </h:selectOneMenu>
 				
-				<h:outputLabel value="Memória:" for="memoria" />
+				<h:outputLabel value="MEMÓRIA:" for="memoria" />
 				<h:selectOneMenu value="#{notebookBean.memoriaId}" >
 			    			<f:selectItem itemLabel="#{notebookBean.notebook.memoria.modelo}-#{notebookBean.notebook.memoria.tamanho}" itemValue="" noSelectionOption="false"/>
 			    			<f:selectItems value="#{memoriaBean.memorias}" var="memoria" itemLabel="#{memoria.modelo}-#{memoria.tamanho}" itemValue="#{memoria.id}"/>
@@ -45,7 +45,7 @@
 		    		<f:selectItem itemLabel="#{notebookBean.notebook.chaveSerial.sistemaOperacional.nome}" itemValue="" noSelectionOption="false"/>
 		    		<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
 		    	</h:selectOneMenu>
-		    	<h:outputLabel value="Serial:" for="serial" />
+		    	<h:outputLabel value="SERIAL:" for="serial" />
 			    <h:outputLabel value="#{notebookBean.notebook.chaveSerial.serial}" />
 				<p:inputText id="serial" value="#{notebookBean.chaveSerial.serial}" label="#{notebookBean.notebook.chaveSerial.serial}"/>
 				
@@ -64,7 +64,7 @@
 				id="datatable" paginator="true" rows="10" dynamic="true" lazy="true">
 				
 				<p:column headerText="NP">#{notebook.numeroPatrimonial}</p:column>
-				<p:column headerText="NOME">#{notebook.nome}</p:column>
+				<p:column headerText="NOME NOTEBOOK">#{notebook.nome}</p:column>
 				<p:column headerText="IP">#{notebook.ip}</p:column>
 				<p:column headerText="MAC">#{notebook.macAdress}</p:column>
 				<p:column headerText="PROCESSADOR">#{notebook.processador.marca} - #{notebook.processador.modelo}</p:column>

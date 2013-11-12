@@ -55,7 +55,7 @@ public class RangeIpBean implements Serializable{
 	}
 	
 	private void AddArray(){
-		for (int i = 0; i <= 5; i++) {
+		for (int i = 0; i <= 15; i++) {
 	    	  
 	         for(int x = 0; x < 255; x++){
 	        	 String range = this.ip.getPrimeiroOctoIp() + "." + this.ip.getSegundoOctoIp() + "." + (this.ip.getTerceiroOctoIp() + i) + "." + x;
@@ -78,7 +78,7 @@ public class RangeIpBean implements Serializable{
   		  this.array.get(i); 
   		
   	  }
-		System.out.println(this.array);
+		
 		return  this.array;
 		
 	}
