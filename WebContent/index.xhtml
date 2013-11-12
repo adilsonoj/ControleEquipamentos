@@ -5,12 +5,13 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	
-	
-	<h:head>
-        <title>Teste</title>
-    </h:head>
-    <h:form>
-    	<h:outputLabel value="Nome:" for="nome" />
-    </h:form>
+	<ui:composition template="/_template.xhtml">
+		<ui:define name="corpo">
+		
+			<div id="conteudo_index">
+	   		 	<h:graphicImage library="imagens" name="DsamIndex.gif" />
+	    	</div>
     
+    	</ui:define>
+	</ui:composition>
 </html>
