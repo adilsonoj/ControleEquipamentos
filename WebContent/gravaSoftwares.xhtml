@@ -39,6 +39,36 @@
 				
 							
 			</fieldset>
+			
+			<fieldset>
+					<legend>Picklist</legend>
+					
+					
+				<p:pickList id="pickList" value="#{softwarePcBean.software}" var="software"   
+	                itemLabel="#{software}" itemValue="#{software}"/>  
+	                
+	            <p:commandButton value="Gravar" update="displayPlayers" style="margin-top:5px"/> 
+	            <h:commandButton value="Adicionar" action="#{softwarePcBean.grava }" rendered="#{empty softwarePcBean.softwarePc.id}">
+					
+				</h:commandButton>
+            </fieldset>
+             
+        <h:panelGrid id="displayPlayers" columns="2">  
+            <h:outputText value="Source: " style="font-weight:bold"/>  
+            <ui:repeat value="#{softwarePcBean.software.source}" var="player">  
+                <h:outputText value="#{player}" style="margin-right:5px" />  
+            </ui:repeat>  
+  
+            <h:outputText value="Target: " style="font-weight:bold"/>  
+            <ui:repeat value="#{softwarePcBean.software.target}" var="player">  
+                <h:outputText value="#{player}" style="margin-right:5px" />  
+            </ui:repeat>  
+        </h:panelGrid>  
+   
+            
+         
+  
+    
 		</h:form>
 		<h2>Softwares do PC</h2>
 		<h:form id="form2">

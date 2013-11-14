@@ -8,6 +8,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
+import org.primefaces.model.DualListModel;
+
 import mb.dsam.dao.PcDao;
 import mb.dsam.dao.SoftwareDao;
 import mb.dsam.dao.SoftwarePcDao;
@@ -28,8 +30,15 @@ public class SoftwarePcBean implements Serializable {
 	
 	private List<Software> softwares = new ArrayList<Software>();
 	
+	private List<Software> softwaresTodos = new ArrayList<Software>();
+	private List<Software> softwaresSelecionados = new ArrayList<Software>();
+	
+	private DualListModel<Software> software = new DualListModel<Software>(softwaresTodos, softwaresSelecionados);
+	
 	private Long numeroPatrimonial;
 	private Long softwareId;
+	
+	
 	
 	public Long getNumeroPatrimonial() {
 		return numeroPatrimonial;
@@ -64,11 +73,11 @@ public class SoftwarePcBean implements Serializable {
 	
 	public void grava() {
 		
-			for (int i=0; i < this.getSoftwares().size(); i++){
+			for (int i=0; i < this.getSoftwaresTodos().size(); i++){
 				Pc pcRelacionado = pcDao.busca(this.numeroPatrimonial);
 				this.softwarePc.setPc(pcRelacionado);
 			
-				this.softwarePc.setSoftware(this.getSoftwares().get(i));
+				this.softwarePc.setSoftware(this.getSoftwaresTodos().get(i));
 				softwarePcDao.altera(softwarePc);	
 			}
 			limpaFormularioDoJSF();
@@ -77,6 +86,7 @@ public class SoftwarePcBean implements Serializable {
 	public void guardaItem(){
 	
 		Software softwareRelacionado = softwareDao.busca(this.softwareId);
+		
 		this.getSoftwares().add(softwareRelacionado);
 			
 	}
@@ -101,6 +111,27 @@ public class SoftwarePcBean implements Serializable {
 
 	public void setSoftwares(List<Software> softwares) {
 		this.softwares = softwares;
+	}
+	public List<Software> getSoftwaresTodos() {
+		for (int i=0; i < softwareDao.lista().size(); i++){
+		this.softwaresTodos.add(softwareDao.lista().get(i));
+		
+		}
+		return softwaresTodos;
+	}
+	
+	public List<Software> getSoftwaresSelecionados() {
+		return softwaresSelecionados;
+	}
+	public void setSoftwaresSelecionados(List<Software> softwaresSelecionados) {
+		this.softwaresSelecionados = softwaresSelecionados;
+	}
+	public DualListModel<Software> getSoftware() {
+		getSoftwaresTodos();
+		return software;
+	}
+	public void setSoftware(DualListModel<Software> software) {
+		this.software = software;
 	}
 
 }
