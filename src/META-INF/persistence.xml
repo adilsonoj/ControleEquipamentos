@@ -20,6 +20,8 @@
 		<class>mb.dsam.modelo.Emprestimo</class>
 		<class>mb.dsam.modelo.Memoria</class>
 		<class>mb.dsam.modelo.Processador</class>
+		<class>mb.dsam.modelo.Software</class>
+		<class>mb.dsam.modelo.SoftwarePc</class>
 		<properties>
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />

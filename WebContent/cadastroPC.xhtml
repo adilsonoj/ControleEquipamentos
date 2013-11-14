@@ -51,6 +51,7 @@
 				<h:outputLabel value="Andar:" for="andar" />
 				<p:inputText id="andar" value="#{pcBean.pc.andar}"/>
 				
+								
 				
 						<!-- Cadastro de SO  -->
 						<h:outputLabel value="SO:" for="so" />
@@ -62,6 +63,8 @@
 			    		<h:outputLabel value="Serial:" for="serial" />
 			    		<h:outputLabel value="#{pcBean.pc.chaveSerial.serial}" />
 						<p:inputText id="serial" value="#{pcBean.chaveSerial.serial}"/>
+						
+						
 				
 						
 				<h:commandButton value="Gravar" action="#{pcBean.grava }" rendered="#{empty pcBean.pc.numeroPatrimonial}">

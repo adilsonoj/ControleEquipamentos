@@ -14,13 +14,15 @@ import mb.dsam.dao.MemoriaDao;
 import mb.dsam.dao.PcDao;
 import mb.dsam.dao.ProcessadorDao;
 import mb.dsam.dao.SistemaOperacionalDao;
+import mb.dsam.dao.SoftwareDao;
+import mb.dsam.dao.SoftwarePcDao;
 import mb.dsam.modelo.ChaveSerial;
 import mb.dsam.modelo.Memoria;
 import mb.dsam.modelo.Pc;
 import mb.dsam.modelo.Processador;
 import mb.dsam.modelo.SistemaOperacional;
-
-import org.primefaces.event.ToggleEvent;
+import mb.dsam.modelo.Software;
+import mb.dsam.modelo.SoftwarePc;
 
 @ViewScoped
 @ManagedBean
@@ -46,7 +48,14 @@ public class PcBean implements Serializable {
 	private Processador processador;
 	@Inject
 	private ProcessadorDao processadorDao;
-	
+	@Inject
+	private SoftwareDao softwareDao;
+	@Inject
+	private Software software;
+	@Inject
+	private SoftwarePc softwarePc;
+	@Inject
+	private SoftwarePcDao softwarePcDao;
 	
 	
 	private Long processadorId;
@@ -57,6 +66,7 @@ public class PcBean implements Serializable {
 	private String ip;
 	private String nome;
 	private Long memoriaId;
+	private Long softwareId;
 	private List<ChaveSerial> chavesSeriais;
 	
 	private List<Pc> pcs;
@@ -72,7 +82,7 @@ public class PcBean implements Serializable {
 	
 	public void grava() {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-		
+			
 			Processador processadorRelacionado = processadorDao.busca(this.processadorId);
 			this.pc.setProcessador(processadorRelacionado);
 			
@@ -82,9 +92,11 @@ public class PcBean implements Serializable {
 			
 			Pc pcRelacionado = pcDao.busca(pc.getNumeroPatrimonial());
 			this.chaveSerial.setPc(pcRelacionado);
+			this.softwarePc.setPc(pcRelacionado);
 			
 			SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);
 			this.chaveSerial.setSistemaOperacional(soRelacionado);
+			
 			
 			
 			try {
@@ -268,6 +280,26 @@ public class PcBean implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public SoftwarePc getSoftwarePc() {
+		return softwarePc;
+	}
+
+	public void setSoftwarePc(SoftwarePc softwarePc) {
+		this.softwarePc = softwarePc;
+	}
+
+	public Software getSoftware() {
+		return software;
+	}
+
+	public Long getSoftwareId() {
+		return softwareId;
+	}
+
+	public void setSoftwareId(Long softwareId) {
+		this.softwareId = softwareId;
 	}
 	
 	
