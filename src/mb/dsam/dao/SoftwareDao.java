@@ -6,7 +6,9 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
+import mb.dsam.modelo.ChaveSerial;
 import mb.dsam.modelo.Software;
 @Stateless
 public class SoftwareDao implements Serializable{
@@ -24,6 +26,18 @@ public class SoftwareDao implements Serializable{
 
 	public List<Software> lista() {
 		return this.manager.createQuery("select m from Software m", Software.class)
+				.getResultList();
+	}
+	
+	public List<Software> listaSoftwaresPadroes() {
+		return this.manager.createQuery("select s from Software s where s.padrao=true", Software.class)
+				.getResultList();
+	}
+	
+
+	
+	public List<Software> listaSoftwaresNaoPadroes() {
+		return this.manager.createQuery("select s from Software s where s.padrao=false", Software.class)
 				.getResultList();
 	}
 

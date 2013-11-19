@@ -1,7 +1,7 @@
 package mb.dsam.dao;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,8 +21,8 @@ public class SoftwarePcDao implements Serializable{
 		return this.manager.find(SoftwarePc.class, id);
 	}
 
-	public List<SoftwarePc> lista() {
-		return this.manager.createQuery("select m from SoftwarePc m", SoftwarePc.class)
+	public ArrayList<SoftwarePc> lista() {
+		return (ArrayList<SoftwarePc>) this.manager.createQuery("select m from SoftwarePc m", SoftwarePc.class)
 				.getResultList();
 	}
 

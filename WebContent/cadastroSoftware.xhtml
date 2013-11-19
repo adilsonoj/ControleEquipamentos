@@ -25,17 +25,17 @@
 				<p:selectBooleanCheckbox id="padrao" value="#{softwareBean.software.padrao}" required="true" />
 				
 				<h:commandButton value="Gravar" action="#{softwareBean.grava }" >
-					<f:ajax execute="@form" render="@form :form2:datatable" />
+					<f:ajax execute="@form" render="@form :form2:softwareNaoPadrao :form3:softwarePadrao" />
 				</h:commandButton>				
 			</fieldset>
 		</h:form>
 		<h2>Listagem de Software</h2>
 		<h:form id="form2">
-			<p:dataTable value="#{softwareBean.softwares}" var="software"
-				id="datatable" paginator="true" rows="10" dynamic="true" lazy="true">
+			 
+			<p:dataTable value="#{softwareBean.softwaresNaoPadroes}" var="software"
+				id="softwareNaoPadrao" paginator="true" rows="10" dynamic="true" lazy="true">
 				
 				<p:column headerText="NOME">#{software.nome}</p:column>
-				<p:column headerText="PADRÃO">#{software.padrao}</p:column>
 				<p:column  headerText="AÇÕES">
 					
 					<h:commandButton action="#{softwareBean.remove(software)}"
@@ -50,7 +50,33 @@
 					</h:commandButton>
 				</p:column>
 				<f:facet name="footer">  
-           	         		Total de: #{softwareBean.softwares.size()}    
+           	         		Total de: #{softwareBean.softwaresNaoPadroes.size()}    
+       			 </f:facet> 
+			</p:dataTable>
+		</h:form>
+		<h:form id="form3">
+			
+			<p:dataTable value="#{softwareBean.softwaresPadroes}" var="software"
+				id="softwarePadrao"  dynamic="true" lazy="true">
+				 <f:facet name="header">  
+            		Softwares Padrões 
+        		</f:facet>  
+				<p:column headerText="NOME">#{software.nome}</p:column>
+				<p:column  headerText="AÇÕES">
+					
+					<h:commandButton action="#{softwareBean.remove(software)}"
+						value="Remover" >
+						 <f:ajax render="@form"/>
+					</h:commandButton>
+					
+					<h:commandButton value="Alterar" >
+						<f:setPropertyActionListener target="#{softwareBean.software}"
+							value="#{software}" />
+						<f:ajax render=":form1" />
+					</h:commandButton>
+				</p:column>
+				<f:facet name="footer">  
+           	         		Total de: #{softwareBean.softwaresPadroes.size()}    
        			 </f:facet> 
 			</p:dataTable>
 		</h:form>

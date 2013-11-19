@@ -26,49 +26,21 @@
 			    			<f:selectItems value="#{pcBean.pcs}" var="pc" itemLabel="#{pc.numeroPatrimonial}" itemValue="#{pc.numeroPatrimonial}"/>
 			    </h:selectOneMenu>
 			
-				<h:outputLabel value="Softwares" for="sotware" />
-				<h:selectOneMenu value="#{softwarePcBean.softwareId}">
+				<h:outputLabel value="Softwares" for="software" />
+				<h:selectOneMenu value="#{softwarePcBean.softwareId}" id="software">
 			    			<f:selectItem itemLabel="#{pcBean.pc.softwaresPc}" itemValue="" noSelectionOption="false"/>
 			    			<f:selectItems value="#{softwareBean.softwares}" var="software" itemLabel="#{software.nome}" itemValue="#{software.id}"/>
 			    </h:selectOneMenu>
-	
-						
-				<h:commandButton value="Adicionar" action="#{softwarePcBean.guardaItem }" rendered="#{empty softwarePcBean.softwarePc.id}">
+				
+				
+				 
+				
+				<h:commandButton value="Adicionar" action="#{softwarePcBean.guardaItem}" rendered="#{empty softwarePcBean.softwarePc.id}">
 					<f:ajax execute="@form" render="@form :form2:datatable" />
 				</h:commandButton>	
 				
-							
 			</fieldset>
-			
-			<fieldset>
-					<legend>Picklist</legend>
-					
-					
-				<p:pickList id="pickList" value="#{softwarePcBean.software}" var="software"   
-	                itemLabel="#{software}" itemValue="#{software}"/>  
-	                
-	            <p:commandButton value="Gravar" update="displayPlayers" style="margin-top:5px"/> 
-	            <h:commandButton value="Adicionar" action="#{softwarePcBean.grava }" rendered="#{empty softwarePcBean.softwarePc.id}">
-					
-				</h:commandButton>
-            </fieldset>
-             
-        <h:panelGrid id="displayPlayers" columns="2">  
-            <h:outputText value="Source: " style="font-weight:bold"/>  
-            <ui:repeat value="#{softwarePcBean.software.source}" var="player">  
-                <h:outputText value="#{player}" style="margin-right:5px" />  
-            </ui:repeat>  
-  
-            <h:outputText value="Target: " style="font-weight:bold"/>  
-            <ui:repeat value="#{softwarePcBean.software.target}" var="player">  
-                <h:outputText value="#{player}" style="margin-right:5px" />  
-            </ui:repeat>  
-        </h:panelGrid>  
-   
-            
-         
-  
-    
+
 		</h:form>
 		<h2>Softwares do PC</h2>
 		<h:form id="form2">

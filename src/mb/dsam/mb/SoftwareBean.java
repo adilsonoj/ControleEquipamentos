@@ -20,6 +20,10 @@ public class SoftwareBean implements Serializable {
 	
 	private List<Software> softwares;
 	
+	private List<Software> softwaresPadroes;
+	
+	private List<Software> softwaresNaoPadroes;
+	
 	
 	public Software getSoftware() {
 		return software;
@@ -42,10 +46,14 @@ public class SoftwareBean implements Serializable {
 			
 			softwareDao.adiciona(software);
 			this.softwares = softwareDao.lista();
+			this.softwaresPadroes = softwareDao.listaSoftwaresPadroes();
+			this.softwaresNaoPadroes = softwareDao.listaSoftwaresNaoPadroes();
 			limpaFormularioDoJSF();
 		} else {
 			softwareDao.altera(software);
 			this.softwares =softwareDao.lista();
+			this.softwaresPadroes = softwareDao.listaSoftwaresPadroes();
+			this.softwaresNaoPadroes = softwareDao.listaSoftwaresNaoPadroes();
 			limpaFormularioDoJSF();
 		}
 	}
@@ -54,11 +62,37 @@ public class SoftwareBean implements Serializable {
 		System.out.println("Removendo...");
 		softwareDao.remove(software);
 		this.softwares = softwareDao.lista();
+		this.softwaresPadroes = softwareDao.listaSoftwaresPadroes();
+		this.softwaresNaoPadroes = softwareDao.listaSoftwaresNaoPadroes();
 		limpaFormularioDoJSF();
 	}
 	
 	private void limpaFormularioDoJSF() {
 		this.software = new Software();
+	}
+	
+	public List<Software> getSoftwaresPadroes() {
+		if (this.softwaresPadroes == null){
+			this.softwaresPadroes = softwareDao.listaSoftwaresPadroes();
+		}
+		return softwaresPadroes;
+		
+	}
+		
+	
+	public void setSoftwaresPadroes(List<Software> softwaresPadroes) {
+		this.softwaresPadroes = softwaresPadroes;
+	}
+	public List<Software> getSoftwaresNaoPadroes() {
+		if (this.softwaresNaoPadroes == null){
+			this.softwaresNaoPadroes = softwareDao.listaSoftwaresNaoPadroes();
+		}
+		return softwaresNaoPadroes;
+		
+	}
+	
+	public void setSoftwaresNaoPadroes(List<Software> softwaresNaoPadroes) {
+		this.softwaresNaoPadroes = softwaresNaoPadroes;
 	}
 	
 }
