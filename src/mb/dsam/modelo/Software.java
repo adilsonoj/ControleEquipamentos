@@ -1,15 +1,12 @@
 package mb.dsam.modelo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Software implements Serializable {
@@ -19,16 +16,8 @@ public class Software implements Serializable {
 	@Column(name="padrao", nullable=false) 
 	private Boolean padrao;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="software")
-	private List<SoftwarePc> softwaresPc = new ArrayList<SoftwarePc>();
-
 	
-	public List<SoftwarePc> getSoftwaresPc() {
-		return softwaresPc;
-	}
-	public void setSoftwaresPc(List<SoftwarePc> softwaresPc) {
-		this.softwaresPc = softwaresPc;
-	}
+	
 	public Long getId() {
 		return id;
 	}

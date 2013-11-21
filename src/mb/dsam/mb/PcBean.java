@@ -15,14 +15,12 @@ import mb.dsam.dao.PcDao;
 import mb.dsam.dao.ProcessadorDao;
 import mb.dsam.dao.SistemaOperacionalDao;
 import mb.dsam.dao.SoftwareDao;
-import mb.dsam.dao.SoftwarePcDao;
 import mb.dsam.modelo.ChaveSerial;
 import mb.dsam.modelo.Memoria;
 import mb.dsam.modelo.Pc;
 import mb.dsam.modelo.Processador;
 import mb.dsam.modelo.SistemaOperacional;
 import mb.dsam.modelo.Software;
-import mb.dsam.modelo.SoftwarePc;
 
 @ViewScoped
 @ManagedBean
@@ -52,10 +50,7 @@ public class PcBean implements Serializable {
 	private SoftwareDao softwareDao;
 	@Inject
 	private Software software;
-	@Inject
-	private SoftwarePc softwarePc;
-	@Inject
-	private SoftwarePcDao softwarePcDao;
+
 	
 	
 	private Long processadorId;
@@ -88,11 +83,11 @@ public class PcBean implements Serializable {
 			
 			Memoria memoriaRelacionado = memoriaDao.busca(this.memoriaId);
 			this.pc.setMemoria(memoriaRelacionado);
-			pcDao.adiciona(pc);
+			pcDao.altera(pc);
 			
 			Pc pcRelacionado = pcDao.busca(pc.getNumeroPatrimonial());
 			this.chaveSerial.setPc(pcRelacionado);
-			this.softwarePc.setPc(pcRelacionado);
+			
 			
 			SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);
 			this.chaveSerial.setSistemaOperacional(soRelacionado);
@@ -142,6 +137,17 @@ public class PcBean implements Serializable {
 		this.pcs = pcDao.listaComChave();
 		limpaFormularioDoJSF();
 	
+	}
+	
+	
+	public void guardaItem(){
+		
+		Software soft = softwareDao.busca(this.softwareId);
+		pc.getSoftwares().add(soft);
+		software = new Software();
+		
+		
+		
 	}
 	
 
@@ -282,14 +288,6 @@ public class PcBean implements Serializable {
 		this.nome = nome;
 	}
 
-	public SoftwarePc getSoftwarePc() {
-		return softwarePc;
-	}
-
-	public void setSoftwarePc(SoftwarePc softwarePc) {
-		this.softwarePc = softwarePc;
-	}
-
 	public Software getSoftware() {
 		return software;
 	}
@@ -301,6 +299,8 @@ public class PcBean implements Serializable {
 	public void setSoftwareId(Long softwareId) {
 		this.softwareId = softwareId;
 	}
+	
+	
 	
 	
 

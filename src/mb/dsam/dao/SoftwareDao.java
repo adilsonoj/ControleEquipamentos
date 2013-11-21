@@ -30,14 +30,14 @@ public class SoftwareDao implements Serializable{
 	}
 	
 	public List<Software> listaSoftwaresPadroes() {
-		return this.manager.createQuery("select s from Software s where s.padrao=true", Software.class)
+		return this.manager.createQuery("select s from Software s where s.padrao = true", Software.class)
 				.getResultList();
 	}
 	
 
 	
 	public List<Software> listaSoftwaresNaoPadroes() {
-		return this.manager.createQuery("select s from Software s where s.padrao=false", Software.class)
+		return this.manager.createQuery("select s from Software s where s.padrao = false", Software.class)
 				.getResultList();
 	}
 
@@ -49,6 +49,8 @@ public class SoftwareDao implements Serializable{
 	public Software altera(Software software){
 		return this.manager.merge(software);
 	}
+	
+	
 	
 }
 

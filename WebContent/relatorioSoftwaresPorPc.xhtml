@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/_template.xhtml">
+	<ui:define name="corpo">
+		<h2>Softwares por PC </h2>
+		<h:form id="form">
+				<p:messages styleClass="erros" />
+  
+  			 		    		
+			    <h:outputLabel value="NP:" for="np" />
+			    <h:inputText value="#{softwarePcBean.numeroPatrimonial}" id="np"/>
+	        	
+	        	<h:commandButton value="Consultar" >
+					<f:ajax execute="@form" render="@form :form2:datatable" />
+				</h:commandButton>		
+		</h:form>
+		<h2>PC</h2>
+		<h:form id="form2">
+			<h:commandButton value="Imprimir" type="button" >  
+       			 <p:printer target="datatable" />  
+    		</h:commandButton>  
+    		
+			<p:dataTable value="#{softwarePcBean.listaPorPc}" var="soft"
+				id="datatable"  dynamic="true" lazy="true">
+				<f:facet name="header">NP: #{soft.pc.numeroPatrimonial}</f:facet>
+				<p:column style="width:2%">  
+         		   <p:rowToggler />  
+      			</p:column> 
+      		    	
+				<p:column>#{soft.software.nome}</p:column>
+				
+			</p:dataTable> 
+		</h:form>
+	</ui:define>
+	</ui:composition>
+</html>

@@ -1,6 +1,7 @@
 package mb.dsam.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -40,15 +41,15 @@ public class Pc implements Serializable{
 	@ManyToOne(optional = true)
 	private Processador processador;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="pc")
-	private List<SoftwarePc> softwaresPc;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Software> softwares = new ArrayList<Software>();
 	
 		
-	public List<SoftwarePc> getSoftwaresPc() {
-		return softwaresPc;
+	public List<Software> getSoftwares() {
+		return softwares;
 	}
-	public void setSoftwaresPc(List<SoftwarePc> softwaresPc) {
-		this.softwaresPc = softwaresPc;
+	public void setSoftwares(List<Software> softwares) {
+		this.softwares = softwares;
 	}
 	public Integer getAndar() {
 		return andar;

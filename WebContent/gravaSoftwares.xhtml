@@ -21,21 +21,21 @@
 		
 				<h:outputLabel value="NP:" for="numeroPatrimonial" />
 				
-				<h:selectOneMenu value="#{softwarePcBean.numeroPatrimonial}">
+				<h:selectOneMenu value="#{pcBean.numeroPatrimonial}">
 			    			<f:selectItem itemLabel="#{pcBean.pc.numeroPatrimonial}" itemValue="" noSelectionOption="false"/>
 			    			<f:selectItems value="#{pcBean.pcs}" var="pc" itemLabel="#{pc.numeroPatrimonial}" itemValue="#{pc.numeroPatrimonial}"/>
 			    </h:selectOneMenu>
 			
 				<h:outputLabel value="Softwares" for="software" />
-				<h:selectOneMenu value="#{softwarePcBean.softwareId}" id="software">
-			    			<f:selectItem itemLabel="#{pcBean.pc.softwaresPc}" itemValue="" noSelectionOption="false"/>
+				<h:selectOneMenu value="#{pcBean.softwareId}" id="software">
+			    			<f:selectItem itemLabel="#{pcBean.pc.softwares}" itemValue="" noSelectionOption="false"/>
 			    			<f:selectItems value="#{softwareBean.softwares}" var="software" itemLabel="#{software.nome}" itemValue="#{software.id}"/>
 			    </h:selectOneMenu>
 				
 				
 				 
 				
-				<h:commandButton value="Adicionar" action="#{softwarePcBean.guardaItem}" rendered="#{empty softwarePcBean.softwarePc.id}">
+				<h:commandButton value="Adicionar" action="#{pcBean.guardaItem}" rendered="#{empty pcBean.software.id}">
 					<f:ajax execute="@form" render="@form :form2:datatable" />
 				</h:commandButton>	
 				
@@ -44,18 +44,18 @@
 		</h:form>
 		<h2>Softwares do PC</h2>
 		<h:form id="form2">
-			<p:dataTable value="#{softwarePcBean.softwares}" var="soft"
+			<p:dataTable value="#{pcBean.pc.softwares}" var="soft"
 				id="datatable" dynamic="true" lazy="true">
 				<p:column headerText="SOFTWARES">#{soft.nome}</p:column>
 				<p:column  headerText="AÇÕES">
-					<h:commandButton action="#{softwarePcBean.softwares.remove(soft)}"
+					<h:commandButton action="#{pcBean.pc.softwares.remove(soft)}"
 						value="Remover" >
 						 <f:ajax render="@form" />
 					</h:commandButton>
 				</p:column>
 			</p:dataTable>
 			<p:column >
-				<h:commandButton value="Gravar" action="#{softwarePcBean.grava }">
+				<h:commandButton value="Gravar" action="#{pcBean.grava }">
 					<f:ajax execute="@form" render="@form :form2:datatable" />
 				</h:commandButton>
 				</p:column>
