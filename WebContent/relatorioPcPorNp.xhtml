@@ -13,7 +13,11 @@
   
   			 		    		
 			    <h:outputLabel value="NP:" for="np" />
-			    <h:inputText value="#{pcBean.numeroPatrimonial}" id="np"/>
+			    <h:selectOneMenu value="#{pcBean.numeroPatrimonial}" id="np">
+			    			<f:selectItem itemLabel="#{pcBean.pc.numeroPatrimonial}" itemValue="" noSelectionOption="false"/>
+			    			<f:selectItems value="#{pcBean.pcs}" var="pc" itemLabel="#{pc.numeroPatrimonial}" itemValue="#{pc.numeroPatrimonial}"/>
+			    </h:selectOneMenu>
+	        	
 	        	
 	        	<h:commandButton value="Consultar" >
 					<f:ajax execute="@form" render="@form :form2:datatable" />

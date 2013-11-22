@@ -83,6 +83,7 @@ public class PcBean implements Serializable {
 			
 			Memoria memoriaRelacionado = memoriaDao.busca(this.memoriaId);
 			this.pc.setMemoria(memoriaRelacionado);
+			
 			pcDao.altera(pc);
 			
 			Pc pcRelacionado = pcDao.busca(pc.getNumeroPatrimonial());
@@ -145,9 +146,28 @@ public class PcBean implements Serializable {
 		Software soft = softwareDao.busca(this.softwareId);
 		pc.getSoftwares().add(soft);
 		software = new Software();
-		
-		
-		
+	}
+	
+	public void editaSoftware(){
+		pcDao.altera(this.pc);
+		software = new Software();
+		limpaFormularioDoJSF();
+	}
+	
+	
+	
+	
+	public void editaItem(){
+		this.pc = pcDao.busca(this.numeroPatrimonial);
+		Software soft = softwareDao.busca(this.softwareId);
+		this.pc.getSoftwares().add(soft);
+		software = new Software();
+	}
+	
+	public void consultaSoftware(){
+		this.pc = pcDao.busca(this.numeroPatrimonial);
+		this.pc.getSoftwares();
+		software = new Software();
 	}
 	
 
@@ -180,6 +200,7 @@ public class PcBean implements Serializable {
 
 	public void remove(Pc pc) {
 		System.out.println("Removendo o pc");
+		pcDao.removeSoftwares(pc);
 		pcDao.remove(pc);
 		this.pcs=pcDao.lista();
 		limpaFormularioDoJSF();
@@ -204,6 +225,7 @@ public class PcBean implements Serializable {
 	private void limpaFormularioDoJSF() {
 		this.pc = new Pc();
 		this.chaveSerial = new ChaveSerial();
+		
 	
 	}
 

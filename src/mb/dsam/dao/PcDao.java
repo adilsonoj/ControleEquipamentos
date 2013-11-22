@@ -1,5 +1,6 @@
 package mb.dsam.dao;
 
+
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -7,8 +8,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import mb.dsam.modelo.ChaveSerial;
 import mb.dsam.modelo.Pc;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
 
 @Stateless
 public class PcDao {
@@ -72,6 +76,16 @@ public class PcDao {
 		
 		return query.getResultList();
 	} 
+	
+	public void removeSoftwares(Pc pc){
+		
+		Long pcParaRemover = pc.getNumeroPatrimonial();
+		
+		String jpql = "delete pc_software where pc_numeropatrimonial = :pcParaRemover";
+		Query query = this.manager.createQuery(jpql);
+		query.setParameter("pcParaRemover", pcParaRemover);
+		int result = query.executeUpdate();
+	}
 	
 	
 }

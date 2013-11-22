@@ -18,6 +18,7 @@
 					<h:outputText value="Novo" rendered="#{empty pcBean.pc.numeroPatrimonial}"/>
 					<h:outputText value="Alterar" rendered="#{not empty pcBean.pc.numeroPatrimonial}"/>
 				</h2>
+				
 				<h:outputLabel value="NP:" for="numeroPatrimonial" />
 				<p:inputText id="numeroPatrimonial" value="#{pcBean.pc.numeroPatrimonial}"  required="true"/>
 				
@@ -65,23 +66,19 @@
 						<p:inputText id="serial" value="#{pcBean.chaveSerial.serial}"/>
 						
 						
-				
-				<h:outputLabel value="Softwares" for="software" />
-				<h:selectOneMenu value="#{pcBean.softwareId}" id="software">
-			    			<f:selectItem itemLabel="#{pcBean.pc.softwares}" itemValue="" noSelectionOption="false"/>
+				  
+				<h:outputLabel value="Softwares" for="software" rendered="#{empty pcBean.pc.numeroPatrimonial}"/>
+				<h:selectOneMenu value="#{pcBean.softwareId}" id="software" rendered="#{empty pcBean.pc.numeroPatrimonial}">
+			    			<f:selectItem itemLabel="Selecione o Software e clique em +" itemValue="" noSelectionOption="false"/>
 			    			<f:selectItems value="#{softwareBean.softwares}" var="software" itemLabel="#{software.nome}" itemValue="#{software.id}"/>
 			    </h:selectOneMenu>
 				
-				
-				 
-				
-				<h:commandButton value="Adicionar" action="#{pcBean.guardaItem}" rendered="#{empty pcBean.software.id}">
+				<h:commandButton value="Adicionar Software" action="#{pcBean.guardaItem}" rendered="#{empty pcBean.pc.numeroPatrimonial}">
 					<f:ajax execute="@form" render="@form :form3:softwares" />
 				</h:commandButton>	
 				
 				
-						
-				<h:commandButton value="Gravar" action="#{pcBean.grava }" rendered="#{empty pcBean.pc.numeroPatrimonial}">
+				<h:commandButton value="Gravar" action="#{pcBean.grava }" rendered="#{empty pcBean.pc.numeroPatrimonial}" >
 					<f:ajax execute="@form" render="@form :form2:datatable" />
 				</h:commandButton>	
 				<h:commandButton value="Altera" action="#{pcBean.altera }" rendered="#{not empty pcBean.pc.numeroPatrimonial}">
@@ -90,7 +87,20 @@
 							
 			</fieldset>
 		</h:form>
-		
+		<h2>Softwares do PC</h2>
+		<h:form id="form3">
+			<p:dataTable value="#{pcBean.pc.softwares}" var="soft"
+				id="softwares" dynamic="true" lazy="true">
+				<p:column headerText="SOFTWARES">#{soft.nome}</p:column>
+				<p:column  headerText="AÇÕES">
+					<h:commandButton action="#{pcBean.pc.softwares.remove(soft)}"
+						value="Remover" >
+						 <f:ajax render="@form" />
+					</h:commandButton>
+				</p:column>
+			</p:dataTable>
+			
+		</h:form>
 		
 		
 		<h2>Listagem de PCs</h2>
@@ -119,7 +129,7 @@
 						<f:setPropertyActionListener target="#{pcBean.pc}"
 							value="#{pc}" />
 							
-						<f:ajax render=":form1" />
+						<f:ajax render=":form1 :form3:softwares" />
 					</h:commandButton>
 				</p:column>
 				<f:facet name="footer">  
@@ -127,24 +137,7 @@
        			 </f:facet>
 			</p:dataTable>
 		</h:form>
-		<h2>Softwares do PC</h2>
-		<h:form id="form3">
-			<p:dataTable value="#{pcBean.pc.softwares}" var="soft"
-				id="softwares" dynamic="true" lazy="true">
-				<p:column headerText="SOFTWARES">#{soft.nome}</p:column>
-				<p:column  headerText="AÇÕES">
-					<h:commandButton action="#{pcBean.pc.softwares.remove(soft)}"
-						value="Remover" >
-						 <f:ajax render="@form" />
-					</h:commandButton>
-				</p:column>
-			</p:dataTable>
-			<p:column >
-				<h:commandButton value="Gravar" action="#{pcBean.grava }">
-					<f:ajax execute="@form" render="@form :form2:datatable" />
-				</h:commandButton>
-				</p:column>
-		</h:form>
+		
 		</ui:define>
 </ui:composition>
 </html>

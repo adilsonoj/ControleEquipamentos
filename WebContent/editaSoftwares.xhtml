@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+      
+<ui:composition template="/_template.xhtml">
+	<ui:define name="corpo">
+	
+	<h:form id="form1">
+			<h:messages styleClass="erros" />
+			
+			
+			<fieldset>
+				<legend>Adiciona Software ao PC</legend>
+				<h2>
+					<h:outputText value="Adiciona" rendered="#{empty softwarePcBean.softwarePc.id}"/>
+					<h:outputText value="Alterar" rendered="#{not empty softwarePcBean.softwarePc.id}"/>
+				</h2>
+		
+				<h:outputLabel value="NP:" for="numeroPatrimonial" />
+				
+				<h:selectOneMenu value="#{pcBean.numeroPatrimonial}">
+			    			<f:selectItem itemLabel="Selecione um NP..." itemValue="" noSelectionOption="false"/>
+			    			<f:selectItems value="#{pcBean.pcs}" var="pc" itemLabel="#{pc.numeroPatrimonial}" itemValue="#{pc.numeroPatrimonial}"/>
+			    </h:selectOneMenu>
+			
+				<h:outputLabel value="Softwares" for="software" rendered="#{not empty pcBean.pc.numeroPatrimonial}"/>
+				<h:selectOneMenu value="#{pcBean.softwareId}" id="software" rendered="#{not empty pcBean.pc.numeroPatrimonial}">
+			    			<f:selectItem itemLabel="Selecione um Software..." itemValue="" noSelectionOption="false"/>
+			    			<f:selectItems value="#{softwareBean.softwares}" var="software" itemLabel="#{software.nome}" itemValue="#{software.id}"/>
+			    </h:selectOneMenu>
+				
+				
+				 <h:commandButton value="Consultar"  action="#{pcBean.consultaSoftware}" rendered="#{empty pcBean.pc.numeroPatrimonial}">
+					<f:ajax execute="@form" render="@form :form2:datatable" />
+				</h:commandButton>	
+				
+				<h:commandButton value="Adicionar" action="#{pcBean.editaItem}" rendered="#{not empty pcBean.pc.numeroPatrimonial}">
+					<f:ajax execute="@form" render="@form :form2:datatable" />
+				</h:commandButton>	
+				
+				<h:commandButton value="Cancelar Edição" action="editaSoftwares"
+					rendered="#{not empty pcBean.pc.numeroPatrimonial}" immediate="true">
+					<f:ajax execute="@form" render="@form :form2:datatable :form1" />
+				</h:commandButton>
+				
+			</fieldset>
+
+		</h:form>
+		<h2>Softwares do PC</h2>
+		<h:form id="form2">
+			<fieldset>
+				<p:dataTable value="#{pcBean.pc.softwares}" var="soft"
+						id="datatable" dynamic="true" lazy="true">
+						<p:column headerText="SOFTWARES">#{soft.nome}</p:column>
+						<p:column  headerText="AÇÕES">
+							<h:commandButton action="#{pcBean.pc.softwares.remove(soft)}"
+								value="Remover" >
+								 <f:ajax render="@form" />
+							</h:commandButton>
+						</p:column>
+				</p:dataTable>
+						<p:column >
+							<h:commandButton value="Gravar" action="#{pcBean.editaSoftware }">
+								<f:ajax execute="@form" render="@form :form2:datatable" />
+							</h:commandButton>
+						</p:column>
+				</fieldset>
+		</h:form>
+		
+		</ui:define>
+</ui:composition>
+</html>

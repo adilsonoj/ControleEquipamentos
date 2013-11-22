@@ -22,6 +22,7 @@
 		<class>mb.dsam.modelo.Processador</class>
 		<class>mb.dsam.modelo.Software</class>
 		
+		
 		<properties>
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
