@@ -41,7 +41,7 @@ public class Pc implements Serializable{
 	@ManyToOne(optional = true)
 	private Processador processador;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE} , fetch = FetchType.EAGER)
 	private List<Software> softwares = new ArrayList<Software>();
 	
 		

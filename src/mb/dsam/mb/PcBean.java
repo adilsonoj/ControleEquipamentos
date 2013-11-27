@@ -1,6 +1,7 @@
 package mb.dsam.mb;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -63,7 +64,7 @@ public class PcBean implements Serializable {
 	private Long memoriaId;
 	private Long softwareId;
 	private List<ChaveSerial> chavesSeriais;
-	
+	private List<Software> softwareAux = new ArrayList<Software>();
 	private List<Pc> pcs;
 	
 
@@ -89,12 +90,9 @@ public class PcBean implements Serializable {
 			Pc pcRelacionado = pcDao.busca(pc.getNumeroPatrimonial());
 			this.chaveSerial.setPc(pcRelacionado);
 			
-			
 			SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);
 			this.chaveSerial.setSistemaOperacional(soRelacionado);
-			
-			
-			
+		
 			try {
 				
 				this.chaveSerialDao.adiciona(chaveSerial);
@@ -107,22 +105,19 @@ public class PcBean implements Serializable {
 			this.pcs = pcDao.listaComChave();
 			
 			limpaFormularioDoJSF();
-		
 	}
 	
 	public void altera(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
-		
 		
 		Processador processadorRelacionado = processadorDao.busca(this.processadorId);
 		this.pc.setProcessador(processadorRelacionado);
 		
 		Memoria memoriaRelacionado = memoriaDao.busca(this.memoriaId);
 		this.pc.setMemoria(memoriaRelacionado);
-		pcDao.altera(pc);
+		pcDao.altera(this.pc);
 		
-		ChaveSerial chave = chaveSerialDao.buscaPorPc(pc.getNumeroPatrimonial());
-		
+		ChaveSerial chave = chaveSerialDao.buscaPorPc(this.pc.getNumeroPatrimonial());
 		
 		SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);
 		chave.setSistemaOperacional(soRelacionado);
@@ -130,7 +125,8 @@ public class PcBean implements Serializable {
 		
 		try {
 			this.chaveSerialDao.altera(chave);
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, " Esse Serial já existe!", null));
 		}
 		
@@ -140,14 +136,22 @@ public class PcBean implements Serializable {
 	
 	}
 	
-	
 	public void guardaItem(){
+		Software soft = softwareDao.busca(softwareId);
+		this.pc.getSoftwares().add(soft);
 		
-		Software soft = softwareDao.busca(this.softwareId);
-		pc.getSoftwares().add(soft);
-		software = new Software();
 	}
 	
+	public void guardaItemAux(){
+		Software soft = softwareDao.busca(softwareId);
+		this.softwareAux.add(soft);
+		
+	}
+	
+	public List<Software> getSoftwareAux() {
+		return softwareAux;
+	}
+
 	public void editaSoftware(){
 		pcDao.altera(this.pc);
 		software = new Software();
@@ -155,15 +159,7 @@ public class PcBean implements Serializable {
 	}
 	
 	
-	
-	
-	public void editaItem(){
-		this.pc = pcDao.busca(this.numeroPatrimonial);
-		Software soft = softwareDao.busca(this.softwareId);
-		this.pc.getSoftwares().add(soft);
-		software = new Software();
-	}
-	
+		
 	public void consultaSoftware(){
 		this.pc = pcDao.busca(this.numeroPatrimonial);
 		this.pc.getSoftwares();
@@ -200,7 +196,6 @@ public class PcBean implements Serializable {
 
 	public void remove(Pc pc) {
 		System.out.println("Removendo o pc");
-		pcDao.removeSoftwares(pc);
 		pcDao.remove(pc);
 		this.pcs=pcDao.lista();
 		limpaFormularioDoJSF();
@@ -321,6 +316,8 @@ public class PcBean implements Serializable {
 	public void setSoftwareId(Long softwareId) {
 		this.softwareId = softwareId;
 	}
+
+	
 	
 	
 	

@@ -77,7 +77,7 @@ public class PcDao {
 		return query.getResultList();
 	} 
 	
-	public void removeSoftwares(Pc pc){
+	/*public void removeSoftwares(Pc pc){
 		
 		Long pcParaRemover = pc.getNumeroPatrimonial();
 		
@@ -86,6 +86,7 @@ public class PcDao {
 		query.setParameter("pcParaRemover", pcParaRemover);
 		int result = query.executeUpdate();
 	}
+	*/
 	
 	
 }

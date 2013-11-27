@@ -34,14 +34,14 @@
 				
 				<h:outputLabel value="Processador:" for="processador" />
 				<h:selectOneMenu value="#{pcBean.processadorId}">
-			    			<f:selectItem itemLabel="#{pcBean.pc.processador.marca}-#{pcBean.pc.processador.modelo}" itemValue="" noSelectionOption="false"/>
+			    			<f:selectItem itemLabel="Selecione o Processador" itemValue="" noSelectionOption="false"/>
 			    			<f:selectItems value="#{processadorBean.processadores}" var="processador" itemLabel="#{processador.marca}-#{processador.modelo}" itemValue="#{processador.id}"/>
 			    </h:selectOneMenu>
 				
 				
 				<h:outputLabel value="Memória:" for="memoria" />
 				<h:selectOneMenu value="#{pcBean.memoriaId}">
-			    			<f:selectItem itemLabel="#{pcBean.pc.memoria.modelo}-#{pcBean.pc.memoria.tamanho}" itemValue="" noSelectionOption="false"/>
+			    			<f:selectItem itemLabel="Selecione a Memória" itemValue="" noSelectionOption="false"/>
 			    			<f:selectItems value="#{memoriaBean.memorias}" var="memoria" itemLabel="#{memoria.modelo}-#{memoria.tamanho}" itemValue="#{memoria.id}"/>
 			    </h:selectOneMenu>
 				
@@ -52,32 +52,19 @@
 				<h:outputLabel value="Andar:" for="andar" />
 				<p:inputText id="andar" value="#{pcBean.pc.andar}"/>
 				
-								
-				
-						<!-- Cadastro de SO  -->
-						<h:outputLabel value="SO:" for="so" />
-						<h:selectOneMenu value="#{pcBean.sistemaOperacionalId}">
-			    			<f:selectItem itemLabel="#{pcBean.pc.chaveSerial.sistemaOperacional.nome}" itemValue="" noSelectionOption="false"/>
-			    			<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
-			    		</h:selectOneMenu>
-			    		
-			    		<h:outputLabel value="Serial:" for="serial" />
-			    		<h:outputLabel value="#{pcBean.pc.chaveSerial.serial}" />
-						<p:inputText id="serial" value="#{pcBean.chaveSerial.serial}"/>
+				<!-- Cadastro de SO  -->
+				<h:outputLabel value="SO:" for="so" />
+				<h:selectOneMenu value="#{pcBean.sistemaOperacionalId}" required="true">
+	    			<f:selectItem itemLabel="Selecione o SO" itemValue="" noSelectionOption="false"/>
+	    			<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
+	    		</h:selectOneMenu>
+	    		
+	    		<h:outputLabel value="Serial:" for="serial" />
+	    		<h:outputLabel value="#{pcBean.pc.chaveSerial.serial}" />
+				<p:inputText id="serial" value="#{pcBean.chaveSerial.serial}"/>
 						
-						
-				  
-				<h:outputLabel value="Softwares" for="software" rendered="#{empty pcBean.pc.numeroPatrimonial}"/>
-				<h:selectOneMenu value="#{pcBean.softwareId}" id="software" rendered="#{empty pcBean.pc.numeroPatrimonial}">
-			    			<f:selectItem itemLabel="Selecione o Software e clique em +" itemValue="" noSelectionOption="false"/>
-			    			<f:selectItems value="#{softwareBean.softwares}" var="software" itemLabel="#{software.nome}" itemValue="#{software.id}"/>
-			    </h:selectOneMenu>
-				
-				<h:commandButton value="Adicionar Software" action="#{pcBean.guardaItem}" rendered="#{empty pcBean.pc.numeroPatrimonial}">
-					<f:ajax execute="@form" render="@form :form3:softwares" />
-				</h:commandButton>	
-				
-				
+			
+
 				<h:commandButton value="Gravar" action="#{pcBean.grava }" rendered="#{empty pcBean.pc.numeroPatrimonial}" >
 					<f:ajax execute="@form" render="@form :form2:datatable" />
 				</h:commandButton>	
@@ -89,7 +76,7 @@
 		</h:form>
 		<h2>Softwares do PC</h2>
 		<h:form id="form3">
-			<p:dataTable value="#{pcBean.pc.softwares}" var="soft"
+			<p:dataTable value="#{pcBean.softwareAux}" var="soft"
 				id="softwares" dynamic="true" lazy="true">
 				<p:column headerText="SOFTWARES">#{soft.nome}</p:column>
 				<p:column  headerText="AÇÕES">
@@ -98,8 +85,7 @@
 						 <f:ajax render="@form" />
 					</h:commandButton>
 				</p:column>
-			</p:dataTable>
-			
+			</p:dataTable>		
 		</h:form>
 		
 		

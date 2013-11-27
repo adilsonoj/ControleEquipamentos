@@ -19,7 +19,7 @@ import mb.dsam.modelo.Memoria;
 import mb.dsam.modelo.Notebook;
 import mb.dsam.modelo.Processador;
 import mb.dsam.modelo.SistemaOperacional;
-import mb.dsam.modelo.TipoSistemaOperacional;
+import mb.dsam.modelo.Andar;
 
 @ViewScoped
 @ManagedBean
@@ -159,8 +159,8 @@ public void altera(){
 	
 	}
 	
-	public TipoSistemaOperacional[] getTiposSistemasOperacionais() {
-		return TipoSistemaOperacional.values();
+	public Andar[] getTiposSistemasOperacionais() {
+		return Andar.values();
 	}
 
 	public ChaveSerial getChaveSerial() {
