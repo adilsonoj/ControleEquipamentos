@@ -34,14 +34,14 @@
 				
 				<h:outputLabel value="Processador:" for="processador" />
 				<h:selectOneMenu value="#{pcBean.processadorId}">
-			    			<f:selectItem itemLabel="Selecione o Processador" itemValue="" noSelectionOption="false"/>
+			    			<f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="false"/>
 			    			<f:selectItems value="#{processadorBean.processadores}" var="processador" itemLabel="#{processador.marca}-#{processador.modelo}" itemValue="#{processador.id}"/>
 			    </h:selectOneMenu>
 				
 				
 				<h:outputLabel value="Memória:" for="memoria" />
 				<h:selectOneMenu value="#{pcBean.memoriaId}">
-			    			<f:selectItem itemLabel="Selecione a Memória" itemValue="" noSelectionOption="false"/>
+			    			<f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="false"/>
 			    			<f:selectItems value="#{memoriaBean.memorias}" var="memoria" itemLabel="#{memoria.modelo}-#{memoria.tamanho}" itemValue="#{memoria.id}"/>
 			    </h:selectOneMenu>
 				
@@ -50,12 +50,20 @@
 				<p:inputText id="lacre" value="#{pcBean.pc.lacre}"/>
 							
 				<h:outputLabel value="Andar:" for="andar" />
-				<p:inputText id="andar" value="#{pcBean.pc.andar}"/>
+				<h:selectOneMenu value="#{pcBean.pc.andar}">  
+		            <f:selectItem itemLabel="Selecione" itemValue="" />  
+		            <f:selectItem itemLabel="17" itemValue="17" />  
+		            <f:selectItem itemLabel="18" itemValue="18" />  
+		            <f:selectItem itemLabel="19" itemValue="19" />
+		            <f:selectItem itemLabel="20" itemValue="20" />
+		            <f:selectItem itemLabel="21" itemValue="21" />  
+        		</h:selectOneMenu>  
+				
 				
 				<!-- Cadastro de SO  -->
 				<h:outputLabel value="SO:" for="so" />
 				<h:selectOneMenu value="#{pcBean.sistemaOperacionalId}" required="true">
-	    			<f:selectItem itemLabel="Selecione o SO" itemValue="" noSelectionOption="false"/>
+	    			<f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="false"/>
 	    			<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
 	    		</h:selectOneMenu>
 	    		
@@ -74,19 +82,8 @@
 							
 			</fieldset>
 		</h:form>
-		<h2>Softwares do PC</h2>
-		<h:form id="form3">
-			<p:dataTable value="#{pcBean.softwareAux}" var="soft"
-				id="softwares" dynamic="true" lazy="true">
-				<p:column headerText="SOFTWARES">#{soft.nome}</p:column>
-				<p:column  headerText="AÇÕES">
-					<h:commandButton action="#{pcBean.pc.softwares.remove(soft)}"
-						value="Remover" >
-						 <f:ajax render="@form" />
-					</h:commandButton>
-				</p:column>
-			</p:dataTable>		
-		</h:form>
+		
+		
 		
 		
 		<h2>Listagem de PCs</h2>
@@ -115,7 +112,7 @@
 						<f:setPropertyActionListener target="#{pcBean.pc}"
 							value="#{pc}" />
 							
-						<f:ajax render=":form1 :form3:softwares" />
+						<f:ajax render=":form1 " />
 					</h:commandButton>
 				</p:column>
 				<f:facet name="footer">  

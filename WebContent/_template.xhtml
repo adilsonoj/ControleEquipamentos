@@ -20,7 +20,16 @@
 		<h1>SISSPD</h1>
 	</div>
 
+	<div id="usuarioLogado">
+		<h:form rendered="#{loginBean.logado}">
+		Logado como:
+			<h:commandLink value="#{usuarioLogadoBean.usuario.login}"
+				action="#{loginBean.logout}" />
+		</h:form>
+	</div>
+
 	<div id="conteudo">
+		<h:form rendered="#{loginBean.logado}">
 			<p:menubar>
 				<p:submenu label="Cadastro">
 					<p:menuitem value="PC" url="cadastroPC.xhtml" />
@@ -52,7 +61,9 @@
 					<p:menuitem value="Processador" url="cadastroProcessador.xhtml" />
 					<p:menuitem value="Software" url="cadastroSoftware.xhtml" />
 				</p:submenu>
+				
 			</p:menubar>
+		</h:form>
 			<ui:insert name="corpo" />
 	</div>
 
