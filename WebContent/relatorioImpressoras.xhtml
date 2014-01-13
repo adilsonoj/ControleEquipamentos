@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/_template.xhtml">
+	<ui:define name="corpo">
+		<h2>Impressoras</h2>
+		<h:form id="form">
+			<h:commandButton value="Imprimir" type="button" >  
+       			 <p:printer target="datatable" />  
+    		</h:commandButton>  
+  
+  			 
+			<p:dataTable value="#{impressoraBean.impressoras}" var="impressora" 
+				id="datatable" >
+				
+				<p:column sortBy="#{impressora.numeroPatrimonial}" headerText="NP" filterBy="#{impressora.numeroPatrimonial}" filterMatchMode="contains"> > #{impressora.numeroPatrimonial}</p:column>
+				<p:column sortBy="#{impressora.marca}" headerText="MARCA" filterBy="#{impressora.marca}" filterMatchMode="contains"> #{impressora.marca}</p:column>
+				<p:column sortBy="#{impressora.modelo}" headerText="MODELO" filterBy="#{impressora.modelo}" filterMatchMode="contains">#{impressora.modelo}</p:column>
+				<p:column sortBy="#{impressora.andar}" headerText="ANDAR" filterBy="#{impressora.andar}" filterMatchMode="contains">#{impressora.andar}</p:column>
+				<p:column sortBy="#{impressora.setor}" headerText="SETOR" filterBy="#{impressora.setor}" filterMatchMode="contains">#{impressora.setor}</p:column>
+				<p:column sortBy="#{impressora.ip}" headerText="IP" filterBy="#{impressora.ip}" filterMatchMode="contains">#{impressora.ip}</p:column>
+				<f:facet name="footer">  
+           	         		Total de: #{impressoraBean.impressoras.size()}    
+       			 </f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+	</ui:composition>
+</html>

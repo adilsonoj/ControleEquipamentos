@@ -11,10 +11,11 @@ public class Impressora implements Serializable{
 	@Id
 	private Integer numeroPatrimonial;
 	private String nome;
-	private Integer ip;
+	private String ip;
 	private String marca;
 	private String modelo;
 	private Integer andar;
+	private String setor;
 	
 	
 	public Integer getAndar() {
@@ -36,10 +37,10 @@ public class Impressora implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Integer getIp() {
+	public String getIp() {
 		return ip;
 	}
-	public void setIp(Integer ip) {
+	public void setIp(String ip) {
 		this.ip = ip;
 	}
 	public String getMarca() {
@@ -53,6 +54,12 @@ public class Impressora implements Serializable{
 	}
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
+	}
+	public String getSetor() {
+		return setor;
+	}
+	public void setSetor(String setor) {
+		this.setor = setor;
 	}
 	
 	

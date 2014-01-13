@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/_template.xhtml">
+	<ui:define name="corpo">
+	
+	<h:form id="form1">
+			<h:messages styleClass="erros" />
+			
+			
+			<fieldset>
+				<legend>Cadastro de Impressora</legend>
+				<h2>
+					<h:outputText value="Novo" rendered="#{empty impressoraBean.impressora.numeroPatrimonial}"/>
+					<h:outputText value="Alterar" rendered="#{not empty impressoraBean.impressora.numeroPatrimonial}"/>
+				</h2>
+				<h:outputLabel value="Número Patrimónial:" for="np" />
+				<p:inputText id="np" value="#{impressoraBean.impressora.numeroPatrimonial}" required="true"/>
+				
+				<h:outputLabel value="Marca:" for="marca" />
+				<p:inputText id="marca" value="#{impressoraBean.impressora.marca}" required="true"/>
+				
+				<h:outputLabel value="Modelo:" for="modelo" />
+				<p:inputText id="modelo" value="#{impressoraBean.impressora.modelo}" required="true"/>
+				
+				<h:outputLabel value="Andar:" for="andar" />
+				<p:inputText id="andar" value="#{impressoraBean.impressora.andar}" required="true"/>
+				
+				<h:outputLabel value="Setor:" for="setor" />
+				<p:inputText id="setor" value="#{impressoraBean.impressora.setor}" />
+				
+				<h:outputLabel value="IP:" for="ip" />
+				<p:inputText id="ip" value="#{impressoraBean.impressora.ip}" />
+				
+				
+				<h:commandButton value="Gravar" action="#{impressoraBean.grava }" >
+					<f:ajax execute="@form" render="@form :form2:datatable" />
+				</h:commandButton>				
+			</fieldset>
+		</h:form>
+		<h2>Listagem de Impressora</h2>
+		<h:form id="form2">
+			<p:dataTable value="#{impressoraBean.impressoras}" var="impressora"
+				id="datatable" paginator="true" rows="10" dynamic="true" lazy="true">
+				
+				<p:column headerText="NP">#{impressora.numeroPatrimonial}</p:column>
+				<p:column headerText="MARCA">#{impressora.marca}</p:column>
+				<p:column headerText="MODELO">#{impressora.modelo}</p:column>
+				<p:column headerText="ANDAR">#{impressora.andar}</p:column>
+				<p:column headerText="SETOR">#{impressora.setor}</p:column>
+				<p:column headerText="IP">#{impressora.ip}</p:column>
+				<p:column  headerText="AÇÕES">
+					
+					<h:commandButton action="#{impressoraBean.remove(impressora)}"
+						value="Remover" >
+						 <f:ajax render="@form" />
+					</h:commandButton>
+					
+					<h:commandButton value="Alterar" >
+						<f:setPropertyActionListener target="#{impressoraBean.impressora}"
+							value="#{impressora}" />
+						<f:ajax render=":form1" />
+					</h:commandButton>
+				</p:column>
+				<f:facet name="footer">  
+           	         		Total de: #{impressoraBean.impressoras.size()}    
+       			 </f:facet> 
+			</p:dataTable>
+		</h:form>
+		</ui:define>
+</ui:composition>
+</html>

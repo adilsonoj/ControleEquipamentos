@@ -67,7 +67,7 @@
 	    			<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
 	    		</h:selectOneMenu>
 	    		
-	    		<h:outputLabel value="Serial:" for="serial" />
+	    		<h:outputLabel value="Chave SO:" for="serial" />
 	    		<h:outputLabel value="#{pcBean.pc.chaveSerial.serial}" />
 				<p:inputText id="serial" value="#{pcBean.chaveSerial.serial}"/>
 						

@@ -45,7 +45,7 @@
 		    		<f:selectItem itemLabel="#{notebookBean.notebook.chaveSerial.sistemaOperacional.nome}" itemValue="" noSelectionOption="false"/>
 		    		<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
 		    	</h:selectOneMenu>
-		    	<h:outputLabel value="SERIAL:" for="serial" />
+		    	<h:outputLabel value="CHAVE SO:" for="serial" />
 			    <h:outputLabel value="#{notebookBean.notebook.chaveSerial.serial}" />
 				<p:inputText id="serial" value="#{notebookBean.chaveSerial.serial}" label="#{notebookBean.notebook.chaveSerial.serial}"/>
 				
