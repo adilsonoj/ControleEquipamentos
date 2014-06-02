@@ -3,7 +3,6 @@ package mb.dsam.util;
 import mb.dsam.mb.PcBean;
 import mb.dsam.mb.RangeIpBean;
 import mb.dsam.modelo.Ip;
-import mb.dsam.modelo.Pc;
 
 public class teste {
 

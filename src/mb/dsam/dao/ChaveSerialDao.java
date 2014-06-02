@@ -8,9 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import mb.dsam.modelo.ChaveSerial;
-import mb.dsam.modelo.Notebook;
-import mb.dsam.modelo.Pc;
-import mb.dsam.modelo.SistemaOperacional;
 
 
 @Stateless

@@ -58,7 +58,7 @@ body{
 
 /* miolo */
 #conteudo, section {
-	width:990px;
+	width:1500px;
 	height:auto;
 	position:relative;
 	padding:10px 0px;
@@ -195,7 +195,7 @@ form fieldset {
 	padding: 10px 0px 10px 10px;
 	margin: 5px 0 10px 0;
 	text-align: left;
-	width: 980px;
+	width: auto;
 }
 	form .ui-fieldset {
 		width: 873px;

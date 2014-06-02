@@ -17,7 +17,7 @@
 			<p:dataTable value="#{impressoraBean.impressoras}" var="impressora" 
 				id="datatable" >
 				
-				<p:column sortBy="#{impressora.numeroPatrimonial}" headerText="NP" filterBy="#{impressora.numeroPatrimonial}" filterMatchMode="contains"> > #{impressora.numeroPatrimonial}</p:column>
+				<p:column  headerText="NP" sortBy="#{impressora.numeroPatrimonial}" filterBy="#{impressora.numeroPatrimonial}" filterMatchMode="contains"> > #{impressora.numeroPatrimonial}</p:column>
 				<p:column sortBy="#{impressora.marca}" headerText="MARCA" filterBy="#{impressora.marca}" filterMatchMode="contains"> #{impressora.marca}</p:column>
 				<p:column sortBy="#{impressora.modelo}" headerText="MODELO" filterBy="#{impressora.modelo}" filterMatchMode="contains">#{impressora.modelo}</p:column>
 				<p:column sortBy="#{impressora.andar}" headerText="ANDAR" filterBy="#{impressora.andar}" filterMatchMode="contains">#{impressora.andar}</p:column>

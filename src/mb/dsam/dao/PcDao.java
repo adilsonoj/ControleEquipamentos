@@ -10,10 +10,6 @@ import javax.persistence.Query;
 
 import mb.dsam.modelo.Pc;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
-
 @Stateless
 public class PcDao {
 	

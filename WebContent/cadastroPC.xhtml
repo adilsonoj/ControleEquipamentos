@@ -18,102 +18,101 @@
 					<h:outputText value="Novo" rendered="#{empty pcBean.pc.numeroPatrimonial}"/>
 					<h:outputText value="Alterar" rendered="#{not empty pcBean.pc.numeroPatrimonial}"/>
 				</h2>
+				 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+				<p:outputLabel value="NP:" for="numeroPatrimonial" />
+				<p:inputText id="numeroPatrimonial" value="#{pcBean.pc.numeroPatrimonial}"  required="true" requiredMessage="NP vazio."/>
 				
-				<h:outputLabel value="NP:" for="numeroPatrimonial" />
-				<p:inputText id="numeroPatrimonial" value="#{pcBean.pc.numeroPatrimonial}"  required="true"/>
-				
-				<h:outputLabel value="Nome da Máquina:" for="nome" />
-				<p:inputText id="nome" value="#{pcBean.pc.nome}"/>
-				
+				<p:outputLabel value="Nome da Máquina:" for="nome" />
+				<p:inputText id="nome" value="#{pcBean.pc.nome}"/>				
 			
-				<h:outputLabel value="IP:" for="ip" />
+				<p:outputLabel value="IP:" for="ip" />
 				<p:inputText id="ip" value="#{pcBean.pc.ip}" maxlength="15"/>
 				
-				<h:outputLabel value="MAC:" for="macAdress" />
+				<p:outputLabel value="MAC:" for="macAdress" />
 				<p:inputMask id="macAdress" value="#{pcBean.pc.macAdress}"  mask="**:**:**:**:**:**"/>
-				
-				<h:outputLabel value="Processador:" for="processador" />
-				<h:selectOneMenu value="#{pcBean.processadorId}">
+	
+				<p:outputLabel value="Processador:" for="processador" />
+				<p:selectOneMenu id="processador" value="#{pcBean.processadorId}" effect="fold">
 			    			<f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="false"/>
 			    			<f:selectItems value="#{processadorBean.processadores}" var="processador" itemLabel="#{processador.marca}-#{processador.modelo}" itemValue="#{processador.id}"/>
-			    </h:selectOneMenu>
-				
-				
-				<h:outputLabel value="Memória:" for="memoria" />
-				<h:selectOneMenu value="#{pcBean.memoriaId}">
+			    </p:selectOneMenu>
+		
+				<p:outputLabel value="Memória:" for="memoria" />
+				<p:selectOneMenu id="memoria" value="#{pcBean.memoriaId}" effect="fold">
 			    			<f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="false"/>
 			    			<f:selectItems value="#{memoriaBean.memorias}" var="memoria" itemLabel="#{memoria.modelo}-#{memoria.tamanho}" itemValue="#{memoria.id}"/>
-			    </h:selectOneMenu>
+			    </p:selectOneMenu>
+	
+				<p:outputLabel value="SO:" for="so" />
+				<p:selectOneMenu id="so" value="#{pcBean.sistemaOperacionalId}" required="true" requiredMessage="SO vazio." effect="fold">
+	    			<f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="false"/>
+	    			<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
+	    		</p:selectOneMenu>
+	    		
+	    		<p:outputLabel value="Chave SO:" for="serial" />
+				<p:inputText id="serial" value="#{pcBean.chaveSerial.serial}"/>
 				
 				
-				<h:outputLabel value="Lacre:" for="lacre" />
-				<p:inputText id="lacre" value="#{pcBean.pc.lacre}"/>
-							
-				<h:outputLabel value="Andar:" for="andar" />
-				<h:selectOneMenu value="#{pcBean.pc.andar}">  
+				<p:outputLabel value="#{pcBean.pc.chaveSerial.chaveSerial}" for="chave"/>
+				<h:inputHidden id="chave" />
+				
+				
+				<p:outputLabel value="Andar:" for="andar" />
+				<p:selectOneMenu id="andar" value="#{pcBean.pc.andar}" effect="fold">  
 		            <f:selectItem itemLabel="Selecione" itemValue="" />  
 		            <f:selectItem itemLabel="17" itemValue="17" />  
 		            <f:selectItem itemLabel="18" itemValue="18" />  
 		            <f:selectItem itemLabel="19" itemValue="19" />
 		            <f:selectItem itemLabel="20" itemValue="20" />
 		            <f:selectItem itemLabel="21" itemValue="21" />  
-        		</h:selectOneMenu>  
+        		</p:selectOneMenu>
+				
+				<p:outputLabel value="Lacre:" for="lacre" />
+				<p:inputText id="lacre" value="#{pcBean.pc.lacre}"/>
 				
 				
-				<!-- Cadastro de SO  -->
-				<h:outputLabel value="SO:" for="so" />
-				<h:selectOneMenu value="#{pcBean.sistemaOperacionalId}" required="true">
-	    			<f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="false"/>
-	    			<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
-	    		</h:selectOneMenu>
-	    		
-	    		<h:outputLabel value="Chave SO:" for="serial" />
-	    		<h:outputLabel value="#{pcBean.pc.chaveSerial.serial}" />
-				<p:inputText id="serial" value="#{pcBean.chaveSerial.serial}"/>
-						
-			
-
-				<h:commandButton value="Gravar" action="#{pcBean.grava }" rendered="#{empty pcBean.pc.numeroPatrimonial}" >
-					<f:ajax execute="@form" render="@form :form2:datatable" />
-				</h:commandButton>	
-				<h:commandButton value="Altera" action="#{pcBean.altera }" rendered="#{not empty pcBean.pc.numeroPatrimonial}">
-					<f:ajax execute="@form" render="@form :form2:datatable" />
-				</h:commandButton>
-							
+		</h:panelGrid>
+		<p:commandButton value="Gravar" action="#{pcBean.grava }" rendered="#{empty pcBean.pc.numeroPatrimonial}" update="@form :form2:datatable"/>
+					
+				<p:commandButton value="Altera" action="#{pcBean.altera }" rendered="#{not empty pcBean.pc.numeroPatrimonial}" update="@form :form2:datatable"/>
 			</fieldset>
 		</h:form>
-		
-		
-		
 		
 		<h2>Listagem de PCs</h2>
 		<h:form id="form2">
 			<p:dataTable value="#{pcBean.pcsComChaveSerial}" var="pc"
-				id="datatable" paginator="true" rows="10" dynamic="true" lazy="true">
-				<p:column headerText="NP">#{pc.numeroPatrimonial}</p:column>
-				<p:column headerText="NOME MÁQ.">#{pc.nome}</p:column>
-				<p:column headerText="IP">#{pc.ip}</p:column>
-				<p:column headerText="MAC">#{pc.macAdress}</p:column>
-				<p:column headerText="PROCESSADOR">#{pc.processador.marca} - #{pc.processador.modelo}</p:column>
-				<p:column headerText="MEMÓRIA">#{pc.memoria.modelo} - #{pc.memoria.tamanho}</p:column>
-				<p:column headerText="LACRE">#{pc.lacre}</p:column>
-				<p:column headerText="ANDAR">#{pc.andar}</p:column>
-				<p:column headerText="SO">	#{pc.chaveSerial.sistemaOperacional.nome}</p:column>
-				<p:column headerText="SERIAL">#{pc.chaveSerial.chaveSerial}</p:column>
+				id="datatable" paginator="true" rows="10" dynamic="true" >
 				
-				<p:column  headerText="AÇÕES">
+				
+				
+						
+        		
+				<p:column headerText="NP" sortBy="#{pc.numeroPatrimonial}" filterBy="#{pc.numeroPatrimonial}" filterMatchMode="contains">#{pc.numeroPatrimonial}</p:column>
+				<p:column headerText="NOME DA MÁQ." sortBy="#{pc.nome}" filterBy="#{pc.nome}" filterMatchMode="contains">#{pc.nome}</p:column>
+				<p:column headerText="IP" sortBy="#{pc.ip}" filterBy="#{pc.ip}" filterMatchMode="contains">#{pc.ip}</p:column>
+				<p:column headerText="MAC" sortBy="#{pc.macAdress}" filterBy="#{pc.macAdress}" filterMatchMode="contains">#{pc.macAdress}</p:column>
+				<p:column headerText="PROCESSADOR" sortBy="#{pc.processador.marca}" filterBy="#{pc.processador.marca}" filterMatchMode="contains">#{pc.processador.marca} - #{pc.processador.modelo}</p:column>
+				<p:column headerText="MEMÓRIA" sortBy="#{pc.processador.modelo}" filterBy="#{pc.processador.modelo}" filterMatchMode="contains">#{pc.memoria.modelo} - #{pc.memoria.tamanho}</p:column>
+				<p:column headerText="LACRE">#{pc.lacre}</p:column>
+				<p:column headerText="ANDAR" sortBy="#{pc.andar}" filterBy="#{pc.andar}" filterMatchMode="contains">#{pc.andar}</p:column>
+				<p:column headerText="SO" sortBy="#{pc.chaveSerial.sistemaOperacional.nome}" filterBy="#{pc.chaveSerial.sistemaOperacional.nome}" filterMatchMode="contains">	#{pc.chaveSerial.sistemaOperacional.nome}</p:column>
+				<p:column headerText="SERIAL" sortBy="#{pc.chaveSerial.chaveSerial}" filterBy="#{pc.chaveSerial.chaveSerial}" filterMatchMode="contains">#{pc.chaveSerial.chaveSerial}</p:column>
+				
+				<p:column  headerText="AÇÕES" id="acoes" >
 					
-					<h:commandButton action="#{pcBean.remove(pc)}"
-						value="Remover" >
-						 <f:ajax render="@form" />
-					</h:commandButton>
+					<p:commandButton  actionListener="#{pcBean.remove(pc)}"  update="datatable"	icon="ui-icon-trash"   >
+						<p:confirm header="Confirmação" message="Tem certeza que deseja excluir o item?" icon="ui-icon-alert" />
+					</p:commandButton>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				    </p:confirmDialog>
 			
-					<h:commandButton value="Alterar" >
-						<f:setPropertyActionListener target="#{pcBean.pc}"
+					<p:commandButton id="alterar" icon="ui-icon-pencil" update=":form1">
+						<f:setPropertyActionListener target="#{pcBean.pc}" 
 							value="#{pc}" />
-							
-						<f:ajax render=":form1 " />
-					</h:commandButton>
+						
+					</p:commandButton>
 				</p:column>
 				<f:facet name="footer">  
            	         		Total de: #{pcBean.pcsComChaveSerial.size()}    

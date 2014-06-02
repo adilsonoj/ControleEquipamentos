@@ -3,23 +3,19 @@ package mb.dsam.mb;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.inject.Named;
-import javax.persistence.Query;
-
-import org.primefaces.event.ToggleEvent;
 
 import mb.dsam.dao.ChaveSerialDao;
 import mb.dsam.dao.SistemaOperacionalDao;
 import mb.dsam.modelo.ChaveSerial;
-import mb.dsam.modelo.Emprestimo;
 import mb.dsam.modelo.Pc;
 import mb.dsam.modelo.SistemaOperacional;
+
+import org.primefaces.event.ToggleEvent;
 
 @ViewScoped
 @ManagedBean

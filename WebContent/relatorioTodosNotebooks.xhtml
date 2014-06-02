@@ -25,6 +25,9 @@
 				<p:column headerText="MEMÓRIA">#{notebook.memoria.modelo} - #{notebook.memoria.tamanho}</p:column>
 				<p:column headerText="SO">	#{notebook.chaveSerial.sistemaOperacional.nome}</p:column>
 				<p:column headerText="SERIAL">#{notebook.chaveSerial.chaveSerial}</p:column>
+				<f:facet name="footer">  
+           	         		Total de: #{notebookBean.notebooks.size()}    
+       			 </f:facet>
 			</p:dataTable>
 		</h:form>
 	</ui:define>
