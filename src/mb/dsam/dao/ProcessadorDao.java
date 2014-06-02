@@ -6,7 +6,9 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
+import mb.dsam.modelo.Emprestimo;
 import mb.dsam.modelo.Processador;
 @Stateless
 public class ProcessadorDao implements Serializable {
@@ -25,7 +27,8 @@ public class ProcessadorDao implements Serializable {
 		return this.manager.createQuery("select m from Processador m", Processador.class)
 				.getResultList();
 	}
-
+	
+	
 	public void remove(Processador processador) {
 		Processador processadorParaRemover = this.manager.find(Processador.class, processador.getId());
 		this.manager.remove(processadorParaRemover);

@@ -27,10 +27,7 @@ public class Pc implements Serializable{
 	private String nome;
 	private String ip;
 	private String macAdress;
-	
-	
 	private Integer lacre;
-	
 	private Integer andar;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = true, mappedBy="pc")

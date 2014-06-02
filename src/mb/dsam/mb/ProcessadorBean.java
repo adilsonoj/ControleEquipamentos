@@ -8,6 +8,7 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import mb.dsam.dao.ProcessadorDao;
+import mb.dsam.modelo.Pc;
 import mb.dsam.modelo.Processador;
 
 @ViewScoped
@@ -17,7 +18,7 @@ public class ProcessadorBean implements Serializable {
 	private Processador processador;
 	@Inject
 	private ProcessadorDao processadorDao;
-	
+		
 	private List<Processador> processadores;
 
 	public Processador getProcessador() {
@@ -36,7 +37,8 @@ public class ProcessadorBean implements Serializable {
 		
 		return processadores;
 	}
-	
+		
+
 public void grava() {
 		
 		if (this.processador.getId() == null) {

@@ -58,12 +58,9 @@ public class PcBean implements Serializable {
 	private SoftwareDao softwareDao;
 	@Inject
 	private Software software;
-
-	
 	
 	private Long processadorId;
 	private Long numeroPatrimonial;
-	
 	private Long sistemaOperacionalId;
 	private String serial;
 	private String ip;
@@ -229,7 +226,7 @@ public class PcBean implements Serializable {
 	 */
 	private void limpaFormularioDoJSF() {
 		this.pc = new Pc();
-		this.chaveSerial = new ChaveSerial();
+		this.chaveSerial = new ChaveSerial();		
 	}
 
 	public ChaveSerial getChaveSerial() {

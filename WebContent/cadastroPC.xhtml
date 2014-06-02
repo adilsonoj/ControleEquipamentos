@@ -9,8 +9,8 @@
 	<ui:define name="corpo">
 	
 	<h:form id="form1">
-			<h:messages styleClass="erros" />
 			
+			<p:growl id="growl"  sticky="true" />  
 			
 			<fieldset>
 				<legend>Cadastro de PC</legend>
@@ -33,30 +33,36 @@
 	
 				<p:outputLabel value="Processador:" for="processador" />
 				<p:selectOneMenu id="processador" value="#{pcBean.processadorId}" effect="fold">
-			    			<f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="false"/>
+							
+			    			<f:selectItem itemLabel="#{pcBean.pc.processador.marca}-#{pcBean.pc.processador.modelo}" itemValue="#{pcBean.pc.processador.id}" />
 			    			<f:selectItems value="#{processadorBean.processadores}" var="processador" itemLabel="#{processador.marca}-#{processador.modelo}" itemValue="#{processador.id}"/>
 			    </p:selectOneMenu>
-		
+			    
 				<p:outputLabel value="Memória:" for="memoria" />
 				<p:selectOneMenu id="memoria" value="#{pcBean.memoriaId}" effect="fold">
-			    			<f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="false"/>
+			    			<f:selectItem itemLabel="#{pcBean.pc.memoria.modelo}-#{pcBean.pc.memoria.tamanho}" itemValue="#{pcBean.pc.memoria.id}" />
 			    			<f:selectItems value="#{memoriaBean.memorias}" var="memoria" itemLabel="#{memoria.modelo}-#{memoria.tamanho}" itemValue="#{memoria.id}"/>
 			    </p:selectOneMenu>
 	
 				<p:outputLabel value="SO:" for="so" />
 				<p:selectOneMenu id="so" value="#{pcBean.sistemaOperacionalId}" required="true" requiredMessage="SO vazio." effect="fold">
-	    			<f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="false"/>
+				 	
+	    			<f:selectItem itemLabel="#{pcBean.pc.chaveSerial.sistemaOperacional.nome}" itemValue="#{pcBean.pc.chaveSerial.sistemaOperacional.id}"/>
 	    			<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
 	    		</p:selectOneMenu>
 	    		
-	    		<p:outputLabel value="Chave SO:" for="serial" />
-				<p:inputText id="serial" value="#{pcBean.chaveSerial.serial}"/>
-				
-				
-				<p:outputLabel value="#{pcBean.pc.chaveSerial.chaveSerial}" for="chave"/>
-				<h:inputHidden id="chave" />
-				
-				
+	    		<p:outputLabel value="Serial do SO:" for="serial" />
+	    		<p:inputText   value="#{pcBean.chaveSerial.serial}" rendered="#{empty pcBean.pc.chaveSerial.chaveSerial}" required="true" requiredMessage="Chave Serial vazia!"/>
+	    		
+	    		<p:inplace label="#{pcBean.pc.chaveSerial.chaveSerial}" effectSpeed="fast" event="click" rendered="#{not empty pcBean.pc.chaveSerial.chaveSerial}">
+           			 <p:selectOneMenu id="serial" value="#{pcBean.chaveSerial.serial}"  editable="true"  style="width:240px;" required="true" requiredMessage="Chave Serial vazia!">
+	    				<f:selectItem itemLabel="#{pcBean.pc.chaveSerial.chaveSerial}" itemValue="#{pcBean.pc.chaveSerial.chaveSerial}" />
+	    			</p:selectOneMenu>
+	    			
+        		</p:inplace>
+	    		
+					    		
+							
 				<p:outputLabel value="Andar:" for="andar" />
 				<p:selectOneMenu id="andar" value="#{pcBean.pc.andar}" effect="fold">  
 		            <f:selectItem itemLabel="Selecione" itemValue="" />  
@@ -71,9 +77,8 @@
 				<p:inputText id="lacre" value="#{pcBean.pc.lacre}"/>
 				
 				
-		</h:panelGrid>
-		<p:commandButton value="Gravar" action="#{pcBean.grava }" rendered="#{empty pcBean.pc.numeroPatrimonial}" update="@form :form2:datatable"/>
-					
+			</h:panelGrid>
+				<p:commandButton value="Gravar" action="#{pcBean.grava }" rendered="#{empty pcBean.pc.numeroPatrimonial}" update="@form :form2:datatable"/>
 				<p:commandButton value="Altera" action="#{pcBean.altera }" rendered="#{not empty pcBean.pc.numeroPatrimonial}" update="@form :form2:datatable"/>
 			</fieldset>
 		</h:form>
@@ -82,11 +87,7 @@
 		<h:form id="form2">
 			<p:dataTable value="#{pcBean.pcsComChaveSerial}" var="pc"
 				id="datatable" paginator="true" rows="10" dynamic="true" >
-				
-				
-				
-						
-        		
+		
 				<p:column headerText="NP" sortBy="#{pc.numeroPatrimonial}" filterBy="#{pc.numeroPatrimonial}" filterMatchMode="contains">#{pc.numeroPatrimonial}</p:column>
 				<p:column headerText="NOME DA MÁQ." sortBy="#{pc.nome}" filterBy="#{pc.nome}" filterMatchMode="contains">#{pc.nome}</p:column>
 				<p:column headerText="IP" sortBy="#{pc.ip}" filterBy="#{pc.ip}" filterMatchMode="contains">#{pc.ip}</p:column>
