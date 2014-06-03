@@ -9,53 +9,59 @@
 	<ui:define name="corpo">
 	
 	<h:form id="form1">
-			<p:messages styleClass="erros" />
+			<p:growl id="growl"  sticky="true" /> 
 			<fieldset>
 				<legend>Cadastro de Notebook</legend>
 				<h2>
 					<h:outputText value="Novo" rendered="#{empty notebookBean.notebook.numeroPatrimonial}"/>
 					<h:outputText value="Alterar" rendered="#{not empty notebookBean.notebook.numeroPatrimonial}"/>
 				</h2>
-				<h:outputLabel value="NP:" for="numeroPatrimonial" />
-				<p:inputText id="numeroPatrimonial" value="#{notebookBean.notebook.numeroPatrimonial}" required="true"/>
+				<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+					<p:outputLabel value="NP:" for="numeroPatrimonial" />
+					<p:inputText id="numeroPatrimonial" value="#{notebookBean.notebook.numeroPatrimonial}" required="true"/>
+					
+					<p:outputLabel value="NOME NOTEBOOK:" for="nome" />
+					<p:inputText id="nome" value="#{notebookBean.notebook.nome}"/>
+	
+					<p:outputLabel value="IP:" for="ip" />
+					<p:inputMask id="ip" value="#{notebookBean.notebook.ip}" maxlength="15"/>
+					
+					<p:outputLabel value="MAC:" for="macAdress" />
+					<p:inputMask id="macAdress" value="#{notebookBean.notebook.macAdress}" mask="**:**:**:**:**:**"/>
+					
+					<p:outputLabel value="PROCESSADOR:" for="processador" />
+					<p:selectOneMenu id="processador" value="#{notebookBean.processadorId}" effect="fold">
+				    			<f:selectItem itemLabel="#{notebookBean.notebook.processador.marca}-#{notebookBean.notebook.processador.modelo}" itemValue="#{notebookBean.notebook.processador.id}" />
+				    			<f:selectItems value="#{processadorBean.processadores}" var="processador" itemLabel="#{processador.marca}-#{processador.modelo}" itemValue="#{processador.id}"/>
+				    </p:selectOneMenu>
+				   
+					<p:outputLabel value="MEMÓRIA:" for="memoria" />
+					<p:selectOneMenu id="memoria" value="#{notebookBean.memoriaId}" effect="fold">
+				    			<f:selectItem itemLabel="#{notebookBean.notebook.memoria.modelo}-#{notebookBean.notebook.memoria.tamanho}" itemValue="#{notebookBean.notebook.memoria.id}" noSelectionOption="false"/>
+				    			<f:selectItems value="#{memoriaBean.memorias}" var="memoria" itemLabel="#{memoria.modelo}-#{memoria.tamanho}" itemValue="#{memoria.id}"/>
+				    </p:selectOneMenu>
+					
+					<p:outputLabel value="SO:" for="so" />
+					<p:selectOneMenu value="#{notebookBean.sistemaOperacionalId}" id="so"  effect="fold">
+			    		<f:selectItem itemLabel="#{notebookBean.notebook.chaveSerial.sistemaOperacional.nome}" itemValue="#{notebookBean.notebook.chaveSerial.sistemaOperacional.id}" noSelectionOption="false"/>
+			    		<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
+			    	</p:selectOneMenu>
+			    	
+					<p:outputLabel value="Serial do SO:" for="serial" />
+		    		<p:inputText   value="#{notebookBean.chaveSerial.serial}" rendered="#{empty notebookBean.notebook.chaveSerial.chaveSerial}" required="true" requiredMessage="Chave Serial vazia!"/>
+		    		
+		    			<p:inplace label="#{notebookBean.notebook.chaveSerial.chaveSerial}" effectSpeed="fast" event="click" rendered="#{not empty notebookBean.notebook.chaveSerial.chaveSerial}">
+	           			 	<p:selectOneMenu id="serial" value="#{notebookBean.chaveSerial.serial}"  editable="true"  style="width:240px;" required="true" requiredMessage="Chave Serial vazia!">
+		    					<f:selectItem itemLabel="#{notebookBean.notebook.chaveSerial.serial}" itemValue="#{notebookBean.notebook.chaveSerial.serial}" />
+		    				</p:selectOneMenu>
+	        			</p:inplace>
 				
-				<h:outputLabel value="NOME NOTEBOOK:" for="nome" />
-				<p:inputText id="nome" value="#{notebookBean.notebook.nome}"/>
-
-				<h:outputLabel value="IP:" for="ip" />
-				<p:inputMask id="ip" value="#{notebookBean.notebook.ip}" maxlength="15"/>
+				</h:panelGrid>
 				
-				<h:outputLabel value="MAC:" for="macAdress" />
-				<p:inputMask id="macAdress" value="#{notebookBean.notebook.macAdress}" mask="**:**:**:**:**:**"/>
-				
-				<h:outputLabel value="PROCESSADOR:" for="processador" />
-				<h:selectOneMenu value="#{notebookBean.processadorId}">
-			    			<f:selectItem itemLabel="#{notebookBean.notebook.processador.marca}-#{notebookBean.notebook.processador.modelo}" itemValue="" noSelectionOption="false"/>
-			    			<f:selectItems value="#{processadorBean.processadores}" var="processador" itemLabel="#{processador.marca}-#{processador.modelo}" itemValue="#{processador.id}"/>
-			    </h:selectOneMenu>
-				
-				<h:outputLabel value="MEMÓRIA:" for="memoria" />
-				<h:selectOneMenu value="#{notebookBean.memoriaId}" >
-			    			<f:selectItem itemLabel="#{notebookBean.notebook.memoria.modelo}-#{notebookBean.notebook.memoria.tamanho}" itemValue="" noSelectionOption="false"/>
-			    			<f:selectItems value="#{memoriaBean.memorias}" var="memoria" itemLabel="#{memoria.modelo}-#{memoria.tamanho}" itemValue="#{memoria.id}"/>
-			    </h:selectOneMenu>
-				
-				<h:outputLabel value="SO:" for="so" />
-				<h:selectOneMenu value="#{notebookBean.sistemaOperacionalId}" id="so">
-		    		<f:selectItem itemLabel="#{notebookBean.notebook.chaveSerial.sistemaOperacional.nome}" itemValue="" noSelectionOption="false"/>
-		    		<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
-		    	</h:selectOneMenu>
-		    	<h:outputLabel value="CHAVE SO:" for="serial" />
-			    <h:outputLabel value="#{notebookBean.notebook.chaveSerial.serial}" />
-				<p:inputText id="serial" value="#{notebookBean.chaveSerial.serial}" label="#{notebookBean.notebook.chaveSerial.serial}"/>
-				
-				
-				<h:commandButton value="Gravar" action="#{notebookBean.grava }" rendered="#{empty notebookBean.notebook.numeroPatrimonial}">
-					<f:ajax execute="@form" render="@form :form2:datatable" />
-				</h:commandButton>				
-				<h:commandButton value="Altera" action="#{notebookBean.altera }" rendered="#{not empty notebookBean.notebook.numeroPatrimonial}">
-					<f:ajax execute="@form" render="@form :form2:datatable" />
-				</h:commandButton>
+				<p:commandButton value="Gravar" action="#{notebookBean.grava }" rendered="#{empty notebookBean.notebook.numeroPatrimonial}" update="@form :form2:datatable"/>
+					
+				<p:commandButton value="Altera" action="#{notebookBean.altera }" rendered="#{not empty notebookBean.notebook.numeroPatrimonial}" update="@form :form2:datatable"/>
+					
 			</fieldset>
 		</h:form>
 		<h2>Listagem de Notebooks</h2>
@@ -72,14 +78,22 @@
 				<p:column headerText="SO">	#{notebook.chaveSerial.sistemaOperacional.nome}</p:column>
 				<p:column headerText="SERIAL">#{notebook.chaveSerial.chaveSerial}</p:column>
 				<p:column headerText="AÇÕES">
-					<h:commandButton  action="#{notebookBean.remove(notebook)}" value="Remover" >
-						 <f:ajax render="@form" />
-					</h:commandButton>
+					
+					<p:commandButton  actionListener="#{notebookBean.remove(notebook)}"  update="datatable"	icon="ui-icon-trash"   >
+						<p:confirm header="Confirmação" message="Tem certeza que deseja excluir o item?" icon="ui-icon-alert" />
+					</p:commandButton>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				    </p:confirmDialog>
+					
+					<p:commandButton id="alterar" icon="ui-icon-pencil" update=":form1">
+						<f:setPropertyActionListener target="#{notebookBean.notebook}" 
+							value="#{notebook}" />
+						
+					</p:commandButton>
 				
-					<h:commandButton value="Alterar">
-						<f:setPropertyActionListener target="#{notebookBean.notebook}" value="#{notebook}" />
-						<f:ajax render=":form1" />
-					</h:commandButton>
+					
 				</p:column>
 				<f:facet name="footer">  
            	         		Total de: #{notebookBean.notebooks.size()}    
