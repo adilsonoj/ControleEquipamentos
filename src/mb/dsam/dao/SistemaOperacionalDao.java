@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import mb.dsam.modelo.SistemaOperacional;
 
@@ -35,6 +36,14 @@ public class SistemaOperacionalDao implements Serializable{
 	
 	public SistemaOperacional altera(SistemaOperacional so){
 		return this.manager.merge(so);
+	}
+
+	public SistemaOperacional buscaPorNome(String nome) {
+		String jpql = "select s from SistemaOperacional s where s.nome = :nome";
+		Query query = this.manager.createQuery(jpql);
+		query.setParameter("nome", nome);
+		return (SistemaOperacional) query.getSingleResult();
+		
 	}
 	
 	

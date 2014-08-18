@@ -10,6 +10,7 @@ import javax.persistence.Query;
 
 import mb.dsam.modelo.Emprestimo;
 import mb.dsam.modelo.Processador;
+import mb.dsam.modelo.SistemaOperacional;
 @Stateless
 public class ProcessadorDao implements Serializable {
 	@PersistenceContext
@@ -36,6 +37,15 @@ public class ProcessadorDao implements Serializable {
 	
 	public Processador altera(Processador processador){
 		return this.manager.merge(processador);
+	}
+
+	public Processador buscaPorNome(String marca, String modelo) {
+		String jpql = "select p from Processador p where p.marca = :marca and p.modelo = :modelo";
+		Query query = this.manager.createQuery(jpql);
+		query.setParameter("marca", marca);
+		query.setParameter("modelo", modelo);
+		return (Processador) query.getSingleResult();
+		
 	}
 	
 }

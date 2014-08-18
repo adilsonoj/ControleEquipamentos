@@ -7,7 +7,7 @@
 
 	<ui:composition template="/_template.xhtml">
 		<ui:define name="corpo">
-				<h:commandButton value="importarSAX" action="#{lerSaxBean.importarXml}">
+				<h:commandButton value="importarSAX" action="#{lerSaxBean.importarXml}" immediate="true">
 					<f:ajax execute="@form" render="@form :form2:datatable" />
 				</h:commandButton>
 				<h:commandButton value="importarXStream" action="#{importaXmlBean.importaXML}">
