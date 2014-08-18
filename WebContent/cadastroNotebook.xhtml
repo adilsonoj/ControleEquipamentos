@@ -50,16 +50,14 @@
 					<p:outputLabel value="Serial do SO:" for="serial" />
 		    		<p:inputText   value="#{notebookBean.chaveSerial.serial}" rendered="#{empty notebookBean.notebook.chaveSerial.chaveSerial}" required="true" requiredMessage="Chave Serial vazia!"/>
 		    		
-		    			<p:inplace label="#{notebookBean.notebook.chaveSerial.chaveSerial}" effectSpeed="fast" event="click" rendered="#{not empty notebookBean.notebook.chaveSerial.chaveSerial}">
-	           			 	<p:selectOneMenu id="serial" value="#{notebookBean.chaveSerial.serial}"  editable="true"  style="width:240px;" required="true" requiredMessage="Chave Serial vazia!">
-		    					<f:selectItem itemLabel="#{notebookBean.notebook.chaveSerial.serial}" itemValue="#{notebookBean.notebook.chaveSerial.serial}" />
-		    				</p:selectOneMenu>
-	        			</p:inplace>
+	    			<p:inplace label="#{notebookBean.notebook.chaveSerial.chaveSerial}" effectSpeed="fast" event="click" rendered="#{not empty notebookBean.notebook.chaveSerial.chaveSerial}">
+	          			 	<p:selectOneMenu id="serial" value="#{notebookBean.chaveSerial.serial}"  editable="true"  style="width:240px;" required="true" requiredMessage="Chave Serial vazia!">
+	    					<f:selectItem itemLabel="#{notebookBean.notebook.chaveSerial.serial}" itemValue="#{notebookBean.notebook.chaveSerial.serial}" />
+	    				</p:selectOneMenu>
+	       			</p:inplace>
 				
 				</h:panelGrid>
-				
-				<p:commandButton value="Gravar" action="#{notebookBean.grava }" rendered="#{empty notebookBean.notebook.numeroPatrimonial}" update="@form :form2:datatable"/>
-					
+				<p:commandButton value="Gravar" action="#{notebookBean.grava }" rendered="#{empty notebookBean.notebook.numeroPatrimonial}" update="@form :form2:datatable"/>	
 				<p:commandButton value="Altera" action="#{notebookBean.altera }" rendered="#{not empty notebookBean.notebook.numeroPatrimonial}" update="@form :form2:datatable"/>
 					
 			</fieldset>
@@ -88,12 +86,8 @@
 				    </p:confirmDialog>
 					
 					<p:commandButton id="alterar" icon="ui-icon-pencil" update=":form1">
-						<f:setPropertyActionListener target="#{notebookBean.notebook}" 
-							value="#{notebook}" />
-						
+						<f:setPropertyActionListener target="#{notebookBean.notebook}" value="#{notebook}" />
 					</p:commandButton>
-				
-					
 				</p:column>
 				<f:facet name="footer">  
            	         		Total de: #{notebookBean.notebooks.size()}    

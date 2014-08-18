@@ -11,6 +11,11 @@ import mb.dsam.dao.EmprestimoDao;
 import mb.dsam.dao.NotebookDao;
 import mb.dsam.modelo.Emprestimo;
 import mb.dsam.modelo.Notebook;
+import mb.dsam.modelo.Pc;
+
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
 
 @ViewScoped
 @ManagedBean
@@ -28,6 +33,11 @@ public class EmprestimoBean {
 	EmprestimoDao emprestimoDao;
 	@Inject
 	NotebookDao notebookDao;
+	
+	@Inject
+	PcBean bean;
+	@Inject
+	Pc pco;
 	
 	Calendar data = Calendar.getInstance();
 	
@@ -91,5 +101,44 @@ public class EmprestimoBean {
 		return emprestimoDao.emprestimoPorNotebook(notebookNumeroPatrimonial);
 	}
 	
+	public void importar() {
+		
+		
+        Document doc = null;
+
+        SAXBuilder builder = new SAXBuilder();
+        try {
+              doc = builder.build("d:/temp/pc.xml");
+             System.out.println(doc.getDocType());
+
+        } catch (Exception e) {
+
+              e.printStackTrace();
+        }           
+
+        Element pc = doc.getRootElement();
+
+        List<Element> lista = pc.getChildren();
+
+        for (Element e: lista ){
+        	
+        	 System.out.println("pc: "+ e.getAttributeValue("id"));
+              System.out.println("Nome: " + e.getChildText("nome"));
+              System.out.println("numeroPatrimonial: " + e.getChildText("numeroPatrimonial"));
+              System.out.println("ip: " + e.getChildText("ip"));
+              System.out.println("macAdress: " + e.getChildText("macAdress"));
+              
+        		pco.setNome(e.getChildText("nome"));
+        		pco.setNumeroPatrimonial((long)123456789);
+        		pco.setIp(e.getChildText("ip"));
+        		
+        		bean.setPc(pco);
+        		bean.grava();
+        		System.out.println(pco.getNome());                
+
+        }           
+
+  }
+
 	
 }

@@ -1,6 +1,5 @@
 package mb.dsam.mb;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,6 @@ import mb.dsam.modelo.Pc;
 import mb.dsam.modelo.Processador;
 import mb.dsam.modelo.SistemaOperacional;
 import mb.dsam.modelo.Software;
-import mb.dsam.util.LeitorXML;
 
 
 @ViewScoped
@@ -32,9 +30,7 @@ public class PcBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private LeitorXML leitor;
-	private String dir = "d:/temp";
-	private File diretorio;
+	
 
 	@Inject
 	private Pc pc;
@@ -321,37 +317,6 @@ public class PcBean implements Serializable {
 	public void setSoftwareId(Long softwareId) {
 		this.softwareId = softwareId;
 	}
-
-	
-	/*public void importa(){
-		
-		        diretorio = new File(this.dir);
-		        leitor = new LeitorXML();
-		        try{
-		        for(String arquivos : diretorio.list()){
-		
-		            if(arquivos.endsWith(".xml")){
-		            	
-		                String arquivo = diretorio.getCanonicalPath()+"\\"+arquivos;
-		                System.out.println(arquivo);
-		               
-		                FileInputStream xml = new FileInputStream(new File(arquivo));
-		        		this.pc = leitor.carrega(xml);
-
-		        		setPc(this.pc);
-		        		grava();
-		
-			        }
-				}
-		        }catch(IOException e){
-		        	System.out.println(e.getMessage());
-		        }
-		} */
-	
-	
-	
-	
-	
 	
 
 }
