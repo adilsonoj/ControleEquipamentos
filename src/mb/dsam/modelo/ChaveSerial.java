@@ -81,7 +81,4 @@ public class ChaveSerial implements Serializable{
 		this.notebook = notebook;
 	}
 	
-	
-	
-	
 }

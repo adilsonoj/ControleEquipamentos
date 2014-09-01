@@ -14,10 +14,10 @@ public class UsuarioDAO implements Serializable{
 	@PersistenceContext
 	EntityManager em;
 	
+	
+	
 	public boolean existe(Usuario usuario) {
-		
-		
-		
+
 		Query query = em.createQuery("from Usuario where login = :login and senha = :senha")
 						.setParameter("login", usuario.getLogin())
 						.setParameter("senha", usuario.getSenha());

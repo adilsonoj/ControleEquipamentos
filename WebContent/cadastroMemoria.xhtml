@@ -19,10 +19,10 @@
 					<h:outputText value="Alterar" rendered="#{not empty memoriaBean.memoria.id}"/>
 				</h2>
 				<h:outputLabel value="Modelo:" for="modelo" />
-				<p:inputText id="modelo" value="#{memoriaBean.memoria.modelo}" required="true"/>
+				<p:inputText id="modelo" value="#{memoriaBean.memoria.modelo}"/>
 				
 				<h:outputLabel value="Tamanho:" for="tamanho" />
-				<p:inputText id="tamanho" value="#{memoriaBean.memoria.tamanho}" required="true"/>
+				<p:inputText id="tamanho" value="#{memoriaBean.memoria.tamanho}"/>
 				
 				<h:commandButton value="Gravar" action="#{memoriaBean.grava }" >
 					<f:ajax execute="@form" render="@form :form2:datatable" />

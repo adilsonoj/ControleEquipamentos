@@ -29,7 +29,7 @@
 				<p:inputText id="ip" value="#{pcBean.pc.ip}" maxlength="15"/>
 				
 				<p:outputLabel value="MAC:" for="macAdress" />
-				<p:inputMask id="macAdress" value="#{pcBean.pc.macAdress}"  mask="**:**:**:**:**:**"/>
+				<p:inputText id="macAdress" value="#{pcBean.pc.macAdress}"  maxlength="14"/>
 	
 				<p:outputLabel value="Processador:" for="processador" />
 				<p:selectOneMenu id="processador" value="#{pcBean.processadorId}" effect="fold">
@@ -43,6 +43,7 @@
 			    			<f:selectItem itemLabel="#{pcBean.pc.memoria.modelo}-#{pcBean.pc.memoria.tamanho}" itemValue="#{pcBean.pc.memoria.id}" />
 			    			<f:selectItems value="#{memoriaBean.memorias}" var="memoria" itemLabel="#{memoria.modelo}-#{memoria.tamanho}" itemValue="#{memoria.id}"/>
 			    </p:selectOneMenu>
+			    
 	
 				<p:outputLabel value="SO:" for="so" />
 				<p:selectOneMenu id="so" value="#{pcBean.sistemaOperacionalId}" required="true" requiredMessage="SO vazio." effect="fold">

@@ -108,6 +108,37 @@ public class PcBean implements Serializable {
 			limpaFormularioDoJSF();
 	}
 	
+	public void gravaXML() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		
+		Processador processadorRelacionado = processadorDao.busca(this.processadorId);
+		this.pc.setProcessador(processadorRelacionado);
+		
+		Memoria memoriaRelacionado = memoriaDao.busca(this.memoriaId);
+		this.pc.setMemoria(memoriaRelacionado);
+		
+		pcDao.altera(pc);
+		
+		Pc pcRelacionado = pcDao.busca(pc.getNumeroPatrimonial());
+		this.chaveSerial.setPc(pcRelacionado);
+		
+		SistemaOperacional soRelacionado = soDao.busca(this.sistemaOperacionalId);
+		this.chaveSerial.setSistemaOperacional(soRelacionado);
+	
+		try {
+			
+			this.chaveSerialDao.adiciona(chaveSerial);
+			
+		} catch (Exception e) {
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, " Esse Serial já existe!", null));
+		}
+		
+		this.chavesSeriais = chaveSerialDao.lista();
+		this.pcs = pcDao.listaComChave();
+		
+		limpaFormularioDoJSF();
+}
+	
 	public void altera(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		

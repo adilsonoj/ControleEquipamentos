@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
@@ -16,6 +18,9 @@ import mb.dsam.modelo.Memoria;
 import mb.dsam.modelo.Pc;
 import mb.dsam.modelo.Processador;
 import mb.dsam.modelo.SistemaOperacional;
+import mb.dsam.util.VerificaMemoria;
+import mb.dsam.util.VerificaProcessador;
+import mb.dsam.util.VerificaSistemaOperacional;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -33,7 +38,7 @@ public class LerSaxBean implements Serializable {
 	@Inject
 	Pc pc;
 	@Inject
-	SistemaOperacionalDao soDao;
+	SistemaOperacionalBean soBean;
 	@Inject
 	SistemaOperacional so;
 	@Inject
@@ -46,11 +51,13 @@ public class LerSaxBean implements Serializable {
 	MemoriaDao memoriaDao;
 	@Inject
 	Processador processadorAux;
+	@Inject
+	VerificaProcessador verificaProcessador;
+	@Inject
+	VerificaSistemaOperacional verificaSO;
+	@Inject
+	VerificaMemoria verificaMemoria;
 	
-	private String nomeProcessador;
-	private String nomeMarca;
-	private String nomeModelo;
-
 	public PcBean getBean() {
 		return pcBean;
 	}
@@ -106,62 +113,33 @@ public class LerSaxBean implements Serializable {
 						System.out.println("SO: "
 								+ e.getChildText("so"));
 
-
 						
-						this.so = soDao.buscaPorNome(e.getChildText("so"));
+						verificaSO.verificaSistemaOperacional(e.getChildText("so"));
+						this.so = soBean.buscaPorNome(e.getChildText("so"));
 												
-						ChaveSerial cs = new ChaveSerial();
-						cs.setChaveSerial(e.getChildText("chaveSerial"));
-						
-						//verifica processador
-						nomeProcessador = e.getChildText("processador");
-						if (nomeProcessador.contains("Intel")) {
-							nomeMarca = "Intel";
-							processadorAux.setMarca(nomeMarca);
-							nomeModelo = nomeProcessador.replace("Intel", "");
-							processadorAux.setModelo(nomeModelo);
+						ChaveSerial chaveSerial = new ChaveSerial();
+						chaveSerial.setChaveSerial(e.getChildText("chaveSerial"));
 				
-						} else if(nomeProcessador.contains("AMD")){
-							nomeMarca = "AMD";
-							processadorAux.setMarca(nomeMarca);
-							nomeModelo = nomeProcessador.replace("AMD", "");
-							processadorAux.setModelo(nomeModelo);
-							
-						} else{
-							nomeMarca = "Null";
-							processadorAux.setMarca(nomeMarca);
-							nomeModelo = "Null";
-							processadorAux.setModelo(nomeModelo);
-						}
-						
-						try {
-							processadorDao.buscaPorNome(nomeMarca, nomeModelo);
-						} catch (Exception e2) {
-							processadorDao.altera(processadorAux);
-							System.out.println(processadorAux.getMarca());
-						}
-						
-						this.processador = processadorDao.buscaPorNome(nomeMarca, nomeModelo);
-						
-
-						
-						Long idMe = new Long(2);
-						this.memoria = memoriaDao.busca(idMe);
-
+						verificaProcessador.verificaProcessador(e.getChildText("processador"));//verifica processador
+						this.processador = processadorDao.buscaPorNome(verificaProcessador.getNomeMarca(),verificaProcessador.getNomeModelo());
+													
+						verificaMemoria.converteMemoria(e.getChildText("memoria"));
+						this.memoria = memoriaDao.buscaPorNome(verificaMemoria.getTamanho());
+					
 						Long np = new Long(e.getChildText("numeroPatrimonial"));
 
 						pc.setNome(e.getChildText("nome"));
 						pc.setNumeroPatrimonial(np);
 						pc.setIp(e.getChildText("ip"));
 						pc.setMacAdress(e.getChildText("macAdress"));
-						pc.setChaveSerial(cs);
-						//pc.setProcessador(this.processador);
+						
 						pcBean.setProcessadorId(processador.getId());
 						pcBean.setMemoriaId(memoria.getId());
 						pcBean.setSistemaOperacionalId(so.getId());
+						
 						pcBean.setPc(pc);
-						pcBean.setChaveSerial(cs);
-
+						pcBean.setChaveSerial(chaveSerial);
+						
 						pcBean.grava();
 
 					}

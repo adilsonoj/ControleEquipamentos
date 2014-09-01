@@ -16,6 +16,10 @@ public class SistemaOperacionalDao implements Serializable{
 	@PersistenceContext
 	EntityManager manager;
 
+	public EntityManager getManager() {
+		return manager;
+	}
+
 	public void adiciona(SistemaOperacional so) {
 		this.manager.persist(so);
 	}
@@ -45,6 +49,8 @@ public class SistemaOperacionalDao implements Serializable{
 		return (SistemaOperacional) query.getSingleResult();
 		
 	}
+
+	
 	
 	
 }

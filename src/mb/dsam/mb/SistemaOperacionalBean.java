@@ -69,9 +69,32 @@ public class SistemaOperacionalBean implements Serializable {
 		limpaFormularioDoJSF();
 	}
 	
-	private void limpaFormularioDoJSF() {
+	public void adicionaSO() {
+		try {
+			dao.buscaPorNome(this.sistemaOperacional.getNome());
+			//dao.busca(this.sistemaOperacional.getId());
+		} catch (Exception e) {
+			dao.altera(this.sistemaOperacional);
+		}
+		
+		
+		
+	}
+	
+	public void limpaFormularioDoJSF() {
 		this.sistemaOperacional = new SistemaOperacional();
 	}
+
+
+
+	public SistemaOperacional buscaPorNome(String nomeSO) {
+		
+		return this.dao.buscaPorNome(nomeSO);
+	}
+
+
+
+	
 	
 	
 	
