@@ -64,7 +64,8 @@ public class PcDao {
 		
 		return query.getResultList();
 	}
-
+	
+	
 	public List<Pc> buscaPorNome(String nome) {
 		String jpql = "select p from Pc p where p.nome = :nome";
 		Query query = this.manager.createQuery(jpql);

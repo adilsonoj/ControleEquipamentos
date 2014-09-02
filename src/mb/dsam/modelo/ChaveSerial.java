@@ -13,9 +13,9 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(uniqueConstraints={
-		@UniqueConstraint(columnNames={"chaveSerial", "sistemaoperacional_id"}),
-		@UniqueConstraint(columnNames={"pc_numeropatrimonial"})
-})
+ 		@UniqueConstraint(columnNames={"pc_numeropatrimonial"})
+
+ })
 public class ChaveSerial implements Serializable{
 	
 	@Id

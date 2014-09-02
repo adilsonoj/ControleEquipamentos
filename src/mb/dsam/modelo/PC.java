@@ -31,7 +31,6 @@ public class Pc implements Serializable{
 	private Integer andar;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = true, mappedBy="pc")
-	@PrimaryKeyJoinColumn
 	private ChaveSerial chaveSerial;
 	
 	@ManyToOne(optional = true)

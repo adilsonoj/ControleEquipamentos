@@ -11,6 +11,7 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import mb.dsam.dao.MemoriaDao;
+import mb.dsam.dao.PcDao;
 import mb.dsam.dao.ProcessadorDao;
 import mb.dsam.dao.SistemaOperacionalDao;
 import mb.dsam.modelo.ChaveSerial;
@@ -18,6 +19,7 @@ import mb.dsam.modelo.Memoria;
 import mb.dsam.modelo.Pc;
 import mb.dsam.modelo.Processador;
 import mb.dsam.modelo.SistemaOperacional;
+import mb.dsam.util.VerificaMacAdress;
 import mb.dsam.util.VerificaMemoria;
 import mb.dsam.util.VerificaProcessador;
 import mb.dsam.util.VerificaSistemaOperacional;
@@ -57,23 +59,10 @@ public class LerSaxBean implements Serializable {
 	VerificaSistemaOperacional verificaSO;
 	@Inject
 	VerificaMemoria verificaMemoria;
+	@Inject
+	VerificaMacAdress verificaMac;
 	
-	public PcBean getBean() {
-		return pcBean;
-	}
-
-	public void setBean(PcBean bean) {
-		this.pcBean = bean;
-	}
-
-	public Pc getPco() {
-		return pc;
-	}
-
-	public void setPco(Pc pco) {
-		this.pc = pco;
-	}
-
+	
 	public void importarXml() {
 
 		Document doc = null;
@@ -127,11 +116,14 @@ public class LerSaxBean implements Serializable {
 						this.memoria = memoriaDao.buscaPorNome(verificaMemoria.getTamanho());
 					
 						Long np = new Long(e.getChildText("numeroPatrimonial"));
-
-						pc.setNome(e.getChildText("nome"));
 						pc.setNumeroPatrimonial(np);
+						
+						pc.setNome(e.getChildText("nome"));
+						
 						pc.setIp(e.getChildText("ip"));
-						pc.setMacAdress(e.getChildText("macAdress"));
+						
+						verificaMac.setMac(e.getChildText("macAdress"));
+						pc.setMacAdress(verificaMac.getMac());
 						
 						pcBean.setProcessadorId(processador.getId());
 						pcBean.setMemoriaId(memoria.getId());
@@ -140,7 +132,10 @@ public class LerSaxBean implements Serializable {
 						pcBean.setPc(pc);
 						pcBean.setChaveSerial(chaveSerial);
 						
-						pcBean.grava();
+						
+							pcBean.grava();
+							
+						
 
 					}
 
