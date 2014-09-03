@@ -79,29 +79,46 @@ public class ImportaPcBean implements Serializable {
 
 	public void grava() {
 		
-		
-		Processador processadorRelacionado = processadorDao
-				.busca(this.processadorId);
-		this.importaPc.setProcessador(processadorRelacionado);
+		try {
+			
+			System.out.println("existente" + this.pcDao.buscaPorMac(this.importaPc.getMacAdress()));
+		} catch (Exception e) {
+			Processador processadorRelacionado = processadorDao
+					.busca(this.processadorId);
+			this.importaPc.setProcessador(processadorRelacionado);
 
-		Memoria memoriaRelacionado = memoriaDao.busca(this.memoriaId);
-		this.importaPc.setMemoria(memoriaRelacionado);
+			Memoria memoriaRelacionado = memoriaDao.busca(this.memoriaId);
+			this.importaPc.setMemoria(memoriaRelacionado);
+			try {
+				importaPcDao.altera(importaPc);
+				
+				ImportaPc pcRelacionado = importaPcDao.busca(importaPc.getNumeroPatrimonial());
+				this.chaveSerial.setImportaPc(pcRelacionado);
+				
+				SistemaOperacional soRelacionado = soDao
+						.busca(this.sistemaOperacionalId);
+				this.chaveSerial.setSistemaOperacional(soRelacionado);
+			} catch (Exception e1) {
+				System.out.println("ImportaPcBean: NP já existe");
+			}
+			
+			
+			try {
+				this.chaveSerialDao.adiciona(chaveSerial);
+				
+				this.chavesSeriais = chaveSerialDao.lista();
+				this.pcs = importaPcDao.listaComChave();
+			} catch (Exception e2) {
+				System.out.println("ImportaPcBean: Chave Serial já existe");
+			}
+			
+			
+			limpaFormularioDoJSF();
+			
+		}
+			
+			
 		
-		importaPcDao.altera(importaPc);
-		
-		ImportaPc pcRelacionado = importaPcDao.busca(importaPc.getNumeroPatrimonial());
-		this.chaveSerial.setImportaPc(pcRelacionado);
-		
-		SistemaOperacional soRelacionado = soDao
-				.busca(this.sistemaOperacionalId);
-		this.chaveSerial.setSistemaOperacional(soRelacionado);
-
-		this.chaveSerialDao.adiciona(chaveSerial);
-		
-		this.chavesSeriais = chaveSerialDao.lista();
-		this.pcs = importaPcDao.listaComChave();
-		
-		limpaFormularioDoJSF();
 	}
 	
 	public void importaParaPc() {

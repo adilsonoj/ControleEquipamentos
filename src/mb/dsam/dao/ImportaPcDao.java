@@ -67,6 +67,8 @@ public class ImportaPcDao {
 	}
 	
 	
+	
+	
 	public List<ImportaPc> buscaPorNome(String nome) {
 		String jpql = "select p from ImportaPc p where p.nome = :nome";
 		Query query = this.manager.createQuery(jpql);

@@ -65,6 +65,13 @@ public class PcDao {
 		return query.getResultList();
 	}
 	
+	public Pc buscaPorMac(String macAdress) {
+		String jpql = "select p from Pc p where p.macAdress = :macAdress";
+		Query query = this.manager.createQuery(jpql);
+		query.setParameter("macAdress", macAdress);
+		
+		return (Pc) query.getSingleResult();
+	}
 	
 	public List<Pc> buscaPorNome(String nome) {
 		String jpql = "select p from Pc p where p.nome = :nome";
