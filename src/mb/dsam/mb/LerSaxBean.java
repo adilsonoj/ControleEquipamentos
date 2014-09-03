@@ -5,18 +5,14 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import mb.dsam.dao.MemoriaDao;
-import mb.dsam.dao.PcDao;
 import mb.dsam.dao.ProcessadorDao;
-import mb.dsam.dao.SistemaOperacionalDao;
 import mb.dsam.modelo.ChaveSerial;
+import mb.dsam.modelo.ImportaPc;
 import mb.dsam.modelo.Memoria;
-import mb.dsam.modelo.Pc;
 import mb.dsam.modelo.Processador;
 import mb.dsam.modelo.SistemaOperacional;
 import mb.dsam.util.VerificaMacAdress;
@@ -36,9 +32,9 @@ public class LerSaxBean implements Serializable {
 		 */
 	private static final long serialVersionUID = 1L;
 	@Inject
-	PcBean pcBean;
+	ImportaPcBean pcBean;
 	@Inject
-	Pc pc;
+	ImportaPc pc;
 	@Inject
 	SistemaOperacionalBean soBean;
 	@Inject
@@ -129,7 +125,7 @@ public class LerSaxBean implements Serializable {
 						pcBean.setMemoriaId(memoria.getId());
 						pcBean.setSistemaOperacionalId(so.getId());
 						
-						pcBean.setPc(pc);
+						pcBean.setImportaPc(pc);
 						pcBean.setChaveSerial(chaveSerial);
 						
 						

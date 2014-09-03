@@ -18,6 +18,9 @@ public class Processador implements Serializable {
 	private List<Pc> pcs;
 	
 	@OneToMany(mappedBy="processador")
+	private List<ImportaPc> ImportaPcs;
+	
+	@OneToMany(mappedBy="processador")
 	private List<Notebook> notebooks;
 
 	
@@ -48,6 +51,14 @@ public class Processador implements Serializable {
 	
 	public List<Notebook> getNotebooks() {
 		return notebooks;
+	}
+
+	public List<ImportaPc> getImportaPcs() {
+		return ImportaPcs;
+	}
+
+	public void setImportaPcs(List<ImportaPc> importaPcs) {
+		ImportaPcs = importaPcs;
 	}
 
 }

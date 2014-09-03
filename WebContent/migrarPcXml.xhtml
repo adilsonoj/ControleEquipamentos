@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+      
+<ui:composition template="/_template.xhtml">
+	<ui:define name="corpo">
+	
+	<h:form id="form1">
+			
+			<p:growl id="growl"  sticky="true" />  
+			
+			<fieldset>
+				<legend>Importação de PC</legend>
+				<h2>
+					<h:outputText value="Importação de PC"/>
+					
+				</h2>
+				 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+				<p:outputLabel value="NP:" for="numeroPatrimonial" />
+				<p:inputText id="numeroPatrimonial" value="#{importaPcBean.importaPc.numeroPatrimonial}"  required="true" requiredMessage="NP vazio."/>
+				
+				<p:outputLabel value="Nome da Máquina:" for="nome" />
+				<p:inputText id="nome" value="#{importaPcBean.importaPc.nome}"/>				
+			
+				<p:outputLabel value="IP:" for="ip" />
+				<p:inputText id="ip" value="#{importaPcBean.importaPc.ip}" maxlength="15"/>
+				
+				<p:outputLabel value="MAC:" for="macAdress" />
+				<p:inputText id="macAdress" value="#{importaPcBean.importaPc.macAdress}"  maxlength="17"/>
+	
+				<p:outputLabel value="Processador:" for="processador" />
+				<p:selectOneMenu id="processador" value="#{importaPcBean.processadorId}" effect="fold">
+							
+			    			<f:selectItem itemLabel="#{importaPcBean.importaPc.processador.marca}-#{importaPcBean.importaPc.processador.modelo}" itemValue="#{importaPcBean.importaPc.processador.id}" />
+			    			<f:selectItems value="#{processadorBean.processadores}" var="processador" itemLabel="#{processador.marca}-#{processador.modelo}" itemValue="#{processador.id}"/>
+			    </p:selectOneMenu>
+			    
+				<p:outputLabel value="Memória:" for="memoria" />
+				<p:selectOneMenu id="memoria" value="#{importaPcBean.memoriaId}" effect="fold">
+			    			<f:selectItem itemLabel="#{importaPcBean.importaPc.memoria.modelo}-#{importaPcBean.importaPc.memoria.tamanho}" itemValue="#{importaPcBean.importaPc.memoria.id}" />
+			    			<f:selectItems value="#{memoriaBean.memorias}" var="memoria" itemLabel="#{memoria.modelo}-#{memoria.tamanho}" itemValue="#{memoria.id}"/>
+			    </p:selectOneMenu>
+			    
+	
+				<p:outputLabel value="SO:" for="so" />
+				<p:selectOneMenu id="so" value="#{importaPcBean.sistemaOperacionalId}" required="true" requiredMessage="SO vazio." effect="fold">
+				 	
+	    			<f:selectItem itemLabel="#{importaPcBean.importaPc.chaveSerial.sistemaOperacional.nome}" itemValue="#{importaPcBean.importaPc.chaveSerial.sistemaOperacional.id}"/>
+	    			<f:selectItems value="#{sistemaOperacionalBean.sistemasOperacionais}" var="so" itemLabel="#{so.nome}" itemValue="#{so.id}"/>
+	    		</p:selectOneMenu>
+	    		
+	    		<p:outputLabel value="Serial do SO:" for="serial" />
+	    		<p:inputText   value="#{importaPcBean.chaveSerial.serial}" rendered="#{empty importaPcBean.importaPc.chaveSerial.chaveSerial}" required="true" requiredMessage="Chave Serial vazia!"/>
+	    		
+	    		<p:inplace label="#{importaPcBean.importaPc.chaveSerial.chaveSerial}" effectSpeed="fast" event="click" rendered="#{not empty importaPcBean.importaPc.chaveSerial.chaveSerial}">
+           			 <p:selectOneMenu id="serial" value="#{importaPcBean.chaveSerial.serial}"  editable="true"  style="width:240px;" required="true" requiredMessage="Chave Serial vazia!">
+	    				<f:selectItem itemLabel="#{importaPcBean.importaPc.chaveSerial.chaveSerial}" itemValue="#{importaPcBean.importaPc.chaveSerial.chaveSerial}" />
+	    			</p:selectOneMenu>
+	    			
+        		</p:inplace>
+	    		
+					    		
+							
+				<p:outputLabel value="Andar:" for="andar" />
+				<p:selectOneMenu id="andar" value="#{importaPcBean.importaPc.andar}" effect="fold">  
+		            <f:selectItem itemLabel="Selecione" itemValue="" />  
+		            <f:selectItem itemLabel="17" itemValue="17" />  
+		            <f:selectItem itemLabel="18" itemValue="18" />  
+		            <f:selectItem itemLabel="19" itemValue="19" />
+		            <f:selectItem itemLabel="20" itemValue="20" />
+		            <f:selectItem itemLabel="21" itemValue="21" />  
+        		</p:selectOneMenu>
+				
+				<p:outputLabel value="Lacre:" for="lacre" />
+				<p:inputText id="lacre" value="#{importaPcBean.importaPc.lacre}"/>
+				
+				
+			</h:panelGrid>
+				<p:commandButton value="migrar" action="#{importaPcBean.importaParaPc }" update="@form :form2:datatable"/>
+				
+			</fieldset>
+		</h:form>
+		
+		<h2>Listagem de PCs para ser Importado</h2>
+		<h:commandButton value="Importar XML"
+			action="#{lerSaxBean.importarXml}" immediate="true">
+			<f:ajax execute="@form" render="@form :form2:datatable" />
+		</h:commandButton>
+		<h:form id="form2">
+			<p:dataTable value="#{importaPcBean.pcsComChaveSerial}" var="importaPc"
+				id="datatable" paginator="true" rows="10" dynamic="true" >
+		
+				<p:column headerText="NP" sortBy="#{importaPc.numeroPatrimonial}" filterBy="#{importaPc.numeroPatrimonial}" filterMatchMode="contains">#{importaPc.numeroPatrimonial}</p:column>
+				<p:column headerText="NOME DA MÁQ." sortBy="#{importaPc.nome}" filterBy="#{importaPc.nome}" filterMatchMode="contains">#{importaPc.nome}</p:column>
+				<p:column headerText="IP" sortBy="#{importaPc.ip}" filterBy="#{importaPc.ip}" filterMatchMode="contains">#{importaPc.ip}</p:column>
+				<p:column headerText="MAC" sortBy="#{importaPc.macAdress}" filterBy="#{importaPc.macAdress}" filterMatchMode="contains">#{importaPc.macAdress}</p:column>
+				<p:column headerText="PROCESSADOR" sortBy="#{importaPc.processador.marca}" filterBy="#{importaPc.processador.marca}" filterMatchMode="contains">#{importaPc.processador.marca} - #{importaPc.processador.modelo}</p:column>
+				<p:column headerText="MEMÓRIA" sortBy="#{importaPc.processador.modelo}" filterBy="#{importaPc.processador.modelo}" filterMatchMode="contains">#{importaPc.memoria.modelo} - #{importaPc.memoria.tamanho}</p:column>
+				<p:column headerText="LACRE">#{importaPc.lacre}</p:column>
+				<p:column headerText="ANDAR" sortBy="#{importaPc.andar}" filterBy="#{importaPc.andar}" filterMatchMode="contains">#{importaPc.andar}</p:column>
+				<p:column headerText="SO" sortBy="#{importaPc.chaveSerial.sistemaOperacional.nome}" filterBy="#{importaPc.chaveSerial.sistemaOperacional.nome}" filterMatchMode="contains">	#{importaPc.chaveSerial.sistemaOperacional.nome}</p:column>
+				<p:column headerText="SERIAL" sortBy="#{importaPc.chaveSerial.chaveSerial}" filterBy="#{importaPc.chaveSerial.chaveSerial}" filterMatchMode="contains">#{importaPc.chaveSerial.chaveSerial}</p:column>
+				
+				<p:column  headerText="AÇÕES" id="acoes" >
+					
+					<p:commandButton  actionListener="#{importaPcBean.remove(importaPc)}"  update="datatable"	icon="ui-icon-trash"   >
+						<p:confirm header="Confirmação" message="Tem certeza que deseja excluir o item?" icon="ui-icon-alert" />
+					</p:commandButton>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				    </p:confirmDialog>
+			
+					<p:commandButton id="alterar" icon="ui-icon-pencil" update=":form1">
+						<f:setPropertyActionListener target="#{importaPcBean.importaPc}" 
+							value="#{importaPc}" />
+						
+					</p:commandButton>
+				</p:column>
+				<f:facet name="footer">  
+           	         		Total de: #{importaPcBean.pcsComChaveSerial.size()}    
+       			 </f:facet>
+			</p:dataTable>
+		</h:form>
+		
+		</ui:define>
+</ui:composition>
+</html>

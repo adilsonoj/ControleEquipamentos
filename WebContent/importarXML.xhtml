@@ -17,7 +17,7 @@
 		</h:commandButton>
 
 		<h:form id="form2">
-			<p:dataTable value="#{pcBean.pcsComChaveSerial}" var="pc"
+			<p:dataTable value="#{importaPcBean.pcsComChaveSerial}" var="pc"
 				id="datatable" paginator="true" rows="20" dynamic="true">
 				<p:column headerText="NP" sortBy="#{pc.numeroPatrimonial}"
 					filterBy="#{pc.numeroPatrimonial}" filterMatchMode="contains">#{pc.numeroPatrimonial}</p:column>

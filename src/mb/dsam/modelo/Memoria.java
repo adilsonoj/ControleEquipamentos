@@ -18,8 +18,19 @@ public class Memoria implements Serializable{
 	@OneToMany(mappedBy="memoria")
 	private List<Pc> pcs;
 	@OneToMany(mappedBy="memoria")
+	private List<ImportaPc> ImportaPcs;
+	
+
+	@OneToMany(mappedBy="memoria")
 	private List<Notebook> notebooks;
 	
+	public List<ImportaPc> getImportaPcs() {
+		return ImportaPcs;
+	}
+
+	public void setImportaPcs(List<ImportaPc> importaPcs) {
+		ImportaPcs = importaPcs;
+	}
 
 	public List<Notebook> getNotebooks() {
 		return notebooks;

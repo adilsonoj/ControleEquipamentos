@@ -13,7 +13,8 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(uniqueConstraints={
- 		@UniqueConstraint(columnNames={"pc_numeropatrimonial"})
+ 		@UniqueConstraint(columnNames={"pc_numeropatrimonial"}),
+ 		
 
  })
 public class ChaveSerial implements Serializable{
@@ -26,6 +27,11 @@ public class ChaveSerial implements Serializable{
 	@OneToOne(fetch = FetchType.EAGER)
 	private Pc pc;
 	
+	@OneToOne(fetch = FetchType.LAZY)
+	private ImportaPc importaPc;
+	
+	
+
 	@OneToOne(fetch = FetchType.EAGER)
 	private Notebook notebook;
 	
@@ -79,6 +85,14 @@ public class ChaveSerial implements Serializable{
 
 	public void setNotebook(Notebook notebook) {
 		this.notebook = notebook;
+	}
+
+	public void setImportaPc(ImportaPc importaPc) {
+		this.importaPc = importaPc;
+		
+	}
+	public ImportaPc getImportaPc() {
+		return importaPc;
 	}
 	
 }

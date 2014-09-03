@@ -3,16 +3,17 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0">
 
-	<!-- unidade de persistencia com o nome controlefinancas -->
+
 	<persistence-unit name="sisspd" transaction-type="JTA">
 
-		<!-- Implementacao do JPA2, no nosso caso Hibernate -->
+
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		
+
 		<jta-data-source>java:/SisSpdDS</jta-data-source>
-		
-		<!-- Aqui sao listadas todas as entidades -->
+
+
 		<class>mb.dsam.modelo.Pc</class>
+		<class>mb.dsam.modelo.ImportaPc</class>
 		<class>mb.dsam.modelo.Notebook</class>
 		<class>mb.dsam.modelo.SistemaOperacional</class>
 		<class>mb.dsam.modelo.ChaveSerial</class>
@@ -21,16 +22,16 @@
 		<class>mb.dsam.modelo.Memoria</class>
 		<class>mb.dsam.modelo.Processador</class>
 		<class>mb.dsam.modelo.Software</class>
-		
-		
+
+
 		<properties>
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="false" />
-			
-			<!-- poderia ser: update, create, create-drop, none -->
+
+			<!-- update, create, create-drop, none -->
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 
 		</properties>
