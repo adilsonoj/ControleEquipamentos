@@ -35,16 +35,7 @@ public class ImportaPc implements Serializable {
 	@ManyToOne(optional = true)
 	private Processador processador;
 
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
-	private List<Software> softwares = new ArrayList<Software>();
-
-	public List<Software> getSoftwares() {
-		return softwares;
-	}
-
-	public void setSoftwares(List<Software> softwares) {
-		this.softwares = softwares;
-	}
+	
 
 	public Integer getAndar() {
 		return andar;

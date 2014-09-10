@@ -192,33 +192,6 @@ public class ImportaPcBean implements Serializable {
 
 	}
 
-	public void guardaItem() {
-		Software soft = softwareDao.busca(softwareId);
-		this.importaPc.getSoftwares().add(soft);
-
-	}
-
-	public void guardaItemAux() {
-		Software soft = softwareDao.busca(softwareId);
-		this.softwareAux.add(soft);
-
-	}
-
-	public List<Software> getSoftwareAux() {
-		return softwareAux;
-	}
-
-	public void editaSoftware() {
-		importaPcDao.altera(this.importaPc);
-		software = new Software();
-		limpaFormularioDoJSF();
-	}
-
-	public void consultaSoftware() {
-		this.importaPc = importaPcDao.busca(this.numeroPatrimonial);
-		this.importaPc.getSoftwares();
-		software = new Software();
-	}
 
 	public Long getSistemaOperacionalId() {
 		return sistemaOperacionalId;
