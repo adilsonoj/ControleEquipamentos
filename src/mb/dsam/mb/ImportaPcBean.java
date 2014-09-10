@@ -92,7 +92,7 @@ public class ImportaPcBean implements Serializable {
 			try {
 				importaPcDao.altera(importaPc);
 				
-				ImportaPc pcRelacionado = importaPcDao.busca(importaPc.getNumeroPatrimonial());
+				ImportaPc pcRelacionado = importaPcDao.buscaPorMac(importaPc.getMacAdress());
 				this.chaveSerial.setImportaPc(pcRelacionado);
 				
 				SistemaOperacional soRelacionado = soDao
@@ -122,8 +122,11 @@ public class ImportaPcBean implements Serializable {
 	}
 	
 	public void importaParaPc() {
-		
+		System.out.println(this.importaPc.getNumeroPatrimonial());
 		this.pc.setNumeroPatrimonial(this.importaPc.getNumeroPatrimonial());
+		
+		
+		
 		this.pc.setIp(this.importaPc.getIp());
 		this.pc.setNome(this.importaPc.getNome());
 		this.pc.setMacAdress(this.importaPc.getMacAdress());
@@ -149,7 +152,7 @@ public class ImportaPcBean implements Serializable {
 
 		this.chaveSerialDao.adiciona(chaveSerial);
 		
-		remove(importaPc);
+		removePorMac(importaPc);
 		
 		this.chavesSeriais = chaveSerialDao.lista();
 		this.Pcs = pcDao.listaComChave();
@@ -247,8 +250,17 @@ public class ImportaPcBean implements Serializable {
 		limpaFormularioDoJSF();
 
 	}
+	
+	public void removePorMac(ImportaPc pc) {
+		System.out.println("Removendo o pc");
+		importaPcDao.removePorMac(pc.getMacAdress());
+		this.pcs = importaPcDao.lista();
 
-	public List<ImportaPc> getPcPorNp() {
+		limpaFormularioDoJSF();
+
+	}
+
+	public ImportaPc getPcPorNp() {
 		return importaPcDao.buscaPorNp(this.numeroPatrimonial);
 	}
 

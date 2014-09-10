@@ -32,9 +32,9 @@ public class LerSaxBean implements Serializable {
 		 */
 	private static final long serialVersionUID = 1L;
 	@Inject
-	ImportaPcBean pcBean;
+	ImportaPcBean importaPcBean;
 	@Inject
-	ImportaPc pc;
+	ImportaPc importaPc;
 	@Inject
 	SistemaOperacionalBean soBean;
 	@Inject
@@ -47,8 +47,6 @@ public class LerSaxBean implements Serializable {
 	Memoria memoria;
 	@Inject
 	MemoriaDao memoriaDao;
-	@Inject
-	Processador processadorAux;
 	@Inject
 	VerificaProcessador verificaProcessador;
 	@Inject
@@ -111,25 +109,24 @@ public class LerSaxBean implements Serializable {
 						verificaMemoria.converteMemoria(e.getChildText("memoria"));
 						this.memoria = memoriaDao.buscaPorNome(verificaMemoria.getTamanho());
 					
-						Long np = new Long(e.getChildText("numeroPatrimonial"));
-						pc.setNumeroPatrimonial(np);
+						//Long np = new Long(e.getChildText("numeroPatrimonial"));
+						//importaPc.setNumeroPatrimonial(np);
 						
-						pc.setNome(e.getChildText("nome"));
+						importaPc.setNome(e.getChildText("nome"));
 						
-						pc.setIp(e.getChildText("ip"));
+						importaPc.setIp(e.getChildText("ip"));
 						
 						verificaMac.setMac(e.getChildText("macAdress"));
-						pc.setMacAdress(verificaMac.getMac());
+						importaPc.setMacAdress(verificaMac.getMac());
 						
-						pcBean.setProcessadorId(processador.getId());
-						pcBean.setMemoriaId(memoria.getId());
-						pcBean.setSistemaOperacionalId(so.getId());
+						importaPcBean.setProcessadorId(processador.getId());
+						importaPcBean.setMemoriaId(memoria.getId());
+						importaPcBean.setSistemaOperacionalId(so.getId());
 						
-						pcBean.setImportaPc(pc);
-						pcBean.setChaveSerial(chaveSerial);
-						
-						
-							pcBean.grava();
+						importaPcBean.setImportaPc(importaPc);
+						importaPcBean.setChaveSerial(chaveSerial);
+				
+							importaPcBean.grava();
 							
 						
 

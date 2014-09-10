@@ -46,16 +46,24 @@ public class ImportaPcDao {
 		this.manager.remove(importaPcParaRemover);
 	}
 	
+	public void removePorMac(String macAdress) {
+		String jpql = "select p from ImportaPc p where p.macAdress = :macAdress";
+		Query query = this.manager.createQuery(jpql);
+		query.setParameter("macAdress", macAdress);
+		
+		this.manager.remove((ImportaPc) query.getSingleResult());
+	}
+	
 	public ImportaPc altera(ImportaPc importaPc){
 		return this.manager.merge(importaPc);
 	}
 	
-	public List<ImportaPc> buscaPorNp(Long numeroPatrimonial){
+	public ImportaPc buscaPorNp(Long numeroPatrimonial){
 		String jpql = "select p from ImportaPc p where p.numeroPatrimonial = :numeroPatrimonial";
 		Query query = this.manager.createQuery(jpql);
 		query.setParameter("numeroPatrimonial", numeroPatrimonial);
 		
-		return query.getResultList();
+		return (ImportaPc) query.getSingleResult();
 	}
 
 	public List<ImportaPc> buscaPorIp(String ip) {
@@ -66,7 +74,13 @@ public class ImportaPcDao {
 		return query.getResultList();
 	}
 	
-	
+	public ImportaPc buscaPorMac(String macAdress) {
+		String jpql = "select p from ImportaPc p where p.macAdress = :macAdress";
+		Query query = this.manager.createQuery(jpql);
+		query.setParameter("macAdress", macAdress);
+		
+		return (ImportaPc) query.getSingleResult();
+	}
 	
 	
 	public List<ImportaPc> buscaPorNome(String nome) {

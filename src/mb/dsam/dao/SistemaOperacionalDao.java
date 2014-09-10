@@ -49,8 +49,5 @@ public class SistemaOperacionalDao implements Serializable{
 		return (SistemaOperacional) query.getSingleResult();
 		
 	}
-
-	
-	
 	
 }

@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -17,7 +18,7 @@ import javax.persistence.OneToOne;
 public class ImportaPc implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(unique = true)
+	@GeneratedValue
 	private Long numeroPatrimonial;
 	private String nome;
 	private String ip;
@@ -116,5 +117,7 @@ public class ImportaPc implements Serializable {
 	public ChaveSerial getChaveSerial() {
 		return chaveSerial;
 	}
+
+	
 
 }
