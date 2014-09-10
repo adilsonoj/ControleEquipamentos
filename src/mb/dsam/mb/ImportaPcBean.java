@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import mb.dsam.dao.ChaveSerialDao;
@@ -51,11 +53,7 @@ public class ImportaPcBean implements Serializable {
 	private Processador processador;
 	@Inject
 	private ProcessadorDao processadorDao;
-	@Inject
-	private SoftwareDao softwareDao;
-	@Inject
-	private Software software;
-
+	
 	private Long processadorId;
 	private Long numeroPatrimonial;
 	private Long sistemaOperacionalId;
@@ -63,9 +61,7 @@ public class ImportaPcBean implements Serializable {
 	private String ip;
 	private String nome;
 	private Long memoriaId;
-	private Long softwareId;
 	private List<ChaveSerial> chavesSeriais;
-	private List<Software> softwareAux = new ArrayList<Software>();
 	private List<ImportaPc> pcs;
 	private List<Pc> Pcs;
 	
@@ -122,42 +118,49 @@ public class ImportaPcBean implements Serializable {
 	}
 	
 	public void importaParaPc() {
-		System.out.println(this.importaPc.getNumeroPatrimonial());
-		this.pc.setNumeroPatrimonial(this.importaPc.getNumeroPatrimonial());
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		try {
+			if (this.importaPcDao.busca(this.importaPc.getNumeroPatrimonial()).getNumeroPatrimonial() == this.importaPc.getNumeroPatrimonial()){
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Insira o Número Patrimonial!", null));
+			}
+			
+		} catch (Exception e) {
+			
+			this.pc.setNumeroPatrimonial(this.importaPc.getNumeroPatrimonial());
+			this.pc.setIp(this.importaPc.getIp());
+			this.pc.setNome(this.importaPc.getNome());
+			this.pc.setMacAdress(this.importaPc.getMacAdress());
+			this.pc.setAndar(this.importaPc.getAndar());
+			this.pc.setLacre(this.importaPc.getLacre());
+			
+			Processador processadorRelacionado = processadorDao
+					.busca(this.processadorId);
+			this.pc.setProcessador(processadorRelacionado);
+
+			Memoria memoriaRelacionado = memoriaDao.busca(this.memoriaId);
+			this.pc.setMemoria(memoriaRelacionado);
+
+			pcDao.altera(pc);
+
+			Pc pcRelacionado = pcDao.busca(pc.getNumeroPatrimonial());
+			this.chaveSerial.setPc(pcRelacionado);
+
+
+			SistemaOperacional soRelacionado = soDao
+					.busca(this.sistemaOperacionalId);
+			this.chaveSerial.setSistemaOperacional(soRelacionado);
+
+			this.chaveSerialDao.adiciona(chaveSerial);
+			
+			removePorMac(importaPc);
+			
+			this.chavesSeriais = chaveSerialDao.lista();
+			this.Pcs = pcDao.listaComChave();
+
+			limpaFormularioDoJSF();
+		} 
 		
 		
-		
-		this.pc.setIp(this.importaPc.getIp());
-		this.pc.setNome(this.importaPc.getNome());
-		this.pc.setMacAdress(this.importaPc.getMacAdress());
-		this.pc.setAndar(this.importaPc.getAndar());
-		this.pc.setLacre(this.importaPc.getLacre());
-		
-		Processador processadorRelacionado = processadorDao
-				.busca(this.processadorId);
-		this.pc.setProcessador(processadorRelacionado);
-
-		Memoria memoriaRelacionado = memoriaDao.busca(this.memoriaId);
-		this.pc.setMemoria(memoriaRelacionado);
-
-		pcDao.altera(pc);
-
-		Pc pcRelacionado = pcDao.busca(pc.getNumeroPatrimonial());
-		this.chaveSerial.setPc(pcRelacionado);
-
-
-		SistemaOperacional soRelacionado = soDao
-				.busca(this.sistemaOperacionalId);
-		this.chaveSerial.setSistemaOperacional(soRelacionado);
-
-		this.chaveSerialDao.adiciona(chaveSerial);
-		
-		removePorMac(importaPc);
-		
-		this.chavesSeriais = chaveSerialDao.lista();
-		this.Pcs = pcDao.listaComChave();
-
-		limpaFormularioDoJSF();
 	}
 
 
@@ -361,17 +364,6 @@ public class ImportaPcBean implements Serializable {
 		this.nome = nome;
 	}
 
-	public Software getSoftware() {
-		return software;
-	}
-
-	public Long getSoftwareId() {
-		return softwareId;
-	}
-
-	public void setSoftwareId(Long softwareId) {
-		this.softwareId = softwareId;
-	}
-
+	
 
 }
