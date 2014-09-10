@@ -15,17 +15,17 @@ public class VerificaProcessador {
 	ProcessadorDao processadorDao;
 	
 	public void verificaProcessador(String nomeProcessador){
-	
+		
 		if (nomeProcessador.contains("Intel")) {
 			nomeMarca = "Intel";
 			processadorAux.setMarca(nomeMarca);
-			nomeModelo = nomeProcessador.replaceAll("Intel|CPU|.R.|.TM.|@", "");
+			nomeModelo = nomeProcessador.replaceAll("Intel|CPU|.R.|.TM.|@|Processor", "");
 			processadorAux.setModelo(nomeModelo);
 
 		} else if(nomeProcessador.contains("AMD")){
 			nomeMarca = "AMD";
 			processadorAux.setMarca(nomeMarca);
-			nomeModelo = nomeProcessador.replaceAll("AMD|CPU|.R.|.TM.|@", "");
+			nomeModelo = nomeProcessador.replaceAll("AMD|CPU|.R.|.TM.|@|Processor", "");
 			processadorAux.setModelo(nomeModelo);
 			
 		} else{

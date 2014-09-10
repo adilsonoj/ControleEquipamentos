@@ -22,7 +22,7 @@ public class VerificaMemoria {
 	}
 
 	public void converteMemoria(String tamanho) {
-
+		tamanho = tamanho.replaceAll("MB", "").trim();
 		int tamanhoEmMb = Integer.parseInt(tamanho);
 
 		if (tamanhoEmMb >= 1024) {

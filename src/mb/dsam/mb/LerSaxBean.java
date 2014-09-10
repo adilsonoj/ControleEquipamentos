@@ -1,6 +1,7 @@
 package mb.dsam.mb;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import mb.dsam.util.VerificaSistemaOperacional;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
+import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 @ManagedBean(name = "lerSaxBean")
@@ -55,8 +57,7 @@ public class LerSaxBean implements Serializable {
 	VerificaMemoria verificaMemoria;
 	@Inject
 	VerificaMacAdress verificaMac;
-	
-	
+
 	public void importarXml() {
 
 		Document doc = null;
@@ -64,8 +65,8 @@ public class LerSaxBean implements Serializable {
 		SAXBuilder builder = new SAXBuilder();
 		try {
 
-			String dir = "d:/temp/";
-
+			// "\\\\dsamfs\\dados\\publico\\SystemLogs\\Inventario\\temp"; //local direto no servidor
+			String dir = "Z:/"; // local mapeado no servidor P_JBOSS_VM
 			File diretorio = new File(dir);
 			for (String arquivos : diretorio.list()) {
 
@@ -73,71 +74,82 @@ public class LerSaxBean implements Serializable {
 					String arquivo = diretorio.getCanonicalPath() + "\\"
 							+ arquivos;
 					System.out.println(arquivo);
-
-					doc = builder.build(dir + arquivos);
-					Element elemento = doc.getRootElement();
-
-					List<Element> lista = elemento.getChildren();
-					for (Element e : lista) {
-						
-						System.out.println("pc: " + e.getAttributeValue("id"));
-						System.out.println("Nome: " + e.getChildText("nome"));
-						System.out.println("numeroPatrimonial: "
-								+ e.getChildText("numeroPatrimonial"));
-						System.out.println("ip: " + e.getChildText("ip"));
-						System.out.println("macAdress: "
-								+ e.getChildText("macAdress"));
-						System.out.println("chaveSerial: "
-								+ e.getChildText("chaveSerial"));
-						System.out.println("Memória: "
-								+ e.getChildText("memoria"));
-						System.out.println("Processador: "
-								+ e.getChildText("processador"));
-						System.out.println("SO: "
-								+ e.getChildText("so"));
-
-						
-						verificaSO.verificaSistemaOperacional(e.getChildText("so"));
-						this.so = soBean.buscaPorNome(e.getChildText("so"));
-												
-						ChaveSerial chaveSerial = new ChaveSerial();
-						chaveSerial.setChaveSerial(e.getChildText("chaveSerial"));
-				
-						verificaProcessador.verificaProcessador(e.getChildText("processador"));//verifica processador
-						this.processador = processadorDao.buscaPorNome(verificaProcessador.getNomeMarca(),verificaProcessador.getNomeModelo());
-													
-						verificaMemoria.converteMemoria(e.getChildText("memoria"));
-						this.memoria = memoriaDao.buscaPorNome(verificaMemoria.getTamanho());
 					
-						//Long np = new Long(e.getChildText("numeroPatrimonial"));
-						//importaPc.setNumeroPatrimonial(np);
+					try {
+						doc = builder.build(dir + arquivos);
+					} catch (org.jdom2.input.JDOMParseException e) {
+						System.out.println("org.jdom2.input.JDOMParseException");
 						
-						importaPc.setNome(e.getChildText("nome"));
-						
-						importaPc.setIp(e.getChildText("ip"));
-						
-						verificaMac.setMac(e.getChildText("macAdress"));
-						importaPc.setMacAdress(verificaMac.getMac());
-						
-						importaPcBean.setProcessadorId(processador.getId());
-						importaPcBean.setMemoriaId(memoria.getId());
-						importaPcBean.setSistemaOperacionalId(so.getId());
-						
-						importaPcBean.setImportaPc(importaPc);
-						importaPcBean.setChaveSerial(chaveSerial);
-				
-							importaPcBean.grava();
-							
-						
-
 					}
+					
+					try {
+						Element elemento = doc.getRootElement();
+						List<Element> lista = elemento.getChildren();
+						
+						for (Element e : lista) {
 
+							String host = e.getChildText("HOST").trim();
+							String ip = e.getChildText("IP").trim();
+							String mac = e.getChildText("MAC").trim();
+							String chave_windows = e.getChildText("chave_windows").trim();
+							String memoria = e.getChildText("RAM").trim();
+							String processador = e.getChildText("CPU").trim();
+							String so = e.getChildText("SO").trim();
+							
+							System.out.println("HOST: " + e.getChildText("HOST"));
+							
+							System.out.println("IP: " + e.getChildText("IP"));
+							System.out.println("MAC: "
+									+ e.getChildText("MAC"));
+							System.out.println("chave_windows: "
+									+ e.getChildText("chave_windows"));
+							System.out.println("Memória: "
+									+ e.getChildText("RAM"));
+							System.out.println("Processador: "
+									+ e.getChildText("CPU"));
+							System.out.println("SO: " + e.getChildText("SO"));
+
+							verificaSO.verificaSistemaOperacional(so);
+							this.so = soBean.buscaPorNome(so);
+
+							ChaveSerial chaveSerial = new ChaveSerial();
+							chaveSerial.setChaveSerial(chave_windows);
+
+							verificaProcessador.verificaProcessador(processador);
+							this.processador = processadorDao.buscaPorNome(
+									verificaProcessador.getNomeMarca(),
+									verificaProcessador.getNomeModelo());
+
+							verificaMemoria.converteMemoria(memoria);
+							this.memoria = memoriaDao.buscaPorNome(verificaMemoria
+									.getTamanho());
+
+							importaPc.setNome(host);
+							importaPc.setIp(ip);
+
+							verificaMac.setMac(mac);
+							importaPc.setMacAdress(verificaMac.getMac());
+
+							importaPcBean.setProcessadorId(this.processador.getId());
+							importaPcBean.setMemoriaId(this.memoria.getId());
+							importaPcBean.setSistemaOperacionalId(this.so.getId());
+
+							importaPcBean.setImportaPc(importaPc);
+							importaPcBean.setChaveSerial(chaveSerial);
+
+							importaPcBean.grava();
+						}
+					} catch (java.lang.NullPointerException e) {
+						System.out.println("java.lang.NullPointerException");
+					}
+					
+								
 				}
 
 			}
 
 		} catch (Exception e) {
-
+			
 			e.printStackTrace();
 		}
 

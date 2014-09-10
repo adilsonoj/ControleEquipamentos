@@ -77,7 +77,7 @@ public class ImportaPcBean implements Serializable {
 		
 		try {
 			
-			System.out.println("existente" + this.pcDao.buscaPorMac(this.importaPc.getMacAdress()));
+			System.out.println("Já existe esse PC na base de produção" + this.pcDao.buscaPorMac(this.importaPc.getMacAdress()));
 		} catch (Exception e) {
 			Processador processadorRelacionado = processadorDao
 					.busca(this.processadorId);
