@@ -10,7 +10,6 @@ import javax.inject.Inject;
 
 import mb.dsam.dao.MemoriaDao;
 import mb.dsam.dao.ProcessadorDao;
-import mb.dsam.misc.ProgressBarView;
 import mb.dsam.modelo.ChaveSerial;
 import mb.dsam.modelo.ImportaPc;
 import mb.dsam.modelo.Memoria;

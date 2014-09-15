@@ -77,6 +77,10 @@
 				<p:outputLabel value="Lacre:" for="lacre" />
 				<p:inputText id="lacre" value="#{pcBean.pc.lacre}"/>
 				
+				<p:outputLabel value="Obs:" for="obs" />
+				<p:inputTextarea id="obs" rows="4" cols="30" counter="display" maxlength="255" counterTemplate="{0} caracteres restantes." autoResize="true" value="#{pcBean.pc.observacao}" />
+				<h:outputText id="display" />
+   				 
 				
 			</h:panelGrid>
 				<p:commandButton value="Gravar" action="#{pcBean.grava }" rendered="#{empty pcBean.pc.numeroPatrimonial}" update="@form :form2:datatable"/>
@@ -88,14 +92,15 @@
 		<h:form id="form2">
 			<p:dataTable value="#{pcBean.pcsComChaveSerial}" var="pc"
 				id="datatable" paginator="true" rows="10" dynamic="true" >
-		
+				
+				<p:column>  <p:rowToggler />  </p:column> 
+				
 				<p:column headerText="NP" sortBy="#{pc.numeroPatrimonial}" filterBy="#{pc.numeroPatrimonial}" filterMatchMode="contains">#{pc.numeroPatrimonial}</p:column>
 				<p:column headerText="NOME DA MÁQ." sortBy="#{pc.nome}" filterBy="#{pc.nome}" filterMatchMode="contains">#{pc.nome}</p:column>
 				<p:column headerText="IP" sortBy="#{pc.ip}" filterBy="#{pc.ip}" filterMatchMode="contains">#{pc.ip}</p:column>
 				<p:column headerText="MAC" sortBy="#{pc.macAdress}" filterBy="#{pc.macAdress}" filterMatchMode="contains">#{pc.macAdress}</p:column>
 				<p:column headerText="PROCESSADOR" sortBy="#{pc.processador.marca}" filterBy="#{pc.processador.marca}" filterMatchMode="contains">#{pc.processador.marca} - #{pc.processador.modelo}</p:column>
 				<p:column headerText="MEMÓRIA" sortBy="#{pc.processador.modelo}" filterBy="#{pc.processador.modelo}" filterMatchMode="contains">#{pc.memoria.modelo} - #{pc.memoria.tamanho}</p:column>
-				<p:column headerText="LACRE">#{pc.lacre}</p:column>
 				<p:column headerText="ANDAR" sortBy="#{pc.andar}" filterBy="#{pc.andar}" filterMatchMode="contains">#{pc.andar}</p:column>
 				<p:column headerText="SO" sortBy="#{pc.chaveSerial.sistemaOperacional.nome}" filterBy="#{pc.chaveSerial.sistemaOperacional.nome}" filterMatchMode="contains">	#{pc.chaveSerial.sistemaOperacional.nome}</p:column>
 				<p:column headerText="SERIAL" sortBy="#{pc.chaveSerial.chaveSerial}" filterBy="#{pc.chaveSerial.chaveSerial}" filterMatchMode="contains">#{pc.chaveSerial.chaveSerial}</p:column>
@@ -119,6 +124,20 @@
 				<f:facet name="footer">  
            	         		Total de: #{pcBean.pcsComChaveSerial.size()}    
        			 </f:facet>
+       			 
+       			 <p:rowExpansion>  
+	            	<h:panelGrid id="display" columns="2" cellpadding="4" style="width:600px;"  
+	                            styleClass=" ui-widget-content grid">  
+	  
+		                <h:outputText value="Lacre:" />  
+		                <h:outputText value="#{pc.lacre}"/>  
+		  
+		                <h:outputLabel value="OBS:" for="obs"/>  
+		                <h:outputText id="obs" value="#{pc.observacao}"/>
+	   
+	           		</h:panelGrid>  
+  
+        		</p:rowExpansion>  
 			</p:dataTable>
 		</h:form>
 		

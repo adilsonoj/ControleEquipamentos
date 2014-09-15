@@ -32,7 +32,7 @@
 			<property name="hibernate.format_sql" value="false" />
 
 			<!-- update, create, create-drop, none -->
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 
 		</properties>
 	</persistence-unit>

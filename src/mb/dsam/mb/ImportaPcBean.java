@@ -61,6 +61,7 @@ public class ImportaPcBean implements Serializable {
 	private String ip;
 	private String nome;
 	private Long memoriaId;
+	private String observacao;
 	private List<ChaveSerial> chavesSeriais;
 	private List<ImportaPc> pcs;
 	private List<Pc> Pcs;
@@ -132,7 +133,7 @@ public class ImportaPcBean implements Serializable {
 			this.pc.setMacAdress(this.importaPc.getMacAdress());
 			this.pc.setAndar(this.importaPc.getAndar());
 			this.pc.setLacre(this.importaPc.getLacre());
-			
+			this.pc.setObservacao(getObservacao());
 			Processador processadorRelacionado = processadorDao
 					.busca(this.processadorId);
 			this.pc.setProcessador(processadorRelacionado);
@@ -255,6 +256,7 @@ public class ImportaPcBean implements Serializable {
 	private void limpaFormularioDoJSF() {
 		this.importaPc = new ImportaPc();
 		this.chaveSerial = new ChaveSerial();
+		setObservacao(null);
 	}
 
 	public ChaveSerial getChaveSerial() {
@@ -335,6 +337,14 @@ public class ImportaPcBean implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 
 	

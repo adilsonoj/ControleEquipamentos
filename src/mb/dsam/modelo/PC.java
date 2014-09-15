@@ -2,6 +2,7 @@ package mb.dsam.modelo;
 
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class Pc implements Serializable{
@@ -29,6 +29,7 @@ public class Pc implements Serializable{
 	private String macAdress;
 	private Integer lacre;
 	private Integer andar;
+	private String observacao;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = true, mappedBy="pc")
 	private ChaveSerial chaveSerial;
@@ -104,6 +105,12 @@ public class Pc implements Serializable{
 	
 	public ChaveSerial getChaveSerial() {
 		return chaveSerial;
+	}
+	public String getObservacao() {
+		return observacao;
+	}
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 	
 	
