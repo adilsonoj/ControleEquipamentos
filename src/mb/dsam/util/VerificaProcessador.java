@@ -19,13 +19,13 @@ public class VerificaProcessador {
 		if (nomeProcessador.contains("Intel")) {
 			nomeMarca = "Intel";
 			processadorAux.setMarca(nomeMarca);
-			nomeModelo = nomeProcessador.replaceAll("Intel|CPU|.R.|.TM.|@|Processor", "");
+			nomeModelo = nomeProcessador.replaceAll("Intel|CPU|.R.|.TM.|.tm.|@|Processor", "");
 			processadorAux.setModelo(nomeModelo);
 
 		} else if(nomeProcessador.contains("AMD")){
 			nomeMarca = "AMD";
 			processadorAux.setMarca(nomeMarca);
-			nomeModelo = nomeProcessador.replaceAll("AMD|CPU|.R.|.TM.|@|Processor", "");
+			nomeModelo = nomeProcessador.replaceAll("AMD|CPU|.R.|.TM.|.tm.|@|Processor", "");
 			processadorAux.setModelo(nomeModelo);
 			
 		} else{

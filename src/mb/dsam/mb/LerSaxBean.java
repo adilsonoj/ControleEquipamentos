@@ -1,7 +1,6 @@
 package mb.dsam.mb;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,6 +10,7 @@ import javax.inject.Inject;
 
 import mb.dsam.dao.MemoriaDao;
 import mb.dsam.dao.ProcessadorDao;
+import mb.dsam.misc.ProgressBarView;
 import mb.dsam.modelo.ChaveSerial;
 import mb.dsam.modelo.ImportaPc;
 import mb.dsam.modelo.Memoria;
@@ -23,7 +23,6 @@ import mb.dsam.util.VerificaSistemaOperacional;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 @ManagedBean(name = "lerSaxBean")
@@ -57,28 +56,31 @@ public class LerSaxBean implements Serializable {
 	VerificaMemoria verificaMemoria;
 	@Inject
 	VerificaMacAdress verificaMac;
+	
 
 	public void importarXml() {
 
 		Document doc = null;
 
 		SAXBuilder builder = new SAXBuilder();
+		
 		try {
 
 			// "\\\\dsamfs\\dados\\publico\\SystemLogs\\Inventario\\temp"; //local direto no servidor
 			String dir = "Z:/"; // local mapeado no servidor P_JBOSS_VM
 			File diretorio = new File(dir);
+			
 			for (String arquivos : diretorio.list()) {
-
+				
 				if (arquivos.endsWith(".xml")) {
 					String arquivo = diretorio.getCanonicalPath() + "\\"
 							+ arquivos;
 					System.out.println(arquivo);
-					
+										
 					try {
 						doc = builder.build(dir + arquivos);
 					} catch (org.jdom2.input.JDOMParseException e) {
-						System.out.println("org.jdom2.input.JDOMParseException");
+						System.out.println("org.jdom2.input.JDOMParseException: Estrutura do Arquivo .xml é inválida! :(");
 						
 					}
 					
@@ -140,7 +142,7 @@ public class LerSaxBean implements Serializable {
 							importaPcBean.grava();
 						}
 					} catch (java.lang.NullPointerException e) {
-						System.out.println("java.lang.NullPointerException");
+						System.out.println("java.lang.NullPointerException: Estrutura do .xml inválida e/ou tags incorretas");
 					}
 					
 								

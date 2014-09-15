@@ -89,6 +89,13 @@
 			action="#{lerSaxBean.importarXml}" immediate="true">
 			<f:ajax execute="@form" render="@form :form2:datatable" />
 		</h:commandButton>
+		
+		<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+		    <p:graphicImage library="imagens" name="ajax-loading.gif" />
+		</p:dialog>
+		
 		<h:form id="form2">
 			<p:dataTable value="#{importaPcBean.pcsComChaveSerial}" var="importaPc"
 				id="datatable" paginator="true" rows="10" dynamic="true" >
