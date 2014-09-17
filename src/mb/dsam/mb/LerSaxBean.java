@@ -58,54 +58,56 @@ public class LerSaxBean implements Serializable {
 	VerificaMemoria verificaMemoria;
 	@Inject
 	VerificaMacAdress verificaMac;
-	
 
-	public void importarXml() throws NonUniqueResultException{
+	public void importarXml() throws NonUniqueResultException {
 
 		Document doc = null;
 
 		SAXBuilder builder = new SAXBuilder();
-		
+
 		try {
 
-			// "\\\\dsamfs\\dados\\publico\\SystemLogs\\Inventario\\temp"; //local direto no servidor
-			//String dir = "c:\\xml\\"; // local mapeado no servidor P_JBOSS_VM
-			String dir = "d:/temp/"; //local
+			// "\\\\dsamfs\\dados\\publico\\SystemLogs\\Inventario\\temp";
+			// //local direto no servidor
+			// String dir = "c:\\xml\\"; // local mapeado no servidor P_JBOSS_VM
+			String dir = "d:/temp/"; // local
 			File diretorio = new File(dir);
-			
+
 			for (String arquivos : diretorio.list()) {
-				
+
 				if (arquivos.endsWith(".xml")) {
 					String arquivo = diretorio.getCanonicalPath() + "\\"
 							+ arquivos;
 					System.out.println(arquivo);
-										
+
 					try {
 						doc = builder.build(dir + arquivos);
 					} catch (org.jdom2.input.JDOMParseException e) {
-						System.out.println("org.jdom2.input.JDOMParseException: Estrutura do Arquivo .xml é inválida! :(");
-						
+						System.out
+								.println("org.jdom2.input.JDOMParseException: Estrutura do Arquivo .xml é inválida! :(");
+
 					}
-					
+
 					try {
 						Element elemento = doc.getRootElement();
 						List<Element> lista = elemento.getChildren();
-						
+
 						for (Element e : lista) {
 
 							String host = e.getChildText("HOST").trim();
 							String ip = e.getChildText("IP").trim();
 							String mac = e.getChildText("MAC").trim();
-							String chave_windows = e.getChildText("chave_windows").trim();
+							String chave_windows = e.getChildText(
+									"chave_windows").trim();
 							String memoria = e.getChildText("RAM").trim();
 							String processador = e.getChildText("CPU").trim();
 							String so = e.getChildText("SO").trim();
-							
-							System.out.println("HOST: " + e.getChildText("HOST"));
-							
+
+							System.out.println("HOST: "
+									+ e.getChildText("HOST"));
+
 							System.out.println("IP: " + e.getChildText("IP"));
-							System.out.println("MAC: "
-									+ e.getChildText("MAC"));
+							System.out.println("MAC: " + e.getChildText("MAC"));
 							System.out.println("chave_windows: "
 									+ e.getChildText("chave_windows"));
 							System.out.println("Memória: "
@@ -120,25 +122,17 @@ public class LerSaxBean implements Serializable {
 							ChaveSerial chaveSerial = new ChaveSerial();
 							chaveSerial.setChaveSerial(chave_windows);
 
-							verificaProcessador.verificaProcessador(processador);
+							verificaProcessador
+									.verificaProcessador(processador);
 							this.processador = processadorDao.buscaPorNome(
 									verificaProcessador.getNomeMarca(),
 									verificaProcessador.getNomeModelo());
 
 							verificaMemoria.converteMemoria(memoria);
-								System.out.println("entrando na busca da memoria de LerSax");
-									System.out.println(verificaMemoria.getTamanho());
-									this.memoria =  memoriaDao.buscaPorNome("nulo",verificaMemoria.getTamanho());
-									//this.memoria = verificaMemoria.converteMemoria(memoria);
-									
-									System.out.println("memoria "+this.memoria);
-							
-								
-								
-						
-								
-							
-							
+							System.out
+									.println("entrando na busca da memoria de LerSax");
+							this.memoria = memoriaDao.buscaPorNome("nulo",
+									verificaMemoria.getTamanho());
 
 							importaPc.setNome(host);
 							importaPc.setIp(ip);
@@ -146,9 +140,11 @@ public class LerSaxBean implements Serializable {
 							verificaMac.setMac(mac);
 							importaPc.setMacAdress(verificaMac.getMac());
 
-							importaPcBean.setProcessadorId(this.processador.getId());
+							importaPcBean.setProcessadorId(this.processador
+									.getId());
 							importaPcBean.setMemoriaId(this.memoria.getId());
-							importaPcBean.setSistemaOperacionalId(this.so.getId());
+							importaPcBean.setSistemaOperacionalId(this.so
+									.getId());
 
 							importaPcBean.setImportaPc(importaPc);
 							importaPcBean.setChaveSerial(chaveSerial);
@@ -156,16 +152,15 @@ public class LerSaxBean implements Serializable {
 							importaPcBean.grava();
 						}
 					} catch (java.lang.NullPointerException e) {
-						System.out.println("java.lang.NullPointerException: Estrutura do .xml inválida e/ou tags incorretas");
+						System.out
+								.println("java.lang.NullPointerException: Estrutura do .xml inválida e/ou tags incorretas");
 					}
-					
-								
 				}
 
 			}
 
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 

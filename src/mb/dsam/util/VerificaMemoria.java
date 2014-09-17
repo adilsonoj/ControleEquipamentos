@@ -9,7 +9,6 @@ import mb.dsam.modelo.Memoria;
 public class VerificaMemoria {
 	@Inject
 	Memoria memoria;
-	
 	String tamanho;
 	@Inject
 	MemoriaBean bean;
@@ -33,29 +32,20 @@ public class VerificaMemoria {
 		int tamanhoEmMb = Integer.parseInt(tamanho);
 
 		if (tamanhoEmMb >= 1024) {
-			int tamanhoEmGb = (tamanhoEmMb / 1024);
+			int tamanhoEmGb = (tamanhoEmMb / 1024 +1);
 
 			this.setTamanho(Integer.toString(tamanhoEmGb), "GB");
 			memoria.setTamanho(this.tamanho);
 			memoria.setModelo("nulo");
 			
-
 		} else {
 			this.setTamanho(Integer.toString(tamanhoEmMb), "MB");
 			memoria.setTamanho(this.tamanho);
 			memoria.setModelo("nulo");
-			
-			
-		}
 		
-		
-			System.out.println("entrando busca memoria");
-			
-				
-					System.out.println("print memoria: ");
-					
-						try {
-							
+			}
+				System.out.println("entrando busca memoria");
+						try {						
 							dao.buscaPorNome("nulo", tamanho);
 						} catch (Exception e) {
 							try {
@@ -66,18 +56,5 @@ public class VerificaMemoria {
 							
 						}
 						
-						
-					
-					
-						
-						
-					
-					
-			
-				
-			
-			
-			
-		
 	}
 }
