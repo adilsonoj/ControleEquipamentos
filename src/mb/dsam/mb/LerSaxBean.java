@@ -7,6 +7,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import javax.persistence.NonUniqueResultException;
 
 import mb.dsam.dao.MemoriaDao;
 import mb.dsam.dao.ProcessadorDao;
@@ -48,6 +49,8 @@ public class LerSaxBean implements Serializable {
 	@Inject
 	MemoriaDao memoriaDao;
 	@Inject
+	MemoriaBean memoriaBean;
+	@Inject
 	VerificaProcessador verificaProcessador;
 	@Inject
 	VerificaSistemaOperacional verificaSO;
@@ -57,7 +60,7 @@ public class LerSaxBean implements Serializable {
 	VerificaMacAdress verificaMac;
 	
 
-	public void importarXml() {
+	public void importarXml() throws NonUniqueResultException{
 
 		Document doc = null;
 
@@ -66,7 +69,8 @@ public class LerSaxBean implements Serializable {
 		try {
 
 			// "\\\\dsamfs\\dados\\publico\\SystemLogs\\Inventario\\temp"; //local direto no servidor
-			String dir = "Z:/"; // local mapeado no servidor P_JBOSS_VM
+			//String dir = "c:\\xml\\"; // local mapeado no servidor P_JBOSS_VM
+			String dir = "d:/temp/"; //local
 			File diretorio = new File(dir);
 			
 			for (String arquivos : diretorio.list()) {
@@ -122,8 +126,19 @@ public class LerSaxBean implements Serializable {
 									verificaProcessador.getNomeModelo());
 
 							verificaMemoria.converteMemoria(memoria);
-							this.memoria = memoriaDao.buscaPorNome(verificaMemoria
-									.getTamanho());
+								System.out.println("entrando na busca da memoria de LerSax");
+									System.out.println(verificaMemoria.getTamanho());
+									this.memoria =  memoriaDao.buscaPorNome("nulo",verificaMemoria.getTamanho());
+									//this.memoria = verificaMemoria.converteMemoria(memoria);
+									
+									System.out.println("memoria "+this.memoria);
+							
+								
+								
+						
+								
+							
+							
 
 							importaPc.setNome(host);
 							importaPc.setIp(ip);

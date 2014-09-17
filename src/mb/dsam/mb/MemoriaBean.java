@@ -61,15 +61,9 @@ public class MemoriaBean implements Serializable{
 		this.memoria = new Memoria();
 	}
 	
-	public void adicionaMemoria() {
-		try {
-			memoria = memoriaDao.buscaPorNome(memoria.getTamanho());
-		} catch (Exception e) {
-			
-			memoriaDao.altera(memoria);
-		}
+	
 		
-	}
+	
 	
 	
 }

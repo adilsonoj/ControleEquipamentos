@@ -5,11 +5,12 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import mb.dsam.modelo.Memoria;
-import mb.dsam.modelo.Processador;
 @Stateless
 public class MemoriaDao implements Serializable {
 	@PersistenceContext
@@ -37,11 +38,16 @@ public class MemoriaDao implements Serializable {
 		return this.manager.merge(memoria);
 	}
 
-	public Memoria buscaPorNome(String tamanho) {
-		String jpql = "select m from Memoria m where m.tamanho = :tamanho";
-		Query query = this.manager.createQuery(jpql);
-		query.setParameter("tamanho", tamanho);
-		return (Memoria) query.getSingleResult();
+	public Memoria buscaPorNome(String modelo, String tamanho) {
+		
+		
+			String jpql = "select m from Memoria m where m.modelo = :modelo and m.tamanho = :tamanho";
+			Query query = this.manager.createQuery(jpql);
+			query.setParameter("tamanho", tamanho);
+			query.setParameter("modelo", modelo);
+			return (Memoria) query.getSingleResult();
+		
+		
 	}
 	
 }

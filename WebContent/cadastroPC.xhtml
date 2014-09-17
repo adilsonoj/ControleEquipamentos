@@ -129,8 +129,8 @@
 	            	<h:panelGrid id="display" columns="2" cellpadding="4" style="width:600px;"  
 	                            styleClass=" ui-widget-content grid">  
 	  
-		                <h:outputText value="Lacre:" />  
-		                <h:outputText value="#{pc.lacre}"/>  
+		                <h:outputText value="Lacre:" for="lacre" />  
+		                <h:outputText id="lacre" value="#{pc.lacre}"/>  
 		  
 		                <h:outputLabel value="OBS:" for="obs"/>  
 		                <h:outputText id="obs" value="#{pc.observacao}"/>
