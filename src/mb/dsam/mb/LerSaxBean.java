@@ -69,7 +69,7 @@ public class LerSaxBean implements Serializable {
 
 			// "\\\\dsamfs\\dados\\publico\\SystemLogs\\Inventario\\temp";
 			// //local direto no servidor
-			// String dir = "c:\\xml\\"; // local mapeado no servidor P_JBOSS_VM
+			 //String dir = "c:\\xml\\"; // local mapeado no servidor P_JBOSS_VM
 			String dir = "d:/temp/"; // local
 			File diretorio = new File(dir);
 

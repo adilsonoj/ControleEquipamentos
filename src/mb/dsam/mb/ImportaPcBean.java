@@ -101,7 +101,7 @@ public class ImportaPcBean implements Serializable {
 			
 			
 			try {
-				this.chaveSerialDao.adiciona(chaveSerial);
+				this.chaveSerialDao.altera(chaveSerial);
 				
 				this.chavesSeriais = chaveSerialDao.lista();
 				this.pcs = importaPcDao.listaComChave();

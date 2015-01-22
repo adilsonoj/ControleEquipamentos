@@ -93,10 +93,11 @@
 		<h:commandButton value="Importar XML"
 			action="#{lerSaxBean.importarXml}" immediate="true">
 			<f:ajax execute="@form" render="@form :form2:datatable" />
+			
 		</h:commandButton>
 		
-		<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
- 
+		<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />	
+ 	
 		<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
 		    <p:graphicImage library="imagens" name="ajax-loading.gif" />
 		</p:dialog>
