@@ -101,7 +101,6 @@
 				<p:column headerText="MAC" sortBy="#{pc.macAdress}" filterBy="#{pc.macAdress}" filterMatchMode="contains">#{pc.macAdress}</p:column>
 				<p:column headerText="PROCESSADOR" sortBy="#{pc.processador.marca}" filterBy="#{pc.processador.marca}" filterMatchMode="contains">#{pc.processador.marca} - #{pc.processador.modelo}</p:column>
 				<p:column headerText="MEMÓRIA" sortBy="#{pc.processador.modelo}" filterBy="#{pc.processador.modelo}" filterMatchMode="contains">#{pc.memoria.modelo} - #{pc.memoria.tamanho}</p:column>
-				<p:column headerText="ANDAR" sortBy="#{pc.andar}" filterBy="#{pc.andar}" filterMatchMode="contains">#{pc.andar}</p:column>
 				<p:column headerText="SO" sortBy="#{pc.chaveSerial.sistemaOperacional.nome}" filterBy="#{pc.chaveSerial.sistemaOperacional.nome}" filterMatchMode="contains">	#{pc.chaveSerial.sistemaOperacional.nome}</p:column>
 				<p:column headerText="SERIAL" sortBy="#{pc.chaveSerial.chaveSerial}" filterBy="#{pc.chaveSerial.chaveSerial}" filterMatchMode="contains">#{pc.chaveSerial.chaveSerial}</p:column>
 				
@@ -128,7 +127,10 @@
        			 <p:rowExpansion>  
 	            	<h:panelGrid id="display" columns="2" cellpadding="4" style="width:600px;"  
 	                            styleClass=" ui-widget-content grid">  
-	  
+	  					
+	  					<h:outputText value="Andar:" for="andar" />
+	  					<h:outputText id="andar" value="#{pc.andar}"  />
+	  					
 		                <h:outputText value="Lacre:" for="lacre" />  
 		                <h:outputText id="lacre" value="#{pc.lacre}"/>  
 		  
