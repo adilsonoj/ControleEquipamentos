@@ -91,7 +91,7 @@
 		
 		<h2>Listagem de PCs para ser Importado</h2>
 		<h:commandButton value="Importar XML"
-			action="#{lerSaxBean.importarXml}" immediate="true">
+			action="#{lerXMLBean.importarXml}" immediate="true">
 			<f:ajax execute="@form" render="@form :form2:datatable" />
 			
 		</h:commandButton>

@@ -25,9 +25,9 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 
-@ManagedBean(name = "lerSaxBean")
+@ManagedBean(name = "lerXMLBean")
 @ViewScoped
-public class LerSaxBean implements Serializable {
+public class LeitorXMLBean implements Serializable {
 	/**
 		 * 
 		 */
@@ -48,8 +48,6 @@ public class LerSaxBean implements Serializable {
 	Memoria memoria;
 	@Inject
 	MemoriaDao memoriaDao;
-	@Inject
-	MemoriaBean memoriaBean;
 	@Inject
 	VerificaProcessador verificaProcessador;
 	@Inject
@@ -84,7 +82,7 @@ public class LerSaxBean implements Serializable {
 						doc = builder.build(dir + arquivos);
 					} catch (org.jdom2.input.JDOMParseException e) {
 						System.out
-								.println("org.jdom2.input.JDOMParseException: Estrutura do Arquivo .xml é inválida! :(");
+								.println("Estrutura do Arquivo .xml é inválida! :(");
 
 					}
 
@@ -153,7 +151,7 @@ public class LerSaxBean implements Serializable {
 						}
 					} catch (java.lang.NullPointerException e) {
 						System.out
-								.println("java.lang.NullPointerException: Estrutura do .xml inválida e/ou tags incorretas");
+								.println("Estrutura do .xml inválida e/ou tags incorretas");
 					}
 				}
 

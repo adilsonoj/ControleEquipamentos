@@ -22,7 +22,7 @@
 				<h:outputLabel value="NP:" for="numeroPatrimonial" />
 				
 				<h:selectOneMenu value="#{pcBean.numeroPatrimonial}">
-			    			<f:selectItem itemLabel="Selecione um NP..." itemValue="" noSelectionOption="false"/>
+			    			<f:selectItem itemLabel="Selecione um NP" itemValue="" noSelectionOption="false"/>
 			    			<f:selectItems value="#{pcBean.pcs}" var="pc" itemLabel="#{pc.numeroPatrimonial}" itemValue="#{pc.numeroPatrimonial}"/>
 			    </h:selectOneMenu>
 			

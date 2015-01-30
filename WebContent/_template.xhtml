@@ -64,8 +64,17 @@
 					<p:menuitem value="Software" url="cadastroSoftware.xhtml" />
 					<p:menuitem value="Importar XML" url="migrarPcXml.xhtml" />
 				</p:submenu>
+				<p:menuitem value="Créditos" onclick="PF('dlg').show();"/>
 				
 			</p:menubar>
+			
+			<p:dialog header="Créditos" widgetVar="dlg" modal="true" height="130">
+   				<h3 class="creditos">DESENVOLVIDO POR:</h3>
+   				 <h4 class="creditos">SC-NI 09.1382.69 MATEUS GREGÓRIO DE SOUZA</h4>
+   				 <h4 class="creditos">CB-ET 05.0389.79 ADILSON DE OLIVEIRA JUNIOR</h4>
+   				 <p class="creditos">DSAM - Serviço de Processamento de Dados</p>
+   	 
+			</p:dialog>   
 		</h:form>
 			<ui:insert name="corpo" />
 	</div>

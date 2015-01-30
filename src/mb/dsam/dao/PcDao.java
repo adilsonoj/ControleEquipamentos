@@ -81,16 +81,7 @@ public class PcDao {
 		return query.getResultList();
 	} 
 	
-	/*public void removeSoftwares(Pc pc){
-		
-		Long pcParaRemover = pc.getNumeroPatrimonial();
-		
-		String jpql = "delete pc_software where pc_numeropatrimonial = :pcParaRemover";
-		Query query = this.manager.createQuery(jpql);
-		query.setParameter("pcParaRemover", pcParaRemover);
-		int result = query.executeUpdate();
-	}
-	*/
+	
 	
 	
 }
