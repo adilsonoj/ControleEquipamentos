@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Pc implements Serializable{
+public class PC implements Serializable{
 	
 	/**
 	 * 
