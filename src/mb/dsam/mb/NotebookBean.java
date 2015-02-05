@@ -162,7 +162,12 @@ public void altera(){
 	
 
 	public ChaveSerial getChaveSerial() {
-		return chaveSerial;
+		if (notebook.getNumeroPatrimonial() != null){
+			chaveSerial  = chaveSerialDao.buscaPorNotebook(notebook.getNumeroPatrimonial());
+			System.out.println("serial "+chaveSerial.getChaveSerial());
+			return chaveSerial;
+			}
+			return chaveSerial;
 	}
 
 	public void setChaveSerial(ChaveSerial chaveSerial) {
