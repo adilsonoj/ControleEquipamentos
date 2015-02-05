@@ -237,11 +237,16 @@ public class PcBean implements Serializable {
 
 	public ChaveSerial getChaveSerial() {
 		if (pc.getNumeroPatrimonial() != null){
-		chaveSerial  = chaveSerialDao.buscaPorPc(pc.getNumeroPatrimonial());
-		System.out.println("serial "+chaveSerial.getChaveSerial());
-		return chaveSerial;
+				try {
+					chaveSerial  = chaveSerialDao.buscaPorPc(pc.getNumeroPatrimonial());
+				} catch (Exception e) {
+					
+				}
+				return chaveSerial;
+					
+		}else {
+			return chaveSerial;
 		}
-		return chaveSerial;
 	}
 
 	public void setChaveSerial(ChaveSerial chaveSerial) {

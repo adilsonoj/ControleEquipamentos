@@ -26,9 +26,9 @@ import mb.dsam.modelo.SistemaOperacional;
 public class NotebookBean implements Serializable{
 	
 	@Inject
-	Notebook notebook;
+	private Notebook notebook;
 	@Inject
-	NotebookDao notebookDao;
+	private NotebookDao notebookDao;
 	@Inject
 	private ChaveSerial chaveSerial;
 	@Inject
@@ -163,11 +163,16 @@ public void altera(){
 
 	public ChaveSerial getChaveSerial() {
 		if (notebook.getNumeroPatrimonial() != null){
-			chaveSerial  = chaveSerialDao.buscaPorNotebook(notebook.getNumeroPatrimonial());
-			System.out.println("serial "+chaveSerial.getChaveSerial());
-			return chaveSerial;
+			try {
+				chaveSerial  = chaveSerialDao.buscaPorNotebook(notebook.getNumeroPatrimonial());
+			} catch (Exception e) {
+				
 			}
 			return chaveSerial;
+				
+	}else {
+		return chaveSerial;
+	}
 	}
 
 	public void setChaveSerial(ChaveSerial chaveSerial) {
