@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import mb.dsam.dao.ChaveSerialDao;
@@ -33,6 +34,9 @@ public class PcBean implements Serializable {
 	private PcDao pcDao;
 	@Inject
 	private ChaveSerial chaveSerial;
+	
+	@Inject
+	private ChaveSerialBean chaveSerialBean;
 	@Inject
 	private ChaveSerialDao chaveSerialDao;
 	@Inject
@@ -80,7 +84,7 @@ public class PcBean implements Serializable {
 		this.pc.setMemoria(memoriaRelacionado);
 
 		pcDao.altera(pc);
-
+		System.out.println(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("softwares3_.Pc0_numeroPatrimonial")); 
 		Pc pcRelacionado = pcDao.busca(pc.getNumeroPatrimonial());
 		this.chaveSerial.setPc(pcRelacionado);
 
@@ -232,6 +236,11 @@ public class PcBean implements Serializable {
 	}
 
 	public ChaveSerial getChaveSerial() {
+		if (pc.getNumeroPatrimonial() != null){
+		chaveSerial  = chaveSerialDao.buscaPorPc(pc.getNumeroPatrimonial());
+		System.out.println("serial "+chaveSerial.getChaveSerial());
+		return chaveSerial;
+		}
 		return chaveSerial;
 	}
 

@@ -53,14 +53,9 @@
 	    		</p:selectOneMenu>
 	    		
 	    		<p:outputLabel value="Serial do SO:" for="serial" />
-	    		<p:inputText   value="#{pcBean.chaveSerial.serial}" rendered="#{empty pcBean.pc.chaveSerial.chaveSerial}" required="true" requiredMessage="Chave Serial vazia!"/>
+				<p:inputText id="serial" value="#{pcBean.chaveSerial.serial}"/>
+	    	
 	    		
-	    		<p:inplace label="#{pcBean.pc.chaveSerial.chaveSerial}" effectSpeed="fast" event="click" rendered="#{not empty pcBean.pc.chaveSerial.chaveSerial}">
-           			 <p:selectOneMenu id="serial" value="#{pcBean.chaveSerial.serial}"  editable="true"  style="width:240px;" required="true" requiredMessage="Chave Serial vazia!">
-	    				<f:selectItem itemLabel="#{pcBean.pc.chaveSerial.chaveSerial}" itemValue="#{pcBean.pc.chaveSerial.chaveSerial}" />
-	    			</p:selectOneMenu>
-	    			
-        		</p:inplace>
 	    		
 					    		
 							
