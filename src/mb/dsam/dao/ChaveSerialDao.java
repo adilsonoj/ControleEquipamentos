@@ -31,6 +31,14 @@ public class ChaveSerialDao {
 		return (ChaveSerial) query.getSingleResult();
 	}
 	
+	public ChaveSerial buscaPorImportaPc(Long numeroPatrimonial){
+		String jpql = "select c from ChaveSerial c where c.importaPc.numeroPatrimonial = :numeroPatrimonial";
+		Query query = this.manager.createQuery(jpql);
+		query.setParameter("numeroPatrimonial", numeroPatrimonial);
+		
+		return (ChaveSerial) query.getSingleResult();
+	}
+	
 	public ChaveSerial buscaPorNotebook(Integer numeroPatrimonial){
 		String jpql = "select c from ChaveSerial c where c.notebook.numeroPatrimonial = :numeroPatrimonial";
 		Query query = this.manager.createQuery(jpql);

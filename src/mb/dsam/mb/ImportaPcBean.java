@@ -150,8 +150,8 @@ public class ImportaPcBean implements Serializable {
 			SistemaOperacional soRelacionado = soDao
 					.busca(this.sistemaOperacionalId);
 			this.chaveSerial.setSistemaOperacional(soRelacionado);
-
-			this.chaveSerialDao.adiciona(chaveSerial);
+			this.chaveSerial.setImportaPc(null);
+			this.chaveSerialDao.altera(chaveSerial);
 			
 			removePorMac(importaPc);
 			
@@ -260,7 +260,17 @@ public class ImportaPcBean implements Serializable {
 	}
 
 	public ChaveSerial getChaveSerial() {
+		if (importaPc.getNumeroPatrimonial() != null){
+			try {
+				chaveSerial  = chaveSerialDao.buscaPorImportaPc(importaPc.getNumeroPatrimonial());
+			} catch (Exception e) {
+				
+			}
+			return chaveSerial;
+				
+	}else {
 		return chaveSerial;
+	}
 	}
 
 	public void setChaveSerial(ChaveSerial chaveSerial) {

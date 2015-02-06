@@ -53,16 +53,8 @@
 	    		</p:selectOneMenu>
 	    		
 	    		<p:outputLabel value="Serial do SO:" for="serial" />
-	    		<p:inputText   value="#{importaPcBean.chaveSerial.serial}" rendered="#{empty importaPcBean.importaPc.chaveSerial.chaveSerial}" required="true" requiredMessage="Chave Serial vazia!"/>
-	    		
-	    		<p:inplace label="#{importaPcBean.importaPc.chaveSerial.chaveSerial}" effectSpeed="fast" event="click" rendered="#{not empty importaPcBean.importaPc.chaveSerial.chaveSerial}">
-           			 <p:selectOneMenu id="serial" value="#{importaPcBean.chaveSerial.serial}"  editable="true"  style="width:240px;" required="true" requiredMessage="Chave Serial vazia!">
-	    				<f:selectItem itemLabel="#{importaPcBean.importaPc.chaveSerial.chaveSerial}" itemValue="#{importaPcBean.importaPc.chaveSerial.chaveSerial}" />
-	    			</p:selectOneMenu>
-	    			
-        		</p:inplace>
-	    		
-					    		
+	    		<p:inputText   value="#{importaPcBean.chaveSerial.serial}" id="serial" immediate="true" required="true" requiredMessage="Chave Serial vazia!"/>
+		
 							
 				<p:outputLabel value="Andar:" for="andar" />
 				<p:selectOneMenu id="andar" value="#{importaPcBean.importaPc.andar}" effect="fold">  
